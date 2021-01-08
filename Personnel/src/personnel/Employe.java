@@ -13,11 +13,11 @@ import java.io.Serializable;
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
-	private String nom, prenom, password, mail;
+	private String nom, prenom, password, mail, dateArrivee, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String dateArrivee, String dateDepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -25,6 +25,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.password = password;
 		this.mail = mail;
 		this.ligue = ligue;
+		this.dateArrivee = dateArrivee;
+		this.dateDepart = dateDepart;
 	}
 	
 	/**
@@ -111,6 +113,42 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.mail = mail;
 	}
 
+	
+	/**
+	 * Retourne la date d'arrivée de l'employe;
+	 * */
+	
+	public String getDateArrivee()
+	{
+		 return dateArrivee;
+	}
+	
+	
+	/**
+	 * Change la date d'arrivée de l'employe
+	 * */
+	public void setDateArrivee(String dateArrivee)
+	{
+		this.dateArrivee = dateArrivee;
+	}
+	
+	/**
+	 * Retourne la date de départ de l'employe
+	 * */
+	
+	public String getDateDepart()
+	{
+		return dateDepart;
+	}
+	
+	/**
+	 * Change la date de départ de l'employe
+	 * */
+	
+	public void setDateDepart(String dateDepart)
+	{
+		this.dateDepart = dateDepart;
+	}
 	/**
 	 * Retourne vrai ssi le password passÃ© en paramÃ¨tre est bien celui
 	 * de l'employÃ©.
