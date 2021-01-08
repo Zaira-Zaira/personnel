@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * EmployÃ© d'une ligue hÃ©bergÃ©e par la M2L. Certains peuvent 
@@ -13,11 +14,12 @@ import java.io.Serializable;
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
-	private String nom, prenom, password, mail, dateArrivee, dateDepart;
+	private String nom, prenom, password, mail;
+	LocalDate dateArrivee, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
-	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, String dateArrivee, String dateDepart)
+	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.nom = nom;
@@ -118,7 +120,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne la date d'arrivée de l'employe;
 	 * */
 	
-	public String getDateArrivee()
+	public LocalDate getDateArrivee()
 	{
 		 return dateArrivee;
 	}
@@ -127,8 +129,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change la date d'arrivée de l'employe
 	 * */
-	public void setDateArrivee(String dateArrivee)
+	public void setDateArrivee(LocalDate dateArrivee)
 	{
+		LocalDate dateDepart = getDateDepart();
+		if(dateDepart.isBefore(dateArrivee)) {
+			 System.out.println("Vous avez saisi une date d'arrivée incorrecte. il doit être inférieur");
+		}
 		this.dateArrivee = dateArrivee;
 	}
 	
@@ -136,7 +142,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Retourne la date de départ de l'employe
 	 * */
 	
-	public String getDateDepart()
+	public LocalDate getDateDepart()
 	{
 		return dateDepart;
 	}
@@ -145,10 +151,16 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Change la date de départ de l'employe
 	 * */
 	
-	public void setDateDepart(String dateDepart)
+	public void setDateDepart(LocalDate dateDepart)
 	{
+		LocalDate dateArrivee = getDateArrivee();
+		if(dateDepart.isBefore(dateArrivee)) {
+			 System.out.println("Vous avez saisi une date de départ incorrecte. il doit être inférieur");
+		}
 		this.dateDepart = dateDepart;
 	}
+	
+	
 	/**
 	 * Retourne vrai ssi le password passÃ© en paramÃ¨tre est bien celui
 	 * de l'employÃ©.
