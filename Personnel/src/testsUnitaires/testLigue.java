@@ -47,10 +47,15 @@ class testLigue
 class testEmploye
 {
 	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
+	void createEmploye() throws SauvegardeImpossible
+	{
+		Employe employe = gestionPersonnel.addEmploye("John", "Doe", "johndoe@gmail.com", "john1234", "07/06/2020", "");
+		assertEquals("Fléchettes", employe.getNom());
+	}
 	@Test
 	public String getNom()  throws SauvegardeImpossible
 	{
-	   Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
+	   Ligue ligue = gestionPersonnel.addEmploye();
        String employeNom = ligue.getNom();
        return employeNom;
 	}
@@ -68,6 +73,7 @@ class testEmploye
 	{
 	   Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
        String employePrenomSettled = ligue.setNom("Alice");
+       assertEquals(employePrenomSettled, ligue.getNom());
 	}
 	
 	@Test
