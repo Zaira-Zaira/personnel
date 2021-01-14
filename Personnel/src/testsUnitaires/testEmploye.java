@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import personnel.*;
 
-class testLigue 
+
+class testEmploye 
 {
 	GestionPersonnel gestionPersonnel = GestionPersonnel.getGestionPersonnel();
 	
@@ -82,9 +83,7 @@ class testLigue
 		ligue.setAdministrateur(employe);
 		assertEquals(employe, ligue.getAdministrateur());
 	}
-
 	
 }
-
 
 
