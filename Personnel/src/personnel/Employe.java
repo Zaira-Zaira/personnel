@@ -131,10 +131,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * */
 	public void setDateArrivee(LocalDate dateArrivee)
 	{
-		LocalDate dateDepart = getDateDepart();
-		if(dateDepart.isBefore(dateArrivee)) {
-			 System.out.println("Vous avez saisi une date d'arrivée incorrecte. il doit être inférieur");
-		}
 		this.dateArrivee = dateArrivee;
 	}
 	
@@ -153,10 +149,6 @@ public class Employe implements Serializable, Comparable<Employe>
 	
 	public void setDateDepart(LocalDate dateDepart)
 	{
-		LocalDate dateArrivee = getDateArrivee();
-		if(dateDepart.isBefore(dateArrivee)) {
-			 System.out.println("Vous avez saisi une date de départ incorrecte. il doit être inférieur");
-		}
 		this.dateDepart = dateDepart;
 	}
 	
