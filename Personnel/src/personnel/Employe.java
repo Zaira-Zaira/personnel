@@ -1,5 +1,6 @@
 package personnel;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -129,7 +130,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	/**
 	 * Change la date d'arrivée de l'employe
 	 * */
-	public void setDateArrivee(LocalDate dateArrivee)
+	public void setDateArrivee(LocalDate dateArrivee) throws DateInvalideException 
 	{
 		this.dateArrivee = dateArrivee;
 	}
@@ -147,7 +148,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * Change la date de départ de l'employe
 	 * */
 	
-	public void setDateDepart(LocalDate dateDepart)
+	public void setDateDepart(LocalDate dateDepart) throws DateInvalideException 
 	{
 		this.dateDepart = dateDepart;
 	}
@@ -224,3 +225,21 @@ public class Employe implements Serializable, Comparable<Employe>
 		return res + ")";
 	}
 }
+
+class DateInvalideException extends Exception
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String toString()
+	{
+		return "Votre date est incorrecte!";
+	}
+}
+
+
+
+
