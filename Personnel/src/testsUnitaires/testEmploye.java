@@ -45,15 +45,6 @@ class testEmploye
 	}
 	
 	@Test
-	void compareTo() throws SauvegardeImpossible
-	{
-		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-		Ligue ligue2 = gestionPersonnel.addLigue("nomLigue");
-		assertEquals(14, ligue.compareTo(ligue2));
-	}
-	
-	
-	@Test
 	void getNom() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("nomLigue");
