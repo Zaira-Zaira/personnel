@@ -10,6 +10,8 @@ import commandLineMenus.Option;
 
 import personnel.*;
 
+
+
 public class LigueConsole 
 {
 	private GestionPersonnel gestionPersonnel;
@@ -25,8 +27,8 @@ public class LigueConsole
 	{
 		Menu menu = new Menu("Gérer les ligues", "l");
 		menu.add(afficherLigues());
-		menu.add(ajouterLigue());
 		menu.add(selectionnerLigue());
+		menu.add(ajouterLigue());
 		menu.addBack("q");
 		return menu;
 	}
@@ -36,6 +38,7 @@ public class LigueConsole
 		return new Option("Afficher les ligues", "l", () -> {System.out.println(gestionPersonnel.getLigues());});
 	}
 
+	
 	private Option afficher(final Ligue ligue)
 	{
 		return new Option("Afficher la ligue", "l", 
@@ -46,11 +49,13 @@ public class LigueConsole
 				}
 		);
 	}
+	
 	private Option afficherEmployes(final Ligue ligue)
 	{
 		return new Option("Afficher les employes", "l", () -> {System.out.println(ligue.getEmployes());});
 	}
 
+	
 	private Option ajouterLigue()
 	{
 		return new Option("Ajouter une ligue", "a", () -> 
@@ -71,13 +76,14 @@ public class LigueConsole
 		Menu menu = new Menu("Editer " + ligue.getNom());
 		menu.add(afficher(ligue));
 		menu.add(gererEmployes(ligue));
-		//menu.add(changerAdministrateur(ligue));
+		menu.add(changerAdministrateur(ligue));
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
 		menu.addBack("q");
 		return menu;
 	}
-
+	
+	
 	private Option changerNom(final Ligue ligue)
 	{
 		return new Option("Renommer", "r", 
@@ -110,6 +116,7 @@ public class LigueConsole
 		menu.add(afficherEmployes(ligue));
 		menu.add(ajouterEmploye(ligue));
 		menu.add(modifierEmploye(ligue));
+	    menu.add(changerAdministrateur(ligue));
 		menu.add(supprimerEmploye(ligue));
 		menu.addBack("q");
 		return menu;
@@ -125,8 +132,12 @@ public class LigueConsole
 	
 	private List<Employe> changerAdministrateur(final Ligue ligue)
 	{
+		//return new List<>("Changer l'administrateur d'une ligue", "a",
+				//()-> new ArrayList<>(ligue.setAdministrateur()),
+			//	(index)-> {element.get} ) ;
 		return null;
-	}		
+	}	
+	
 
 	private List<Employe> modifierEmploye(final Ligue ligue)
 	{

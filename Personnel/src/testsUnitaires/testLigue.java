@@ -43,7 +43,6 @@ class testLigue
 		assertEquals("Fléchettes", ligue.toString());
 	}
 	
-	
 	@Test
 	void getNom() throws SauvegardeImpossible
 	{
@@ -74,7 +73,15 @@ class testLigue
 		ligue.setAdministrateur(employe);
 		assertEquals(employe, ligue.getAdministrateur());
 	}
-
+	
+	@Test
+	void remove() throws SauvegardeImpossible
+	{
+		Ligue ligue = gestionPersonnel.addLigue("nomLigue");
+		int initSize = gestionPersonnel.getLigues().size();
+		ligue.remove();
+		assertEquals(initSize - 1, gestionPersonnel.getLigues().size());
+	}
 	
 }
 

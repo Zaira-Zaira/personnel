@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import commandLine.DateInvalideException;
+
 /**
  * Employé d'une ligue hébergée par la M2L. Certains peuvent 
  * être administrateurs des employés de leur ligue.
@@ -12,11 +14,12 @@ import java.time.LocalDate;
  * il faut passer la méthode {@link Ligue#addEmploye addEmploye}.
  */
 
+
 public class Employe implements Serializable, Comparable<Employe>
 {
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
-	LocalDate dateArrivee, dateDepart;
+	private LocalDate dateArrivee, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	
@@ -223,20 +226,6 @@ public class Employe implements Serializable, Comparable<Employe>
 		else
 			res += ligue.toString();
 		return res + ")";
-	}
-}
-
-class DateInvalideException extends Exception
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Override
-	public String toString()
-	{
-		return "Votre date est incorrecte!";
 	}
 }
 

@@ -2,10 +2,15 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.time.LocalDate;
+
 import commandLineMenus.ListOption;
 import commandLineMenus.Menu;
 import commandLineMenus.Option;
 import personnel.Employe;
+
+
+
 
 public class EmployeConsole 
 {
@@ -27,6 +32,9 @@ public class EmployeConsole
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
+			menu.add(changeDateArrivee(employe));
+			menu.add(changeDateDepart(employe));
+		//	menu.add(changerAdministrateur(employe));
 			menu.addBack("q");
 			return menu;
 	}
@@ -52,6 +60,39 @@ public class EmployeConsole
 	{
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
+	
+	private Option changeDateArrivee(final Employe employe) {
+		
+		return new Option("Changer la date d'arrivée", "d", ()->{
+			try {
+			    
+				employe.setDateArrivee(LocalDate("Votre date d'arrivée :"));
+		    } 
+			catch (commandLine.DateInvalideException e) {
+			e.printStackTrace();
+		}});
+	}
+	
+	private Option changeDateDepart(final Employe employe) {
+		return new Option("Changer la date de départ", "b", ()->{
+			try {
+				
+			  employe.setDateDepart(LocalDate("Votre date de départ :"));
+		 } 
+			catch (DateInvalideException e) {
+			e.printStackTrace();
+		}});
+	}
+	
+	//private Option changerAdministrateur(final Employe employe) {
+	//	  return new Option("Changer l'administrateur", "a", ()->{employe.setAdministrateur(Employe(Employe administrateur)););
+	//} 
+
+	private LocalDate LocalDate(String string) {
+		return null;
+	}
+	
+	
 	
 
 }
