@@ -115,9 +115,10 @@ public class LigueConsole
 		Menu menu = new Menu("Gérer les employés de " + ligue.getNom(), "e");
 		menu.add(afficherEmployes(ligue));
 		menu.add(ajouterEmploye(ligue));
-		menu.add(modifierEmploye(ligue));
-	    menu.add(changerAdministrateur(ligue));
-		menu.add(supprimerEmploye(ligue));
+		menu.add(selectionnerEmploye(ligue));
+		//menu.add(modifierEmploye(ligue));
+	    //menu.add(changerAdministrateur(ligue));
+		//menu.add(supprimerEmploye(ligue));
 		menu.addBack("q");
 		return menu;
 	}
@@ -150,6 +151,16 @@ public class LigueConsole
 	private Option supprimer(Ligue ligue)
 	{
 		return new Option("Supprimer", "d", () -> {ligue.remove();});
+	}
+	
+	
+	private Menu selectionnerEmploye(Ligue ligue) 
+	{
+		Menu menu = new Menu("Gérer les employés de " + ligue.getNom(), "e");
+		menu.add(modifierEmploye(ligue));
+		menu.add(supprimerEmploye(ligue));
+		menu.addBack("q");
+		return menu;
 	}
 	
 }
