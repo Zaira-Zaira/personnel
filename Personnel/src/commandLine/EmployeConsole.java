@@ -14,6 +14,7 @@ import personnel.Employe;
 
 public class EmployeConsole 
 {
+	
 	private Option afficher(final Employe employe)
 	{
 		return new Option("Afficher l'employÃ©", "l", () -> {System.out.println(employe);});
@@ -39,6 +40,7 @@ public class EmployeConsole
 			return menu;
 	}
 
+	
 	private Option changerNom(final Employe employe)
 	{
 		return new Option("Changer le nom", "n", 
@@ -46,10 +48,12 @@ public class EmployeConsole
 			);
 	}
 	
+	
 	private Option changerPrenom(final Employe employe)
 	{
 		return new Option("Changer le prÃ©nom", "p", () -> {employe.setPrenom(getString("Nouveau prÃ©nom : "));});
 	}
+	
 	
 	private Option changerMail(final Employe employe)
 	{
@@ -60,6 +64,7 @@ public class EmployeConsole
 	{
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
+	
 	
 	private Option changeDateArrivee(final Employe employe) {
 		
@@ -73,10 +78,10 @@ public class EmployeConsole
 		}});
 	}
 	
+	
 	private Option changeDateDepart(final Employe employe) {
 		return new Option("Changer la date de départ", "b", ()->{
 			try {
-				
 			  employe.setDateDepart(LocalDate("Votre date de départ :"));
 		 } 
 			catch (DateInvalideException e) {
