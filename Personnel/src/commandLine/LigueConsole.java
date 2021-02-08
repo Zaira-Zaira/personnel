@@ -16,7 +16,7 @@ public class LigueConsole
 {
 	private GestionPersonnel gestionPersonnel;
 	private EmployeConsole employeConsole;
-
+   
 	public LigueConsole(GestionPersonnel gestionPersonnel, EmployeConsole employeConsole)
 	{
 		this.gestionPersonnel = gestionPersonnel;
@@ -90,6 +90,15 @@ public class LigueConsole
 				() -> {ligue.setNom(getString("Nouveau nom : "));});
 	}
 
+	
+	//change admin, try
+	private Option changerAdministrateur(final Ligue ligue, final Employe admin)
+	{
+		 return new Option("Changer administrateur", "c",
+				   ()-> {ligue.setAdministrateur(admin);});
+		 
+	}	 
+		 
 	private List<Ligue> selectionnerLigue()
 	{
 		return new List<Ligue>("Sélectionner une ligue", "e", 
