@@ -33,9 +33,8 @@ public class EmployeConsole
 			menu.add(changerPrenom(employe));
 			menu.add(changerMail(employe));
 			menu.add(changerPassword(employe));
-			menu.add(changeDateArrivee(employe));
-			menu.add(changeDateDepart(employe));
-		//	menu.add(changerAdministrateur(employe));
+			menu.add(changeDateArrivee(employe, null));
+			menu.add(changeDateDepart(employe, null));
 			menu.addBack("q");
 			return menu;
 	}
@@ -60,18 +59,20 @@ public class EmployeConsole
 		return new Option("Changer le mail", "e", () -> {employe.setMail(getString("Nouveau mail : "));});
 	}
 	
+	
 	private Option changerPassword(final Employe employe)
 	{
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));});
 	}
 	
 	
-	private Option changeDateArrivee(final Employe employe) {
+	private Option changeDateArrivee(final Employe employe, LocalDate dateArrivee) {
 		
-		return new Option("Changer la date d'arrivée", "d", ()->{
+		return new Option("Changer la date d'arrivée", "d", ()->
+		{
 			try {
 			    
-				employe.setDateArrivee(LocalDate("Votre date d'arrivée :"));
+				employe.setDateArrivee(dateArrivee);
 		    } 
 			catch (commandLine.DateInvalideException e) {
 			e.printStackTrace();
@@ -79,25 +80,17 @@ public class EmployeConsole
 	}
 	
 	
-	private Option changeDateDepart(final Employe employe) {
+	private Option changeDateDepart(final Employe employe, LocalDate dateDepart) {
 		return new Option("Changer la date de départ", "b", ()->{
 			try {
-			  employe.setDateDepart(LocalDate("Votre date de départ :"));
+			  employe.setDateDepart(dateDepart);
 		 } 
 			catch (DateInvalideException e) {
 			e.printStackTrace();
 		}});
 	}
 	
-	//private Option changerAdministrateur(final Employe employe) {
-	//	  return new Option("Changer l'administrateur", "a", ()->{employe.setAdministrateur(Employe(Employe administrateur)););
-	//} 
+	
 
-	private LocalDate LocalDate(String string) {
-		return null;
-	}
-	
-	
-	
 
 }

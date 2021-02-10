@@ -13,7 +13,7 @@ CREATE TABLE EMPLOYE(
     admin BOOLEAN DEFAULT FALSE,
     superAdmin BOOLEAN DEFAULT FALSE,
     num_ligue int,
-    FOREIGN KEY (id_ligue) REFERENCES LIGUE(id_ligue)
+    FOREIGN KEY (num_ligue) REFERENCES LIGUE(num_ligue)
 );
 CREATE TABLE LIGUE(
     num_ligue INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
