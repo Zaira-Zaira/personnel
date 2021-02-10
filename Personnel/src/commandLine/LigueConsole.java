@@ -119,6 +119,7 @@ public class LigueConsole
 		);
 	}
 	
+	
 	private Menu gererEmployes(Ligue ligue)
 	{
 		Menu menu = new Menu("Gérer les employés de " + ligue.getNom(), "e");
@@ -132,6 +133,7 @@ public class LigueConsole
 		return menu;
 	}
 
+	
 	private List<Employe> supprimerEmploye(final Ligue ligue)
 	{
 		return new List<>("Supprimer un employé", "s", 
