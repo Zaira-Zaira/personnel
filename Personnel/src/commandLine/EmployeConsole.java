@@ -66,6 +66,7 @@ public class EmployeConsole
 	}
 	
 	
+	
 	private Option changeDateArrivee(final Employe employe, LocalDate dateArrivee) {
 		
 		return new Option("Changer la date d'arrivée", "d", ()->
@@ -81,7 +82,8 @@ public class EmployeConsole
 	
 	
 	private Option changeDateDepart(final Employe employe, LocalDate dateDepart) {
-		return new Option("Changer la date de départ", "b", ()->{
+		return new Option("Changer la date de départ", "b", ()->
+		{
 			try {
 			  employe.setDateDepart(dateDepart);
 		 } 
