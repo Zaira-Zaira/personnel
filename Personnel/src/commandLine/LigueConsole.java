@@ -53,6 +53,7 @@ public class LigueConsole
 		);
 	}
 	
+	
 	private Option afficherEmployes(final Ligue ligue)
 	{
 		return new Option("Afficher les employes", "l", () -> {System.out.println(ligue.getEmployes());});
@@ -73,6 +74,7 @@ public class LigueConsole
 			}
 		});
 	}
+	
 	
 	private Menu editerLigue(Ligue ligue)
 	{
@@ -111,6 +113,7 @@ public class LigueConsole
 				);
 	}
 	
+	
 	private Option ajouterEmploye(final Ligue ligue)
 	{
 		return new Option("ajouter un employé", "a",
@@ -147,13 +150,6 @@ public class LigueConsole
 				);
 	}
 	
-	
-	//private List<Employe> changerAdministrateur(final Ligue ligue)
-	//{
-	//	return new List<>("Changer l'administrateur", "e", 
-	//			() -> new ArrayList<>(ligue.setAdministrateur()),
-	//			);
-	//}	
 	
 
 	private List<Employe> modifierEmploye(final Ligue ligue)

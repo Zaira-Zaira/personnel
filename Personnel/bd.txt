@@ -10,9 +10,9 @@ CREATE TABLE EMPLOYE(
     password_employe VARCHAR(32) NOT NULL,
     dateArrivee_employe DATETIME,
     dateDepart_employe DATETIME,
-    admin BOOLEAN DEFAULT FALSE,
-    superAdmin BOOLEAN DEFAULT FALSE,
-    num_ligue int,
+    admin BOOLEAN NULL,
+    superAdmin BOOLEAN NULL,
+    num_ligue INT,
     FOREIGN KEY (num_ligue) REFERENCES LIGUE(num_ligue)
 );
 CREATE TABLE LIGUE(
