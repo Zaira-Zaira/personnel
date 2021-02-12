@@ -2,6 +2,7 @@ package commandLine;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import commandLineMenus.List;
@@ -93,7 +94,7 @@ public class LigueConsole
 	}
 
 	
-	//change admin, try
+	//change admin
 	private Option changerAdministrateur(final Ligue ligue, final Employe employe)
 	{
 		 return new Option("Changer administrateur", "c",
@@ -117,7 +118,8 @@ public class LigueConsole
 				{
 					ligue.addEmploye(getString("nom : Michael Doe"), 
 						getString("prenom : "), getString("mail : "), 
-						getString("password : "), null, null);
+						//getString("password : "), null, null);
+					    getString("password : "), LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")), null);
 				}
 		);
 	}
