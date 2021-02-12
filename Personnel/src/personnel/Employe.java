@@ -165,6 +165,12 @@ public class Employe implements Serializable, Comparable<Employe>
 	 * @param password le password auquel comparer celui de l'employé.
 	 */
 	
+	
+	public String getPassword()
+	{
+		return password;
+	}
+	
 	public boolean checkPassword(String password)
 	{
 		return this.password.equals(password);

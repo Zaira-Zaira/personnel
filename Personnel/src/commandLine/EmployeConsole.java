@@ -72,11 +72,11 @@ public class EmployeConsole
 		return new Option("Changer la date d'arrivée", "d", ()->
 		{
 			try {
-			    
-				employe.setDateArrivee(dateArrivee);
+			    System.out.println("Date d'arrivée");
+				employe.setDateArrivee(LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")));
 		    } 
 			catch (commandLine.DateInvalideException e) {
-			e.printStackTrace();
+				System.out.println("Date d'arrivée incorrecte. ");
 		}});
 	}
 	

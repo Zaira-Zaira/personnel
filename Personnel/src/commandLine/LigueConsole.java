@@ -53,7 +53,6 @@ public class LigueConsole
 		);
 	}
 	
-	
 	private Option afficherEmployes(final Ligue ligue)
 	{
 		return new Option("Afficher les employes", "l", () -> {System.out.println(ligue.getEmployes());});
@@ -113,7 +112,6 @@ public class LigueConsole
 				);
 	}
 	
-	
 	private Option ajouterEmploye(final Ligue ligue)
 	{
 		return new Option("ajouter un employÃ©", "a",
@@ -122,8 +120,8 @@ public class LigueConsole
 					ligue.addEmploye(getString("nom : Michael Doe"), 
 						getString("prenom : "), getString("mail : "), 
 						//getString("password : "), null, null);
-					    getString("password : "), LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")), null);
-				}
+					    getString("password : "), LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")), LocalDate.parse(getString("Date dateDepart (YYYY-MM-DD) : ")));
+					}
 		);
 	}
 	
@@ -151,6 +149,13 @@ public class LigueConsole
 	}
 	
 	
+	//private List<Employe> changerAdministrateur(final Ligue ligue)
+	//{
+	//	return new List<>("Changer l'administrateur", "e", 
+	//			() -> new ArrayList<>(ligue.setAdministrateur()),
+	//			);
+	//}	
+	
 
 	private List<Employe> modifierEmploye(final Ligue ligue)
 	{
@@ -168,7 +173,7 @@ public class LigueConsole
 	
 	private Menu selectionnerEmploye(Ligue ligue) 
 	{
-		Menu menu = new Menu("GÃ©rer les employÃ©s de " + ligue.getNom(), "e");
+		Menu menu = new Menu(" " + ligue.getNom(), "e");
 		menu.add(modifierEmploye(ligue));
 		menu.add(supprimerEmploye(ligue));
 		menu.addBack("q");
