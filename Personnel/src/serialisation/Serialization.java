@@ -79,14 +79,14 @@ public class Serialization implements personnel.Passerelle
 	}
 
 	@Override
-	public void updateEmploye(Employe employe) throws SauvegardeImpossible {
+	public void SetAdmin(Employe employe) throws SauvegardeImpossible {
 		
 		
 	}
 
 	@Override
-	public void SetAdmin(Employe employe) throws SauvegardeImpossible {
-		
+	public void updateEmploye(Employe employe, String string) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -91,16 +91,24 @@ public class LigueConsole
 	private Option changerNom(final Ligue ligue)
 	{
 		return new Option("Renommer", "r", 
-				() -> {ligue.setNom(getString("Nouveau nom : "));});
+				() -> {ligue.setNom(getString("Nouveau nom : "));
+				ligue.update();
+				});
+		      
 	}
 
 	
 	//change admin
-	private Option changerAdministrateur(final Ligue ligue, final Employe employe)
+	private List<Employe> changerAdministrateur(final Ligue ligue, final Employe employe)
 	{
-		 return new Option("Changer administrateur", "c",
-				   ()-> {ligue.setAdministrateur(employe);});
-		 
+		List<Employe> EmployeList = new List<>("Changer administrateur", "c",
+				   ()-> new ArrayList<>(ligue.getEmployes()),
+				   (index, element) -> {
+					   ligue.setAdministrateur(element);
+					   ligue.changeAdmin(element);
+				   });
+		  EmployeList.addBack("q");
+		          return EmployeList;
     }	 
 		 
 	
@@ -157,19 +165,23 @@ public class LigueConsole
 	
 	private List<Employe> supprimerEmploye(final Ligue ligue)
 	{
-		return new List<>("Supprimer un employé", "s", 
+		List<Employe> EmployeList = new List<>("Supprimer un employé", "s", 
 				() -> new ArrayList<>(ligue.getEmployes()),
 				(index, element) -> {element.remove();}
 				);
+		EmployeList.addBack("q");
+		return EmployeList;
 	}
 	
 
 	private List<Employe> modifierEmploye(final Ligue ligue)
 	{
-		return new List<>("Modifier un employé", "e", 
+		List<Employe> EmployeList = new List<>("Modifier un employé", "e", 
 				() -> new ArrayList<>(ligue.getEmployes()),
 				employeConsole.editerEmploye()
 				);
+		EmployeList.addBack("q");
+		return EmployeList;
 	}
 	
 	private Option supprimer(Ligue ligue)

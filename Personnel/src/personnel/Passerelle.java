@@ -10,6 +10,7 @@ public interface Passerelle
 	public void deleteEmploye(Employe employe) throws SauvegardeImpossible;
 	public void SetAdmin(Employe employe)  throws SauvegardeImpossible;
 	public void updateLigue(Ligue ligue) throws SauvegardeImpossible;
-	public void updateEmploye(Employe employe) throws SauvegardeImpossible;
+	public void updateEmploye(Employe employe, String string) throws SauvegardeImpossible;
+	//void updateEmployee(Employe employe, String dataList) throws SauvegardeImpossible;
 }
 

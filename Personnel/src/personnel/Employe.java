@@ -239,6 +239,10 @@ public class Employe implements Serializable, Comparable<Employe>
 		// TODO Auto-generated method stub
 		return id;
 	}
+
+	public void update(String string) throws SauvegardeImpossible {
+		 gestionPersonnel.update(this, string);
+	}
 	
 }
 

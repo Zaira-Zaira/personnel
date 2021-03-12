@@ -150,6 +150,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		}
 	}
 
+	public void changeAdmin(Employe employe) 
+	{
+		gestionPersonnel.setAdmin(employe);
+	}
+	
 	@Override
 	public int compareTo(Ligue autre)
 	{
