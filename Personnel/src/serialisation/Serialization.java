@@ -11,6 +11,8 @@ import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
+
+
 public class Serialization implements personnel.Passerelle
 {
 	private static final String FILE_NAME = "GestionPersonnel.srz";
@@ -54,6 +56,37 @@ public class Serialization implements personnel.Passerelle
 
 	@Override
 	public void insert(Employe employe) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteLigue(Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteEmploye(Employe employe) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void SetAdmin(Employe employe, Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateLigue(Ligue ligue) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateEmploye(Employe employe) throws SauvegardeImpossible {
 		// TODO Auto-generated method stub
 		
 	}

@@ -109,11 +109,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * @return l'employé créé. 
 	 */
 
+	
 	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart)
 	{
 		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrivee, dateDepart);
 		employes.add(employe);
-		
 		
 		//new part
 		try {
@@ -125,6 +125,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		return employe;
 	}
 	
+	
 	void remove(Employe employe)
 	{
 		employes.remove(employe);
@@ -134,6 +135,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	 * Supprime la ligue, entraîne la suppression de tous les employés
 	 * de la ligue.
 	 */
+	
 	
 	public void remove()
 	{

@@ -25,6 +25,7 @@ public class EmployeConsole
 		return (employe) -> editerEmploye(employe);		
 	}
 
+	
 	Option editerEmploye(Employe employe)
 	{
 			Menu menu = new Menu("Gérer le compte " + employe.getNom(), "c");
@@ -58,6 +59,7 @@ public class EmployeConsole
 	{
 		return new Option("Changer le mail", "e", () -> {employe.setMail(getString("Nouveau mail : "));});
 	}
+	
 	
 	
 	private Option changerPassword(final Employe employe)

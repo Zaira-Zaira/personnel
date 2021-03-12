@@ -1,6 +1,7 @@
 package personnel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -15,14 +16,16 @@ import java.util.TreeSet;
  * retourné.
  */
 
+
 public class GestionPersonnel implements Serializable
 {
 	private static final long serialVersionUID = -105283113987886425L;
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
+	private SortedSet<Employe> employes;
 	private Employe root = new Employe(this, null, "root", "", "", "toor", null, null);
 	public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = SERIALIZATION;  
+			TYPE_PASSERELLE = JDBC;  
 	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
 	
 	/**
@@ -47,6 +50,7 @@ public class GestionPersonnel implements Serializable
 		if (gestionPersonnel != null)
 			throw new RuntimeException("Vous ne pouvez créer qu'une seuls instance de cet objet.");
 		ligues = new TreeSet<>();
+		employes = new TreeSet<>();
 		gestionPersonnel = this;
 	}
 	
@@ -79,6 +83,11 @@ public class GestionPersonnel implements Serializable
 	{
 		return Collections.unmodifiableSortedSet(ligues);
 	}
+	
+	public SortedSet<Employe> getEmployes()
+	{
+		return Collections.unmodifiableSortedSet(employes);
+	}
 
 	public Ligue addLigue(String nom) throws SauvegardeImpossible
 	{
@@ -93,6 +102,14 @@ public class GestionPersonnel implements Serializable
 		ligues.add(ligue);
 		return ligue;
 	}
+	
+	
+	public Employe addEmploye(Ligue id, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart) {
+		Employe employe = new Employe(this, id, nom, prenom, mail, password, dateArrivee, dateDepart);
+		employes.add(employe);
+		
+		return employe;
+	}
 
 	void remove(Ligue ligue)
 	{
@@ -104,12 +121,16 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(ligue);
 	}
 	
-	//new part
+	
 	void insert(Employe employe) throws SauvegardeImpossible
 	{
-		 passerelle.insert(employe);
+		passerelle.insert(employe);
 	}
 
+	void remove(Employe employe)
+	{
+		employes.remove(employe);
+	}
 	/**
 	 * Retourne le root (super-utilisateur).
 	 * @return le root.

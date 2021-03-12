@@ -65,7 +65,7 @@ public class LigueConsole
 		{
 			try
 			{
-				gestionPersonnel.addLigue(getString("nom : "));
+				gestionPersonnel.addLigue(getString("nom_ligue : "));
 			}
 			catch(SauvegardeImpossible exception)
 			{
@@ -75,11 +75,11 @@ public class LigueConsole
 	}
 	
 	
-	private Menu editerLigue(Ligue ligue)
+	private Menu editerLigue(Ligue ligue) 
 	{
 		Menu menu = new Menu("Editer " + ligue.getNom());
 		menu.add(afficher(ligue));
-		menu.add(gererEmployes(ligue));
+	    menu.add(gererEmployes(ligue));
 		menu.add(changerAdministrateur(ligue, null));
 		menu.add(changerNom(ligue));
 		menu.add(supprimer(ligue));
@@ -104,7 +104,7 @@ public class LigueConsole
     }	 
 		 
 	
-	private List<Ligue> selectionnerLigue()
+	private List<Ligue> selectionnerLigue() 
 	{
 		return new List<Ligue>("SÃ©lectionner une ligue", "e", 
 				() -> new ArrayList<>(gestionPersonnel.getLigues()),
@@ -112,32 +112,47 @@ public class LigueConsole
 				);
 	}
 	
-	private Option ajouterEmploye(final Ligue ligue)
+	private Option ajouterEmploye(final Ligue ligue) throws SauvegardeImpossible 
 	{
 		return new Option("ajouter un employÃ©", "a",
 				() -> 
 				{
-					ligue.addEmploye(getString("nom : Michael Doe"), 
-						getString("prenom : "), getString("mail : "), 
-						//getString("password : "), null, null);
-					    getString("password : "), LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")), LocalDate.parse(getString("Date dateDepart (YYYY-MM-DD) : ")));
+					System.out.println("Ajouter un employe");
+					ligue.addEmploye(getString("nom : "), 
+							getString("prenom : "), getString("mail : "), 
+						    getString("password : "), LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")), null);
+					
 					}
 		);
 	}
 	
 	
-	private Menu gererEmployes(Ligue ligue)
+	private Menu gererEmployes(Ligue ligue) 
 	{
 		Menu menu = new Menu("GÃ©rer les employÃ©s de " + ligue.getNom(), "e");
 		menu.add(afficherEmployes(ligue));
-		menu.add(ajouterEmploye(ligue));
+		try {
+			menu.add(ajouterEmploye(ligue));
+		} catch (SauvegardeImpossible e) {
+			System.err.println("Impossible de sauvegarder cet employé");
+			e.printStackTrace();
+		}
 		menu.add(selectionnerEmploye(ligue));
-		//menu.add(modifierEmploye(ligue));
-	    //menu.add(changerAdministrateur(ligue));
-		//menu.add(supprimerEmploye(ligue));
 		menu.addBack("q");
 		return menu;
 	}
+	
+	
+	
+	private Menu selectionnerEmploye(Ligue ligue) 
+	{
+		Menu menu = new Menu("Selectionner employe de  " + ligue.getNom(), "e");
+		menu.add(modifierEmploye(ligue));
+		menu.add(supprimerEmploye(ligue));
+		menu.addBack("q");
+		return menu;
+	}
+	
 
 	
 	private List<Employe> supprimerEmploye(final Ligue ligue)
@@ -147,14 +162,6 @@ public class LigueConsole
 				(index, element) -> {element.remove();}
 				);
 	}
-	
-	
-	//private List<Employe> changerAdministrateur(final Ligue ligue)
-	//{
-	//	return new List<>("Changer l'administrateur", "e", 
-	//			() -> new ArrayList<>(ligue.setAdministrateur()),
-	//			);
-	//}	
 	
 
 	private List<Employe> modifierEmploye(final Ligue ligue)
@@ -171,13 +178,5 @@ public class LigueConsole
 	}
 	
 	
-	private Menu selectionnerEmploye(Ligue ligue) 
-	{
-		Menu menu = new Menu(" " + ligue.getNom(), "e");
-		menu.add(modifierEmploye(ligue));
-		menu.add(supprimerEmploye(ligue));
-		menu.addBack("q");
-		return menu;
-	}
 	
 }

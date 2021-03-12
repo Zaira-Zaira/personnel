@@ -22,6 +22,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	private LocalDate dateArrivee, dateDepart;
 	private Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
+	private int id;
 	
 	Employe(GestionPersonnel gestionPersonnel, Ligue ligue, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart)
 	{
@@ -233,6 +234,12 @@ public class Employe implements Serializable, Comparable<Employe>
 			res += ligue.toString();
 		return res + ")";
 	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}
+	
 }
 
 
