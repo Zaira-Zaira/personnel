@@ -207,17 +207,17 @@ public class JDBC implements Passerelle
 	}
 
 	@Override
-	public void SetAdmin(Employe employe, Ligue ligue) throws SauvegardeImpossible {
-		
+	public void SetAdmin(Employe employe) throws SauvegardeImpossible 
+	{
 		try 
 		{
-			PreparedStatement instruction;
-			instruction = connection.prepareStatement("UPDATE employe SET admin = ? WHERE id_employe = ?");
-	
-			instruction.setBoolean(1, employe.estAdmin(ligue) == true);
-			instruction.setInt(2, employe.getId());
-			instruction.executeUpdate();
-		}
+			PreparedStatement listEmploye;
+			listEmploye = connection.prepareStatement("UPDATE employe SET admin_ligue = (CASE WHEN id_employe = ? THEN 1 WHEN id_employe <> ? THEN 0 END) WHERE num_ligue = ?");
+			listEmploye.setInt(1, employe.getId());
+			listEmploye.setInt(2, employe.getId());
+			listEmploye.setInt(3, employe.getLigue().getId());
+			listEmploye.executeUpdate();
+		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();

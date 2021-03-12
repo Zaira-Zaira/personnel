@@ -140,4 +140,8 @@ public class GestionPersonnel implements Serializable
 	{
 		return root;
 	}
+	
+    void setAdmin(Employe employe) throws SauvegardeImpossible {
+		 
+	}
 }
