@@ -110,26 +110,48 @@ public class GestionPersonnel implements Serializable
 		
 		return employe;
 	}
-
-	void remove(Ligue ligue)
-	{
-		ligues.remove(ligue);
-	}
-	
 	int insert(Ligue ligue) throws SauvegardeImpossible
 	{
 		return passerelle.insert(ligue);
 	}
-	
 	
 	void insert(Employe employe) throws SauvegardeImpossible
 	{
 		passerelle.insert(employe);
 	}
 
-	void remove(Employe employe)
+	void update(Ligue ligue) throws SauvegardeImpossible
 	{
-		employes.remove(employe);
+		passerelle.updateLigue(ligue);
+	}
+	
+	void update(Employe employe) throws SauvegardeImpossible
+	{
+		passerelle.updateEmploye(employe);
+	}
+	 void delete(Employe employe)
+	{
+		try {
+			passerelle.deleteEmploye(employe);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
+	}
+	void delete(Ligue ligue)
+	{
+		try {
+			passerelle.deleteLigue(ligue);;
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
+	}
+	void remove(Ligue ligue)
+	{
+		
+		gestionPersonnel.delete(ligue);
+		ligues.remove(ligue);
 	}
 	/**
 	 * Retourne le root (super-utilisateur).
@@ -141,7 +163,15 @@ public class GestionPersonnel implements Serializable
 		return root;
 	}
 	
-    void setAdmin(Employe employe) throws SauvegardeImpossible {
-		 
+	void setAdmin(Employe employe)
+	{
+		try
+		{
+			passerelle.SetAdmin(employe);
+		}
+		catch(SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

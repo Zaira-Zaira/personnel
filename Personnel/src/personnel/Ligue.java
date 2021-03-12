@@ -115,11 +115,9 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateArrivee, dateDepart);
 		employes.add(employe);
 		
-		//new part
 		try {
 			this.gestionPersonnel.insert(employe);
 		} catch (SauvegardeImpossible e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return employe;
@@ -142,6 +140,15 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		gestionPersonnel.remove(this);
 	}
 	
+	public void update()
+	{
+		try {
+			gestionPersonnel.update(this);
+		} catch (SauvegardeImpossible e) {
+			
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public int compareTo(Ligue autre)

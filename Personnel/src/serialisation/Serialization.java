@@ -12,7 +12,6 @@ import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
 
-
 public class Serialization implements personnel.Passerelle
 {
 	private static final String FILE_NAME = "GestionPersonnel.srz";
@@ -71,7 +70,6 @@ public class Serialization implements personnel.Passerelle
 		
 		
 	}
-
 
 
 	@Override
