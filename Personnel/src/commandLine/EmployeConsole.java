@@ -46,12 +46,6 @@ public class EmployeConsole
 	{
 		return new Option("Changer le nom", "n", 
 				() -> {employe.setNom(getString("Nouveau nom : "));
-				try {
-					employe.update("nom_employe");
-				} catch (SauvegardeImpossible e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				}
 			);
 	}
@@ -60,12 +54,6 @@ public class EmployeConsole
 	private Option changerPrenom(final Employe employe)
 	{
 		return new Option("Changer le prÃ©nom", "p", () -> {employe.setPrenom(getString("Nouveau prÃ©nom : "));
-		try {
-			employe.update("prenom_employe");
-		} catch (SauvegardeImpossible e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		});
 	}
 	
@@ -73,12 +61,6 @@ public class EmployeConsole
 	private Option changerMail(final Employe employe)
 	{
 		return new Option("Changer le mail", "e", () -> {employe.setMail(getString("Nouveau mail : "));
-		try {
-			employe.update("mail_employe");
-		} catch (SauvegardeImpossible e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		});
 	}
 	
@@ -87,11 +69,6 @@ public class EmployeConsole
 	private Option changerPassword(final Employe employe)
 	{
 		return new Option("Changer le password", "x", () -> {employe.setPassword(getString("Nouveau password : "));
-		try {
-			employe.update("password_employe");
-		} catch (SauvegardeImpossible e) {
-			e.printStackTrace();
-		}
 		});
 	}
 	
@@ -104,13 +81,11 @@ public class EmployeConsole
 			try {
 			    System.out.println("Date d'arrivée");
 				employe.setDateArrivee(LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")));
-				employe.update("dateArrivee_employe");
+				
 		    } 
 			catch (commandLine.DateInvalideException e) {
 				System.out.println("Date d'arrivée incorrecte. ");
-		} catch (SauvegardeImpossible e) {
-				e.printStackTrace();
-			}});
+		}});
 	}
 	
 	
@@ -119,13 +94,10 @@ public class EmployeConsole
 		{
 			try {
 			  employe.setDateDepart(dateDepart);
-			  employe.update("dateDepart_employe");
 		 } 
 			catch (DateInvalideException e) {
 			e.printStackTrace();
-		} catch (SauvegardeImpossible e) {
-				e.printStackTrace();
-			}});
+		}});
 	}
 	
 	

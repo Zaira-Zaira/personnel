@@ -78,6 +78,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		try {
+			this.update("nom_employe");
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -98,6 +103,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPrenom(String prenom)
 	{
 		this.prenom = prenom;
+		try {
+			this.update("prenom_employe");
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -118,6 +128,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setMail(String mail)
 	{
 		this.mail = mail;
+		try {
+			this.update("mail_employe");
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -137,6 +152,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setDateArrivee(LocalDate dateArrivee) throws DateInvalideException 
 	{
 		this.dateArrivee = dateArrivee;
+		try {
+			this.update("dateArrivee_employe");
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -155,6 +175,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setDateDepart(LocalDate dateDepart) throws DateInvalideException 
 	{
 		this.dateDepart = dateDepart;
+		try {
+			this.update("dateDepart_employe");
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -175,6 +200,7 @@ public class Employe implements Serializable, Comparable<Employe>
 	public boolean checkPassword(String password)
 	{
 		return this.password.equals(password);
+		
 	}
 
 	/**
@@ -185,6 +211,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	public void setPassword(String password)
 	{
 		this.password= password;
+		try {
+			this.update("password_employe");
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -236,8 +267,11 @@ public class Employe implements Serializable, Comparable<Employe>
 	}
 
 	public int getId() {
-		// TODO Auto-generated method stub
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void update(String string) throws SauvegardeImpossible {

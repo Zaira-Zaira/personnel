@@ -55,7 +55,12 @@ public class LigueConsole
 	
 	private Option afficherEmployes(final Ligue ligue)
 	{
-		return new Option("Afficher les employes", "l", () -> {System.out.println(ligue.getEmployes());});
+		return new Option("Afficher les employes", "l", () -> {
+			
+			for (Employe employes: ligue.getEmployes())
+			System.out.println(employes);
+			
+		});
 	}
 
 	
@@ -92,7 +97,7 @@ public class LigueConsole
 	{
 		return new Option("Renommer", "r", 
 				() -> {ligue.setNom(getString("Nouveau nom : "));
-				ligue.update();
+				System.out.println("La ligue a bien été renommée par" + ligue.getNom());
 				});
 		      
 	}
@@ -105,7 +110,6 @@ public class LigueConsole
 				   ()-> new ArrayList<>(ligue.getEmployes()),
 				   (index, element) -> {
 					   ligue.setAdministrateur(element);
-					   ligue.changeAdmin(element);
 				   });
 		  EmployeList.addBack("q");
 		          return EmployeList;

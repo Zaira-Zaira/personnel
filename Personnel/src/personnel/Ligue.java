@@ -61,6 +61,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		this.update();
 	}
 
 	/**
@@ -116,10 +117,18 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		employes.add(employe);
 		
 		try {
-			this.gestionPersonnel.insert(employe);
+			employe.setId(gestionPersonnel.insert(employe));
 		} catch (SauvegardeImpossible e) {
 			e.printStackTrace();
 		}
+		return employe;
+	}
+	
+	public Employe addEmploye(String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart, int id)
+	{
+		Employe employe = new Employe(this.gestionPersonnel, this, nom, prenom, mail, password, dateDepart, dateArrivee);
+		employe.setId(id);
+		employes.add(employe);
 		return employe;
 	}
 	
