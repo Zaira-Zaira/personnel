@@ -3,6 +3,8 @@ package personnel;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import commandLine.DateInvalideException;
 
@@ -20,7 +22,9 @@ public class Employe implements Serializable, Comparable<Employe>
 	private static final long serialVersionUID = 4795721718037994734L;
 	private String nom, prenom, password, mail;
 	private LocalDate dateArrivee, dateDepart;
+	private Employe administrateur;
 	private Ligue ligue;
+	private SortedSet<Employe> employes;
 	private GestionPersonnel gestionPersonnel;
 	private int id;
 	
@@ -36,6 +40,14 @@ public class Employe implements Serializable, Comparable<Employe>
 		this.dateDepart = dateDepart;
 	}
 	
+	public Employe(GestionPersonnel gestionPersonnel, int id, String nom) {
+		this.nom = nom;
+		employes = new TreeSet<>();
+		this.gestionPersonnel = gestionPersonnel;
+		administrateur = gestionPersonnel.getRoot();
+		this.id = id;
+	}
+
 	/**
 	 * Retourne vrai ssi l'employé est administrateur de la ligue 
 	 * passée en paramètre.

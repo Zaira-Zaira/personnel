@@ -60,6 +60,10 @@ public class LigueConsole
 			for (Employe employes: ligue.getEmployes())
 			System.out.println(employes);
 			
+			if(ligue.getEmployes().size() == 0)
+			{
+				System.out.println("Il n'y a aucun employé dans cette ligue");
+			}
 		});
 	}
 

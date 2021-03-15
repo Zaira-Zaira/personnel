@@ -45,29 +45,33 @@ public class JDBC implements Passerelle
 			
 			while (ligues.next())
 				gestionPersonnel.addLigue(ligues.getInt("num_ligue"), ligues.getString("nom_ligue"));
-		PreparedStatement result = connection.prepareStatement("SELECT * FROM employe WHERE num_ligue = ?");
-		result.setInt(1, ligues.getInt("num_ligue"));
-		ResultSet employe = result.executeQuery();
-		Ligue ligue = gestionPersonnel.getLigues().last();
+		        PreparedStatement response = connection.prepareStatement("SELECT * FROM employe WHERE num_ligue = ?");
+		        response.setInt(1, ligues.getInt("num_ligue"));
+		        ResultSet employe = response.executeQuery();
+		        Ligue ligue = gestionPersonnel.getLigues().last();
 			
 			while(employe.next()) {
 				int id = employe.getInt("id_employe");
 		        String  nom = employe.getString("nom_employe");
 			    String  prenom = employe.getString("prenom_employe");
-				String	mail = employe.getString("mail_emp");
-	            String	psw = employe.getString("password_employe");
+				String	mail = employe.getString("mail_employe");
+	            String	password = employe.getString("password_employe");
 				
 		        LocalDate dateArrivee = LocalDate.parse(employe.getString("dateArrivee_employe"));
 			    LocalDate dateDepart =  LocalDate.parse(employe.getString("dateDepart_employe"));
 				
-			    Employe employes = ligue.addEmploye(nom, prenom, mail, psw, dateArrivee, dateDepart, id);
+			    Employe employes = ligue.addEmploye(nom, prenom, mail, password, dateArrivee, dateDepart, id);
+			    
+			    if(employe.getBoolean("admin")) {
+			    	ligue.setAdministrateur(employes);
+			    }
 			}
 			
-			//String requete2 = "select * from employe";
-		//	Statement instruction2 = connection.createStatement();
-		//	ResultSet employes = instruction2.executeQuery(requete2);
-		//	while (employes.next())
-		//		gestionPersonnel.addLigue(employes.getInt(1), employes.getString(2));
+			String requete2 = "select * from employe";
+		    Statement instruction2 = connection.createStatement();
+		    ResultSet employes = instruction2.executeQuery(requete2);
+		     while (employes.next())
+		      gestionPersonnel.addEmploye(employes.getInt(1), employes.getString(2));
 			
 			
 			
@@ -211,14 +215,6 @@ public class JDBC implements Passerelle
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	@Override
 	public void deleteEmploye(Employe employe) throws SauvegardeImpossible 
@@ -245,10 +241,10 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement listEmploye;
-			listEmploye = connection.prepareStatement("UPDATE employe SET admin = (CASE WHEN id_employe = ? THEN 1 WHEN id_employe <> ? THEN 0 END) WHERE num_ligue = ?");
-			listEmploye.setInt(1, employe.getId());
-			listEmploye.setInt(2, employe.getId());
-			listEmploye.setInt(3, employe.getLigue().getId());
+			listEmploye = connection.prepareStatement("UPDATE ligue SET admin = ? WHERE num_ligue = ? AND id_employe = ?");
+			listEmploye.setBoolean(1, true);
+			listEmploye.setInt(2, employe.getLigue().getId());
+			listEmploye.setInt(3, employe.getId());
 			listEmploye.executeUpdate();
 		} 
 		catch (SQLException e) 
@@ -258,6 +254,46 @@ public class JDBC implements Passerelle
 		}
 	}
 	
+	public void setRoot(Employe employe) throws SauvegardeImpossible
+	{
+		try {
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("INSERT INTO employe (nom_employe, prenom_employe, mail_employe, password_employe, superAdmin) VALUES (?,?,?,?,?)");
+			instruction.setString(1, employe.getNom());
+			instruction.setString(2, employe.getPrenom());
+			instruction.setString(3, employe.getMail());
+			instruction.setString(4, employe.getPassword());
+			instruction.setInt(5, 1);
+			instruction.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
+	
+	public Employe getSuperAdmin(Employe superadmin) throws SauvegardeImpossible
+	{
+		try {
+			Statement intruction = connection.createStatement();
+			String requete = "SELECT * FROM employe WHERE superAdmin = 1";
+			ResultSet response = intruction.executeQuery(requete);
+			
+			String nom = response.getString("nom_employe");
+			String prenom = response.getString("prenom_employe");
+			String mail =  response.getString("mail_employe");
+		    String password = response.getString("password_employe");
+		    superadmin.setNom(nom);
+		    superadmin.setPrenom(prenom);
+		    superadmin.setMail(mail);
+		    superadmin.setPassword(password);
+		    return superadmin;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
 	
 	
 }

@@ -22,7 +22,7 @@ public class GestionPersonnel implements Serializable
 	private static final long serialVersionUID = -105283113987886425L;
 	private static GestionPersonnel gestionPersonnel = null;
 	private SortedSet<Ligue> ligues;
-	//private SortedSet<Employe> employes;
+    private SortedSet<Employe> employes;
 	private Employe root = new Employe(this, null, "root", "", "", "toor", null, null);
 	public final static int SERIALIZATION = 1, JDBC = 2, 
 			TYPE_PASSERELLE = JDBC;  
@@ -84,10 +84,10 @@ public class GestionPersonnel implements Serializable
 		return Collections.unmodifiableSortedSet(ligues);
 	}
 	
-	//public SortedSet<Employe> getEmployes()
-	//{
-		//return Collections.unmodifiableSortedSet(employes);
-	//}
+	public SortedSet<Employe> getEmployes()
+	{
+		return Collections.unmodifiableSortedSet(employes);
+	}
 
 	public Ligue addLigue(String nom) throws SauvegardeImpossible
 	{
@@ -104,12 +104,20 @@ public class GestionPersonnel implements Serializable
 	}
 	
 	
-	//public Employe addEmploye(Ligue id, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart) {
-		//Employe employe = new Employe(this, id, nom, prenom, mail, password, dateArrivee, dateDepart);
-		//employes.add(employe);
+	public Employe addEmploye(Ligue id, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart) {
+		   Employe employe = new Employe(this, id, nom, prenom, mail, password, dateArrivee, dateDepart);
+		   employes.add(employe);
 		
-		//return employe;
-	//}
+		return employe;
+	}
+	
+	public Employe addEmploye(int id, String nom)
+	{
+		Employe employe = new Employe(this, id, nom);
+		employes.add(employe);
+		return employe;
+	}
+	
 	int insert(Ligue ligue) throws SauvegardeImpossible
 	{
 		return passerelle.insert(ligue);
