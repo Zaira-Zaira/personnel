@@ -171,7 +171,7 @@ public class GestionPersonnel implements Serializable
 		return root;
 	}
 	
-	void setAdmin(Employe employe)
+	void changerAdmin(Employe employe)
 	{
 		try
 		{

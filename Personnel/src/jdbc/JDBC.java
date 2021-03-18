@@ -50,7 +50,7 @@ public class JDBC implements Passerelle
 		        ResultSet employe = response.executeQuery();
 		        Ligue ligue = gestionPersonnel.getLigues().last();
 			
-			while(employe.next()) {
+			while (employe.next()) {
 				int id = employe.getInt("id_employe");
 		        String  nom = employe.getString("nom_employe");
 			    String  prenom = employe.getString("prenom_employe");
@@ -58,7 +58,7 @@ public class JDBC implements Passerelle
 	            String	password = employe.getString("password_employe");
 				
 		        LocalDate dateArrivee = LocalDate.parse(employe.getString("dateArrivee_employe"));
-			    LocalDate dateDepart =  LocalDate.parse(employe.getString("dateDepart_employe"));
+			    LocalDate dateDepart =  employe.getString("dateDepart_employe") != null ? LocalDate.parse(employe.getString("dateDepart_employe")) : null;
 				
 			    Employe employes = ligue.addEmploye(nom, prenom, mail, password, dateArrivee, dateDepart, id);
 			    
@@ -66,15 +66,6 @@ public class JDBC implements Passerelle
 			    	ligue.setAdministrateur(employes);
 			    }
 			}
-			
-			String requete2 = "select * from employe";
-		    Statement instruction2 = connection.createStatement();
-		    ResultSet employes = instruction2.executeQuery(requete2);
-		     while (employes.next())
-		      gestionPersonnel.addEmploye(employes.getInt(1), employes.getString(2));
-			
-			
-			
 		}
 		catch (SQLException e)
 		{
@@ -222,7 +213,7 @@ public class JDBC implements Passerelle
 		try
 		{
 			PreparedStatement listEmploye;
-			listEmploye = connection.prepareStatement("DELETE FROM employe WHERE num_ligue = ?");
+			listEmploye = connection.prepareStatement("DELETE FROM employe WHERE id_employe = ?");
 			listEmploye.setInt(1, employe.getId());
 			listEmploye.executeUpdate();
 			System.out.println("Ligue " + employe.getNom() + " supprimé");
@@ -241,7 +232,7 @@ public class JDBC implements Passerelle
 		try 
 		{
 			PreparedStatement listEmploye;
-			listEmploye = connection.prepareStatement("UPDATE ligue SET admin = ? WHERE num_ligue = ? AND id_employe = ?");
+			listEmploye = connection.prepareStatement("UPDATE employe SET admin = ? WHERE num_ligue = ? AND id_employe = ?");
 			listEmploye.setBoolean(1, true);
 			listEmploye.setInt(2, employe.getLigue().getId());
 			listEmploye.setInt(3, employe.getId());

@@ -161,7 +161,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 
 	public void changeAdmin(Employe employe) 
 	{
-		gestionPersonnel.setAdmin(employe);
+		gestionPersonnel.changerAdmin(employe);
 	}
 	
 	@Override
@@ -180,6 +180,8 @@ public class Ligue implements Serializable, Comparable<Ligue>
 	{
 		return id;
 	}
+	
+	
 
 	
 }
