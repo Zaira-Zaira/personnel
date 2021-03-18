@@ -182,4 +182,10 @@ public class GestionPersonnel implements Serializable
 			e.printStackTrace();
 		}
 	}
+	
+	public void getRootBaseDeDonnees() throws SauvegardeImpossible
+	{
+		root.setId(1);
+		root = passerelle.getSuperAdmin(root);
+	}
 }

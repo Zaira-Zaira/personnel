@@ -89,6 +89,12 @@ public class Serialization implements personnel.Passerelle
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public Employe getSuperAdmin(Employe root) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
