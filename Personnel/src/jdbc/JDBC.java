@@ -1,6 +1,7 @@
 package jdbc;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedSet;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -11,6 +12,8 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import personnel.*;
+
+
 
 public class JDBC implements Passerelle 
 {
@@ -233,7 +236,7 @@ public class JDBC implements Passerelle
 		{
 			PreparedStatement listEmploye;
 			listEmploye = connection.prepareStatement("UPDATE employe SET admin = ? WHERE num_ligue = ? AND id_employe = ?");
-			listEmploye.setBoolean(1, true);
+			listEmploye.setInt(1, 1);
 			listEmploye.setInt(2, employe.getLigue().getId());
 			listEmploye.setInt(3, employe.getId());
 			listEmploye.executeUpdate();

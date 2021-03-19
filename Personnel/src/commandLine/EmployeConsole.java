@@ -93,7 +93,7 @@ public class EmployeConsole
 		return new Option("Changer la date de départ", "b", ()->
 		{
 			try {
-			  employe.setDateDepart(dateDepart);
+			  employe.setDateDepart(LocalDate.parse(getString("Date d'arrivée (YYYY-MM-DD) : ")));
 		 } 
 			catch (DateInvalideException e) {
 			e.printStackTrace();
