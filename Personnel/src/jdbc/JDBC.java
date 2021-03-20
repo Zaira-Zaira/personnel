@@ -47,6 +47,7 @@ public class JDBC implements Passerelle
 			ResultSet ligues = instruction.executeQuery(requete);
 			
 			while (ligues.next())
+			{
 				gestionPersonnel.addLigue(ligues.getInt("num_ligue"), ligues.getString("nom_ligue"));
 		        PreparedStatement response = connection.prepareStatement("SELECT * FROM employe WHERE num_ligue = ?");
 		        response.setInt(1, ligues.getInt("num_ligue"));
@@ -60,7 +61,7 @@ public class JDBC implements Passerelle
 				String	mail = employe.getString("mail_employe");
 	            String	password = employe.getString("password_employe");
 				
-		        LocalDate dateArrivee = LocalDate.parse(employe.getString("dateArrivee_employe"));
+		        LocalDate dateArrivee = employe.getString("dateArrivee_employe") != null ? LocalDate.parse(employe.getString("dateArrivee_employe")) : null;
 			    LocalDate dateDepart =  employe.getString("dateDepart_employe") != null ? LocalDate.parse(employe.getString("dateDepart_employe")) : null;
 				
 			    Employe employes = ligue.addEmploye(nom, prenom, mail, password, dateArrivee, dateDepart, id);
@@ -68,11 +69,11 @@ public class JDBC implements Passerelle
 			    if(employe.getBoolean("admin")) {
 			    	ligue.setAdministrateur(employes);
 			    }
-			}
+			} }
 		}
 		catch (SQLException e)
 		{
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		return gestionPersonnel;
 	}
@@ -115,6 +116,7 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(exception);
 		}		
 	}
+	
 	
 	@Override
 	public void updateLigue(Ligue ligue) throws SauvegardeImpossible 
@@ -219,7 +221,7 @@ public class JDBC implements Passerelle
 			listEmploye = connection.prepareStatement("DELETE FROM employe WHERE id_employe = ?");
 			listEmploye.setInt(1, employe.getId());
 			listEmploye.executeUpdate();
-			System.out.println("Ligue " + employe.getNom() + " supprimé");
+			System.out.println("Employe " + employe.getNom() + " supprimé");
 		}
 		catch (SQLException e) 
 		{
@@ -272,15 +274,20 @@ public class JDBC implements Passerelle
 			Statement intruction = connection.createStatement();
 			String requete = "SELECT * FROM employe WHERE superAdmin = 1";
 			ResultSet response = intruction.executeQuery(requete);
-			
-			String nom = response.getString("nom_employe");
-			String prenom = response.getString("prenom_employe");
-			String mail =  response.getString("mail_employe");
-		    String password = response.getString("password_employe");
-		    superadmin.setNom(nom);
-		    superadmin.setPrenom(prenom);
-		    superadmin.setMail(mail);
-		    superadmin.setPassword(password);
+			if(!response.next()) {
+				setRoot(superadmin);
+			}
+			else {
+				superadmin.setId(1);
+				String nom = response.getString("nom_employe");
+				String prenom = response.getString("prenom_employe");
+				String mail =  response.getString("mail_employe");
+			    String password = response.getString("password_employe");
+			    superadmin.setNom(nom);
+			    superadmin.setPrenom(prenom);
+			    superadmin.setMail(mail);
+			    superadmin.setPassword(password);
+			}
 		    return superadmin;
 		}
 		catch (SQLException e) {
@@ -288,6 +295,8 @@ public class JDBC implements Passerelle
 			throw new SauvegardeImpossible(e);
 		}
 	}
+	
+
 	
 	
 }

@@ -104,17 +104,19 @@ public class GestionPersonnel implements Serializable
 	}
 	
 	
-	public Employe addEmploye(Ligue id, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart) {
+	public Employe addEmploye(Ligue id, String nom, String prenom, String mail, String password, LocalDate dateArrivee, LocalDate dateDepart) throws SauvegardeImpossible {
 		   Employe employe = new Employe(this, id, nom, prenom, mail, password, dateArrivee, dateDepart);
-		   employes.add(employe);
+		    employes.add(employe);
+			passerelle.insert(employe);
 		
 		return employe;
 	}
 	
-	public Employe addEmploye(int id, String nom)
+	public Employe addEmploye(int id, String nom) throws SauvegardeImpossible
 	{
 		Employe employe = new Employe(this, id, nom);
 		employes.add(employe);
+		passerelle.insert(employe);
 		return employe;
 	}
 	
@@ -122,6 +124,8 @@ public class GestionPersonnel implements Serializable
 	{
 		return passerelle.insert(ligue);
 	}
+	
+	
 	
 	int insert(Employe employe) throws SauvegardeImpossible
 	{
@@ -137,25 +141,17 @@ public class GestionPersonnel implements Serializable
 	{
 		passerelle.updateEmploye(employe, string);
 	}
-	 void delete(Employe employe)
+	 void delete(Employe employe) throws SauvegardeImpossible
 	{
-		try {
-			passerelle.deleteEmploye(employe);
-		} catch (SauvegardeImpossible e) {
-			
-			e.printStackTrace();
-		}
+	   passerelle.deleteEmploye(employe);
+		
 	}
-	void delete(Ligue ligue)
+	void delete(Ligue ligue) throws SauvegardeImpossible
 	{
-		try {
 			passerelle.deleteLigue(ligue);
-		} catch (SauvegardeImpossible e) {
-			
-			e.printStackTrace();
-		}
+		
 	}
-	void remove(Ligue ligue)
+	void remove(Ligue ligue) throws SauvegardeImpossible
 	{
 		
 		gestionPersonnel.delete(ligue);
@@ -171,16 +167,10 @@ public class GestionPersonnel implements Serializable
 		return root;
 	}
 	
-	void changerAdmin(Employe employe)
+	void changerAdmin(Employe employe) throws SauvegardeImpossible
 	{
-		try
-		{
 			passerelle.SetAdmin(employe);
-		}
-		catch(SauvegardeImpossible e)
-		{
-			e.printStackTrace();
-		}
+		
 	}
 	
 	public void getRootBaseDeDonnees() throws SauvegardeImpossible
@@ -188,4 +178,5 @@ public class GestionPersonnel implements Serializable
 		root.setId(1);
 		root = passerelle.getSuperAdmin(root);
 	}
+	
 }

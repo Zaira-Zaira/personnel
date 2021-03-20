@@ -175,7 +175,12 @@ public class LigueConsole
 	{
 		List<Employe> EmployeList = new List<>("Supprimer un employé", "s", 
 				() -> new ArrayList<>(ligue.getEmployes()),
-				(index, element) -> {element.remove();}
+				(index, element) -> {try {
+					element.remove();
+				} catch (SauvegardeImpossible e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}}
 				);
 		EmployeList.addBack("q");
 		return EmployeList;
@@ -194,7 +199,12 @@ public class LigueConsole
 	
 	private Option supprimer(Ligue ligue)
 	{
-		return new Option("Supprimer", "d", () -> {ligue.remove();});
+		return new Option("Supprimer", "d", () -> {try {
+			ligue.remove();
+		} catch (SauvegardeImpossible e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}});
 	}
 	
 	
