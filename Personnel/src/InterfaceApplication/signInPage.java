@@ -7,7 +7,9 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.TextField;
@@ -20,6 +22,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -59,22 +62,25 @@ public class signInPage {
     {
      JFrame frame = new JFrame();
      frame.setTitle("Sign In !");
-     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     frame.setLayout(new BorderLayout());
-     
+     frame.setLayout(new GridBagLayout());
      JPanel panel = new JPanel();
-     panel.add(new JLabel("Login"));
+     panel.setLayout(new GridLayout(0,2, 20,15));
+     panel.setPreferredSize(new Dimension(400,100));
+     JLabel loginL = new JLabel("Login");
+     loginL.setFont(new Font("Serif", Font.BOLD, 20));
+     panel.add(loginL);
      TextField login = new TextField();
      panel.add(login);
      login.setPreferredSize(new Dimension(150,30));
-     panel.add(new JLabel("Mot de passe"));
+     JLabel passwordL = new JLabel("Mot de passe");
+     passwordL.setFont(new Font("Serif", Font.BOLD, 20));
+     panel.add(passwordL);
      TextField passwordTxt = new TextField();
      passwordTxt.setPreferredSize(new Dimension(150,30));
      panel.add(passwordTxt);
      JButton btnconnexion = new JButton("Connexion");
+     btnconnexion.setPreferredSize(new Dimension(150,30));
      panel.add(btnconnexion);
-     panel.setPreferredSize(new Dimension(50,70));
-     panel.setBorder(BorderFactory.createLineBorder(Color.blue));
      btnconnexion.addActionListener(new ActionListener()
      {
 
@@ -92,8 +98,9 @@ public class signInPage {
 		}
     	 
      });
-     frame.add(menuBar(), BorderLayout.NORTH);
-     frame.add(panel, BorderLayout.CENTER);
+     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+     frame.setJMenuBar(menuBar());
+     frame.add(panel);
      frame.setVisible(true);
      frame.pack();
     }
@@ -107,7 +114,7 @@ public class signInPage {
 		 menubar.add(menu);
 		return menubar;
 	 }
-    
+   
     
     public static void HomePage() {
     	 JFrame homePage = new JFrame();

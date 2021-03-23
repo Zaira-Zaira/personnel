@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -89,6 +90,15 @@ public class listEmployes {
 		JList listemp = new JList(choix);
 		JList listedit = new JList(editer);
 		JList suppr = new JList(supprimer);
+		
+		DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listemp.getCellRenderer();  
+		renderer.setHorizontalAlignment(JLabel.CENTER);
+		
+		DefaultListCellRenderer renderer2 =  (DefaultListCellRenderer)listedit.getCellRenderer();  
+		renderer2.setHorizontalAlignment(JLabel.CENTER);
+		
+		DefaultListCellRenderer renderer3 =  (DefaultListCellRenderer)suppr.getCellRenderer();  
+		renderer3.setHorizontalAlignment(JLabel.CENTER);
 		
 		Border borderitem = new EmptyBorder(7,7,7,7);
 		listemp.setFixedCellWidth(100);
