@@ -2,7 +2,10 @@ package InterfaceApplication;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
@@ -13,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.SortedSet;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +30,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.border.Border;
 
 import jdbc.JDBC;
 import personnel.Employe;
@@ -54,14 +60,21 @@ public class signInPage {
      JFrame frame = new JFrame();
      frame.setTitle("Sign In !");
      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     frame.getContentPane().setLayout(new FlowLayout());
-     frame.getContentPane().add(new JLabel("Login"));
-     frame.getContentPane().add(new TextField());
-     frame.getContentPane().add(new JLabel("Mot de passe"));
+     frame.setLayout(new BorderLayout());
+     
+     JPanel panel = new JPanel();
+     panel.add(new JLabel("Login"));
+     TextField login = new TextField();
+     panel.add(login);
+     login.setPreferredSize(new Dimension(150,30));
+     panel.add(new JLabel("Mot de passe"));
      TextField passwordTxt = new TextField();
-     frame.getContentPane().add(passwordTxt);
+     passwordTxt.setPreferredSize(new Dimension(150,30));
+     panel.add(passwordTxt);
      JButton btnconnexion = new JButton("Connexion");
-     frame.getContentPane().add(btnconnexion);
+     panel.add(btnconnexion);
+     panel.setPreferredSize(new Dimension(50,70));
+     panel.setBorder(BorderFactory.createLineBorder(Color.blue));
      btnconnexion.addActionListener(new ActionListener()
      {
 
@@ -79,9 +92,22 @@ public class signInPage {
 		}
     	 
      });
+     frame.add(menuBar(), BorderLayout.NORTH);
+     frame.add(panel, BorderLayout.CENTER);
      frame.setVisible(true);
      frame.pack();
     }
+    
+    private static JMenuBar menuBar()
+	 {
+		 JMenuBar menubar = new JMenuBar();
+		 menubar.setPreferredSize(new Dimension(50,40));
+		 JMenu menu = new JMenu("Gestion des ligues");
+		 menu.setSize(80,80);
+		 menubar.add(menu);
+		return menubar;
+	 }
+    
     
     public static void HomePage() {
     	 JFrame homePage = new JFrame();
