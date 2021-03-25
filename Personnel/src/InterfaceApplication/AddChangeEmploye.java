@@ -35,18 +35,8 @@ public class AddChangeEmploye {
 		employeAdd.setTitle("Ajouter un employé");
 		employeAdd.getContentPane().setLayout(new GridBagLayout());
 			
-		
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.ipady = gbc.anchor = GridBagConstraints.PAGE_START;
-		
 		GridBagConstraints panCont = new GridBagConstraints();
 		panCont.ipady = panCont.anchor = GridBagConstraints.CENTER;
-		
-		gbc.weightx = 1;
-		gbc.weighty = 2;
-		gbc.insets = new Insets(2, 2, 2, 2);
-		//employeAdd.add(back, gbc);
-		//employeAdd.add(text, gbc);
 		employeAdd.add(panelContainer(), panCont);
 		employeAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeAdd.pack();
@@ -99,6 +89,7 @@ public class AddChangeEmploye {
 		panel.add(cancelbtn);
 		return panel;
 	}
+	
 	private static JPanel panelContainer()
 	{
 		JPanel panelContainer = new JPanel();
