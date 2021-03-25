@@ -33,6 +33,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import jdbc.JDBC;
@@ -64,22 +65,22 @@ public class signInPage {
      frame.setTitle("Sign In !");
      frame.setLayout(new GridBagLayout());
      JPanel panel = new JPanel();
-     panel.setLayout(new GridLayout(0,2, 20,15));
+     panel.setLayout(new GridLayout(0,2, 5,5));
      panel.setPreferredSize(new Dimension(400,100));
-     JLabel loginL = new JLabel("Login");
+     JLabel loginL = new JLabel("Login : ");
      loginL.setFont(new Font("Serif", Font.BOLD, 20));
      panel.add(loginL);
      TextField login = new TextField();
      panel.add(login);
-     login.setPreferredSize(new Dimension(150,30));
-     JLabel passwordL = new JLabel("Mot de passe");
+     login.setPreferredSize(new Dimension(150,50));
+     JLabel passwordL = new JLabel("Mot de passe : ");
      passwordL.setFont(new Font("Serif", Font.BOLD, 20));
      panel.add(passwordL);
      TextField passwordTxt = new TextField();
-     passwordTxt.setPreferredSize(new Dimension(150,30));
+     passwordTxt.setPreferredSize(new Dimension(150,50));
      panel.add(passwordTxt);
      JButton btnconnexion = new JButton("Connexion");
-     btnconnexion.setPreferredSize(new Dimension(150,30));
+     btnconnexion.setPreferredSize(new Dimension(150,50));
      panel.add(btnconnexion);
      btnconnexion.addActionListener(new ActionListener()
      {
@@ -98,6 +99,7 @@ public class signInPage {
 		}
     	 
      });
+     frame.setLocationRelativeTo(null);
      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      frame.setJMenuBar(menuBar());
      frame.add(panel);
@@ -108,8 +110,12 @@ public class signInPage {
     private static JMenuBar menuBar()
 	 {
 		 JMenuBar menubar = new JMenuBar();
-		 menubar.setPreferredSize(new Dimension(50,40));
+		 menubar.setPreferredSize(new Dimension(50,50));
+		 menubar.setBackground(Color.LIGHT_GRAY);
 		 JMenu menu = new JMenu("Gestion des ligues");
+		 menu.setAlignmentX(SwingConstants.WEST);
+		 menu.setFont(new Font("Serif", Font.BOLD, 20));
+		 menu.setForeground(Color.white);
 		 menu.setSize(80,80);
 		 menubar.add(menu);
 		return menubar;

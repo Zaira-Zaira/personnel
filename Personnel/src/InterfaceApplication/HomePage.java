@@ -5,6 +5,9 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.SortedSet;
 
 import javax.swing.BorderFactory;
@@ -58,16 +61,12 @@ public class HomePage {
     	 JFrame homePage = new JFrame();
     	 homePage.setVisible(true);
 		 homePage.setTitle("Home page");
-		 
-		 String choix[] = {"Ligue1", " Ligue2", " Ligue2", "Ligue3", "Ligue4"};
-		 JList listLigues = new JList(choix);
-		 listLigues.setPreferredSize(new Dimension(150,150));
-		 listLigues.setForeground(Color.RED);
+		 homePage.setSize(500,400);
 		 homePage.setJMenuBar(menuBar());
-		 homePage.add(toolBar());
-		 homePage.add(listLigues);
+		 homePage.add(panel());
 		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 homePage.pack();
+		 homePage.setLocationRelativeTo(null);
     }
 	 
 	 private static JMenuBar menuBar()
@@ -75,21 +74,26 @@ public class HomePage {
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
 		 JMenu menu = new JMenu("Mon compte");
+		 menu.setFont(new Font("Serif", Font.BOLD, 20));
 		 menu.setSize(70,70);
 		 menu.setForeground(Color.white);
 		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
+		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
 		 menu.add(itemMenu);
 		 itemMenu.setSize(70,70);
 		 JMenu ligues = new JMenu("Gerer les ligues");
+		 ligues.setFont(new Font("Serif", Font.BOLD, 20));
 		 ligues.setForeground(Color.white);
 		 JMenuItem itemaccount= new JMenuItem("Afficher les ligues");
+		 itemaccount.setFont(new Font("Serif", Font.PLAIN, 20));
 		 JMenuItem addligue= new JMenuItem("Ajouter une ligues");
+		 addligue.setFont(new Font("Serif", Font.PLAIN, 20));
 		 ligues.add(itemaccount);
 		 ligues.addSeparator();
 		 ligues.add(addligue);
 		 menubar.add(menu);
 		 menubar.add(ligues);
-		 menubar.setBackground(Color.black);
+		 menubar.setBackground(Color.lightGray);
 		return menubar;
 	 }
 	 
@@ -106,6 +110,19 @@ public class HomePage {
 		 toolbar.add(deleteLigue);
 		 paneltool.add(toolbar);
 		 return paneltool;
+	 }
+	 
+	 private static JPanel panel() 
+	 {
+		 JPanel panel = new JPanel();
+		 panel.setPreferredSize(new Dimension(300,400));
+		 panel.setLayout(new GridBagLayout());
+		 
+		 String choix[] = {"Ligue1", " Ligue2", " Ligue2", "Ligue3", "Ligue4"};
+		 JList listLigues = new JList(choix);
+		 listLigues.setPreferredSize(new Dimension(150,150));
+		 panel.add(listLigues);
+		 return panel;
 	 }
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {
