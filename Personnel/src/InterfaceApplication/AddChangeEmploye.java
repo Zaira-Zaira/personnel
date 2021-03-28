@@ -37,6 +37,8 @@ public class AddChangeEmploye {
 			
 		GridBagConstraints panCont = new GridBagConstraints();
 		panCont.ipady = panCont.anchor = GridBagConstraints.CENTER;
+		employeAdd.setSize(750,700);
+		employeAdd.setLocationRelativeTo(null);
 		employeAdd.add(panelContainer(), panCont);
 		employeAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeAdd.pack();

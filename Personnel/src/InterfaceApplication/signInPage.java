@@ -2,44 +2,33 @@ package InterfaceApplication;
 
 import static commandLineMenus.rendering.examples.util.InOut.getString;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
+import personnel.Ligue;
+import personnel.Employe;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.SortedSet;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
-import jdbc.JDBC;
-import personnel.Employe;
+import commandLine.EmployeConsole;
+import commandLine.LigueConsole;
+import commandLine.PersonnelConsole;
 import personnel.GestionPersonnel;
-import personnel.Ligue;
 import personnel.Passerelle;
 import personnel.SauvegardeImpossible;
 
@@ -51,13 +40,12 @@ public class signInPage {
     JRadioButton radio1 = new JRadioButton("ON", true);
     JRadioButton radio2 = new JRadioButton("OFF", false);
     
-   // group.add(radio1);
-   // group.add(radio2);
-    private GestionPersonnel gestionPersonnel;
-    public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = JDBC;  
-	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
-	
+    public static GestionPersonnel gestionPersonnel;
+    
+	public signInPage(GestionPersonnel gestionPersonnel)
+	{
+		this.gestionPersonnel = gestionPersonnel;
+	}
 	
     public static void signIn()
     {
@@ -87,16 +75,20 @@ public class signInPage {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
 			if(passwordTxt.getText().equals("root")) {
-				passerelle.getGestionPersonnel();
 				 frame.setVisible(false);
-				 HomePage();
+				 InterfaceApplication.HomePage.Home();
 			}else {
 				frame.getContentPane().add(new JTextArea("Password incorrect"));
 			}
 			
-		}
+				if(checkPassword(passwordTxt.getText())) {
+					frame.setVisible(false);
+					 InterfaceApplication.HomePage.Home();
+				}else {
+					frame.getContentPane().add(new JTextArea("Password incorrect"));
+				}
+		   }
     	 
      });
      frame.setLocationRelativeTo(null);
@@ -106,6 +98,14 @@ public class signInPage {
      frame.setVisible(true);
      frame.pack();
     }
+    
+    private static boolean checkPassword(String password)
+    {
+    	boolean ok = gestionPersonnel.getRoot().checkPassword(password);
+    	return ok;
+    }
+    
+    
     
     private static JMenuBar menuBar()
 	 {
@@ -128,13 +128,20 @@ public class signInPage {
 		 homePage.setTitle("Home page");
 		 homePage.getContentPane().setLayout(new FlowLayout());
 		 
-	
 		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 homePage.pack();
     }
     
     public static void main(String[] args) throws SauvegardeImpossible
     {
+    	signInPage signInPage = 
+				new signInPage(GestionPersonnel.getGestionPersonnel());
+    	signInPage.gestionPersonnel.getRoot();
+    	if (signInPage.checkPassword("toor")) {
+    		System.out.println("data charged");
+	    }else {
+		System.out.println("data uncharged");
+	    }
     	signIn();
 	}
 	

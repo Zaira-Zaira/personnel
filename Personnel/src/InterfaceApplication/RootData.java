@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -13,14 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.SeparatorUI;
 
 import personnel.SauvegardeImpossible;
 
-public class RootData {
 
-	
-	
+public class RootData {
 	public static void AccountData()
 	{
 		JFrame account = new JFrame();
@@ -67,7 +67,10 @@ public class RootData {
 		JPanel panelContainer = new JPanel();
 		panelContainer.setLayout(new BorderLayout());
 		panelContainer.add(panelLabels(), BorderLayout.CENTER);
-		panelContainer.add(new JLabel("Mon compte"), BorderLayout.NORTH);
+		JLabel titleAccount = new JLabel("Mon compte");
+		titleAccount.setHorizontalAlignment(SwingConstants.CENTER);
+		titleAccount.setFont(new Font("Serif", Font.BOLD, 20));
+		panelContainer.add(titleAccount, BorderLayout.NORTH);
 		return panelContainer;
 	}
 	

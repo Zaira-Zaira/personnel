@@ -1,74 +1,94 @@
 package InterfaceApplication;
-
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.SortedSet;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
-import commandLine.EmployeConsole;
-import commandLine.LigueConsole;
 import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
-import personnel.Passerelle;
 import personnel.SauvegardeImpossible;
+
+
 
 
 public class HomePage {
 	
 	private Ligue ListLigues;
 	private SortedSet<Ligue> Ligues;
-	private Ligue ligueList;
+	public static Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
-    public final static int SERIALIZATION = 1, JDBC = 2, 
-			TYPE_PASSERELLE = JDBC;  
-	private static Passerelle passerelle = TYPE_PASSERELLE == JDBC ? new jdbc.JDBC() : new serialisation.Serialization();	
 	Color selectCouleur = Color.RED;
-	
-	
-	public HomePage(GestionPersonnel gestionPersonnel)
+    private static int idLigue;
+    private Employe employe;
+    public static Ligue ligueItem;
+    
+    
+    
+    
+	public HomePage(GestionPersonnel gestionPersonnel, Ligue ligue, Employe employe)
 	{
 		this.gestionPersonnel = gestionPersonnel;
-	}
-	
-	
-	
-	public  SortedSet<Ligue> getLigue(){
-		System.out.println(gestionPersonnel.getLigues());
-		
-		return gestionPersonnel.getLigues();
+		this.ligue= ligue;
+		this.employe = employe;
 	}
 	
 	
 	 public static void Home() {
-    	 JFrame homePage = new JFrame();
+		 JFrame homePage = new JFrame();
     	 homePage.setVisible(true);
 		 homePage.setTitle("Home page");
-		 homePage.setSize(500,400);
+		 homePage.setPreferredSize(new Dimension(900,800));
 		 homePage.setJMenuBar(menuBar());
-		 homePage.add(panel());
+		 homePage.setLayout(new BorderLayout());
+		 homePage.add(panel(), BorderLayout.CENTER);
+		 homePage.add(title(), BorderLayout.NORTH);
+		 homePage.add(addLigueBtn(), BorderLayout.SOUTH);
 		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 homePage.pack();
 		 homePage.setLocationRelativeTo(null);
     }
 	 
+	 
+	 private static JLabel title()
+	 {
+		 JLabel title = new JLabel("Liste des ligues");
+		 title.setHorizontalAlignment(SwingConstants.CENTER);
+		 Border bordertitle = new EmptyBorder(70,0,10,0);
+		 title.setBorder(bordertitle);
+		 title.setFont(new Font("Serif", Font.BOLD, 25));
+		 return title;
+	 }
+	 
+	 private  static JButton addLigueBtn()
+	 {
+		 JButton addLigueBtn = new JButton("Ajouter une ligue");
+		 addLigueBtn.setFont(new Font("Serif", Font.BOLD, 20));
+		 addLigueBtn.setPreferredSize(new Dimension(100,40));
+		 return addLigueBtn;
+	 }
 	 private static JMenuBar menuBar()
 	 {
 		 JMenuBar menubar = new JMenuBar();
@@ -77,24 +97,25 @@ public class HomePage {
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
 		 menu.setSize(70,70);
 		 menu.setForeground(Color.white);
-		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
-		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
-		 menu.add(itemMenu);
-		 itemMenu.setSize(70,70);
-		 JMenu ligues = new JMenu("Gerer les ligues");
-		 ligues.setFont(new Font("Serif", Font.BOLD, 20));
-		 ligues.setForeground(Color.white);
-		 JMenuItem itemaccount= new JMenuItem("Afficher les ligues");
-		 itemaccount.setFont(new Font("Serif", Font.PLAIN, 20));
-		 JMenuItem addligue= new JMenuItem("Ajouter une ligues");
-		 addligue.setFont(new Font("Serif", Font.PLAIN, 20));
-		 ligues.add(itemaccount);
-		 ligues.addSeparator();
-		 ligues.add(addligue);
+		 menu.add(menuItem());
 		 menubar.add(menu);
-		 menubar.add(ligues);
 		 menubar.setBackground(Color.lightGray);
 		return menubar;
+	 }
+	 
+	 private static JMenuItem menuItem()
+	 {
+		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
+		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
+		 itemMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			  RootData.AccountData();
+			}
+		});
+		 itemMenu.setSize(70,70);
+		 return itemMenu;
 	 }
 	 
 	 private static JPanel toolBar()
@@ -117,12 +138,54 @@ public class HomePage {
 		 JPanel panel = new JPanel();
 		 panel.setPreferredSize(new Dimension(300,400));
 		 panel.setLayout(new GridBagLayout());
-		 
-		 String choix[] = {"Ligue1", " Ligue2", " Ligue2", "Ligue3", "Ligue4"};
-		 JList listLigues = new JList(choix);
-		 listLigues.setPreferredSize(new Dimension(150,150));
-		 panel.add(listLigues);
+		 panel.add(listLigues());
 		 return panel;
+	 }
+	  
+	 private static JList<Ligue>  listLigues()
+	 {
+		 SortedSet<Ligue> choix = getLigues();
+		 JList<Ligue> listLigues = new JList<>();
+		 DefaultListModel<Ligue> listLigue = new DefaultListModel<>();
+		 listLigues.setFont(new Font("Serif", Font.PLAIN, 22));
+		 for (Ligue ligue : choix) {
+			   listLigue.addElement(ligue);
+			}
+		
+		 listLigues.addMouseListener(mouseEventOnJlist());
+		 listLigues.setModel(listLigue);
+		 listLigues.setPreferredSize(new Dimension(650,500));
+		 listLigues.setBackground(Color.lightGray);
+		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
+		 renderer.setHorizontalAlignment(JLabel.LEFT);
+		 
+		 
+		 Border borderitem = new EmptyBorder(7,7,7,7);
+		 listLigues.setBorder(borderitem);
+		 listLigues.setFixedCellWidth(120);
+		 listLigues.setFixedCellHeight(70);
+		 listLigues.setBorder(borderitem);
+		 return listLigues;
+	 }
+	 
+	 private static MouseListener mouseEventOnJlist()
+	 {
+		 MouseListener mouseListener = new MouseAdapter() {
+		      public void mouseClicked(MouseEvent mouseEvent) {
+		        JList theList = (JList) mouseEvent.getSource();
+		         System.out.println(theList.getSelectedValue());
+		      }
+		     
+		    };
+		    return mouseListener;
+	 }
+	 
+	 private static SortedSet<Ligue> getLigues()
+	 {
+		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel());
+			InterfaceApplication.signInPage.gestionPersonnel.getRoot();
+			SortedSet<Ligue>  ligues = signInPage.gestionPersonnel.getLigues();
+			return ligues;
 	 }
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {

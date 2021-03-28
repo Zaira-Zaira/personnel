@@ -19,6 +19,7 @@ public class LigueConsole
 	private EmployeConsole employeConsole;
     //private LigueConsole ligueConsole;
     
+	
 	public LigueConsole(GestionPersonnel gestionPersonnel, EmployeConsole employeConsole)
 	{
 		this.gestionPersonnel = gestionPersonnel;
