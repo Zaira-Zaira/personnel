@@ -1,9 +1,15 @@
 package InterfaceApplication;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,9 +17,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.SortedSet;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,9 +31,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import personnel.Employe;
 import personnel.GestionPersonnel;
@@ -38,47 +50,43 @@ public class HomePage {
 	
 	private Ligue ListLigues;
 	private SortedSet<Ligue> Ligues;
-	public static Ligue ligue;
-	private GestionPersonnel gestionPersonnel;
+	private static Ligue ligue;
+	private static GestionPersonnel gestionPersonnel;
 	Color selectCouleur = Color.RED;
-    private static int idLigue;
-    private Employe employe;
-    public static Ligue ligueItem;
+    private listEmployes listemp;
+    public static int idLigue;
     
     
-    
-    
-	public HomePage(GestionPersonnel gestionPersonnel, Ligue ligue, Employe employe)
-	{
-		this.gestionPersonnel = gestionPersonnel;
-		this.ligue= ligue;
-		this.employe = employe;
+	
+	 public HomePage(GestionPersonnel gestionPersonnel, listEmployes listemp) {
+		    this.gestionPersonnel = gestionPersonnel;
+			this.listemp = listemp;
 	}
-	
-	
-	 public static void Home() {
-		 JFrame homePage = new JFrame();
-    	 homePage.setVisible(true);
+
+
+	public static void Home() {
+		frame().setVisible(true);
+    }
+	 
+	public static JFrame frame()
+	{
+		JFrame homePage = new JFrame();
+		 homePage.setLayout(new GridBagLayout());
 		 homePage.setTitle("Home page");
-		 homePage.setPreferredSize(new Dimension(900,800));
+		 homePage.setSize(700,600);
 		 homePage.setJMenuBar(menuBar());
-		 homePage.setLayout(new BorderLayout());
-		 homePage.add(panel(), BorderLayout.CENTER);
-		 homePage.add(title(), BorderLayout.NORTH);
-		 homePage.add(addLigueBtn(), BorderLayout.SOUTH);
+		 homePage.add(panelContainer());
 		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 homePage.pack();
 		 homePage.setLocationRelativeTo(null);
-    }
-	 
+		 return homePage;
+	}
 	 
 	 private static JLabel title()
 	 {
 		 JLabel title = new JLabel("Liste des ligues");
 		 title.setHorizontalAlignment(SwingConstants.CENTER);
-		 Border bordertitle = new EmptyBorder(70,0,10,0);
-		 title.setBorder(bordertitle);
-		 title.setFont(new Font("Serif", Font.BOLD, 25));
+		 title.setFont(new Font("Serif", Font.BOLD, 25));			
 		 return title;
 	 }
 	 
@@ -86,9 +94,88 @@ public class HomePage {
 	 {
 		 JButton addLigueBtn = new JButton("Ajouter une ligue");
 		 addLigueBtn.setFont(new Font("Serif", Font.BOLD, 20));
-		 addLigueBtn.setPreferredSize(new Dimension(100,40));
+		 addLigueBtn.setPreferredSize(new Dimension(220,30));
+		 addLigueBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addLigue().setVisible(true);
+			}
+		});
 		 return addLigueBtn;
 	 }
+	 
+	 private static JDialog addLigue()
+	 {
+		    JDialog add = new JDialog(frame(), "Ajouter ligue");
+			add.setSize(400,400);
+			add.setLocationRelativeTo(null);
+		    add.add(dialog());
+			return add;
+	 }
+	 
+	 private static JPanel dialog()
+	 {
+		 JPanel panelCont = new JPanel();
+		 panelCont.setLayout(new FlowLayout());
+		 JPanel panel = new JPanel();
+		 GridLayout gridLayout = new GridLayout(0,2);
+		 gridLayout.setVgap(10);
+		 gridLayout.setHgap(10);
+		 panel.setLayout(gridLayout);
+		 panel.add(ligueNameLabel());
+		 panel.add(ligueNameInput());
+		 panel.add(saveLigue());
+		 panel.add(cancelAddLigue());
+		 panelCont.add(panel);
+		 return panelCont;
+	 }
+	 
+	 private static JLabel ligueNameLabel()
+	 {
+		  JLabel  name = new JLabel("Nom :");
+		  return name;
+	 }
+	 
+	 private static TextField ligueNameInput()
+	 {
+		 TextField inputName = new TextField();
+		 return inputName;
+	 }
+	 
+	 private static JButton saveLigue()
+	 {
+		 JButton save = new JButton("Enregistrer");
+		 save.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					try {
+						gestionPersonnel.addLigue("Marketing2");
+					} catch (SauvegardeImpossible e1) {
+						e1.printStackTrace();
+					}
+				
+				
+			}
+		});
+		 return save;
+	 }
+	 
+	 
+	 private static JButton cancelAddLigue()
+	 {
+		 JButton cancel = new JButton("Annuler");
+		 cancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addLigue().setVisible(false);				
+			}
+		});
+		 return cancel;
+	 }
+	 
 	 private static JMenuBar menuBar()
 	 {
 		 JMenuBar menubar = new JMenuBar();
@@ -118,67 +205,68 @@ public class HomePage {
 		 return itemMenu;
 	 }
 	 
-	 private static JPanel toolBar()
-	 {
-		 JPanel paneltool = new JPanel();
-		 JToolBar toolbar = new JToolBar();
-		 toolbar.setPreferredSize(new Dimension(500,500));
-		 JButton addligue = new JButton("Ajouter une ligues");
-		 JButton editligue = new JButton("Modifier la ligue");
-		 JButton deleteLigue = new JButton("Supprimer une ligue");
-		 toolbar.add(addligue);
-		 toolbar.add(editligue);
-		 toolbar.add(deleteLigue);
-		 paneltool.add(toolbar);
-		 return paneltool;
-	 }
-	 
-	 private static JPanel panel() 
-	 {
-		 JPanel panel = new JPanel();
-		 panel.setPreferredSize(new Dimension(300,400));
-		 panel.setLayout(new GridBagLayout());
-		 panel.add(listLigues());
-		 return panel;
-	 }
 	  
-	 private static JList<Ligue>  listLigues()
+	 public static JList<Ligue>  listLigues()
 	 {
 		 SortedSet<Ligue> choix = getLigues();
 		 JList<Ligue> listLigues = new JList<>();
+		 listLigues.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		 listLigues.setLayoutOrientation(JList.VERTICAL_WRAP);
 		 DefaultListModel<Ligue> listLigue = new DefaultListModel<>();
 		 listLigues.setFont(new Font("Serif", Font.PLAIN, 22));
 		 for (Ligue ligue : choix) {
 			   listLigue.addElement(ligue);
+			   listEmployes emplist = new listEmployes(gestionPersonnel,ligue);
+				 emplist.getList(ligue);
 			}
 		
-		 listLigues.addMouseListener(mouseEventOnJlist());
+		 listLigues.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				//JList theList = (JList) ListSelectionEvent.getSource();
+		         //System.out.println(listLigue.getSelectedValue());
+				if (!e.getValueIsAdjusting()){
+		            JList source = (JList)e.getSource();
+		            Ligue selected = (Ligue) source.getSelectedValue();
+		            listEmployes ligue = new listEmployes(gestionPersonnel,selected);
+		            listEmployes.listEmployes();
+		        }
+				
+			}
+		});
 		 listLigues.setModel(listLigue);
-		 listLigues.setPreferredSize(new Dimension(650,500));
 		 listLigues.setBackground(Color.lightGray);
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
-		 renderer.setHorizontalAlignment(JLabel.LEFT);
-		 
-		 
-		 Border borderitem = new EmptyBorder(7,7,7,7);
-		 listLigues.setBorder(borderitem);
-		 listLigues.setFixedCellWidth(120);
+		 renderer.setHorizontalAlignment(JLabel.CENTER);
+		 listLigues.setFixedCellWidth(700);
 		 listLigues.setFixedCellHeight(70);
-		 listLigues.setBorder(borderitem);
 		 return listLigues;
 	 }
-	 
-	 private static MouseListener mouseEventOnJlist()
+
+	 /**
+	 * @return
+	 */
+	private static JPanel panelContainer()
 	 {
-		 MouseListener mouseListener = new MouseAdapter() {
-		      public void mouseClicked(MouseEvent mouseEvent) {
-		        JList theList = (JList) mouseEvent.getSource();
-		         System.out.println(theList.getSelectedValue());
-		      }
-		     
-		    };
-		    return mouseListener;
+		 JPanel panelContainer = new JPanel();
+		 panelContainer.setPreferredSize(new Dimension(600,500));
+		 GridLayout layout = new GridLayout(0,1);
+		 layout.setVgap(-40);
+		 panelContainer.setLayout(layout);
+		 panelContainer.add(title());
+		 
+		Box boxaddLigueBtn = Box.createHorizontalBox();
+		 
+		 boxaddLigueBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		 boxaddLigueBtn.add(addLigueBtn());
+			
+			
+		 panelContainer.add(boxaddLigueBtn);
+		 panelContainer.add(listLigues());
+		 return panelContainer;
 	 }
+	
 	 
 	 private static SortedSet<Ligue> getLigues()
 	 {
@@ -186,6 +274,11 @@ public class HomePage {
 			InterfaceApplication.signInPage.gestionPersonnel.getRoot();
 			SortedSet<Ligue>  ligues = signInPage.gestionPersonnel.getLigues();
 			return ligues;
+	 }
+	 
+	 public static Ligue getLigue()
+	 {
+		 return ligue;
 	 }
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {

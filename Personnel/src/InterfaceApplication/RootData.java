@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,12 +28,13 @@ public class RootData {
 		JFrame account = new JFrame();
 		account.setVisible(true);
 		account.setTitle("Mon compte root");
-		account.getContentPane().setLayout(new GridBagLayout());
+		account.getContentPane().setLayout(new BoxLayout(account, BoxLayout.Y_AXIS));
 		account.setSize(600, 500);
 		
 		
 		account.setPreferredSize(new Dimension(700,550));
 		account.setLocationRelativeTo( null );
+		account.add(editEmployeBtn());
 		account.add(panelCobtainer());
 		account.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		account.pack();
@@ -45,15 +48,15 @@ public class RootData {
 		ArrayList<JLabel> labels = new ArrayList<>();
 		labels.add(new JLabel("Nom : "));
 		labels.add(new JLabel("Baudet "));
-		labels.add(new JLabel("Prénom : "));
+		labels.add(new JLabel("PrÃ©nom : "));
 		labels.add(new JLabel("Alice"));
 		labels.add(new JLabel("Email :"));
 		labels.add(new JLabel("alice@gmail.com"));
 		labels.add(new JLabel("Password : "));
 		labels.add(new JLabel("alice125! "));
-		labels.add(new JLabel("Date d'arrivée (Y-m-d) : "));
+		labels.add(new JLabel("Date d'arrivÃ©e (Y-m-d) : "));
 		labels.add(new JLabel("2020-08-04  "));
-		labels.add(new JLabel("Date de départ (Y-m-d) : "));
+		labels.add(new JLabel("Date de dÃ©part (Y-m-d) : "));
 		labels.add(new JLabel("  "));
 		for(JLabel jlabel : labels) 
 		{
@@ -72,6 +75,12 @@ public class RootData {
 		titleAccount.setFont(new Font("Serif", Font.BOLD, 20));
 		panelContainer.add(titleAccount, BorderLayout.NORTH);
 		return panelContainer;
+	}
+	
+	private static JButton editEmployeBtn()
+	{
+		 JButton editEmpBtn = new JButton("Editer");
+		 return editEmpBtn;
 	}
 	
 	 public static void main(String[] args)  throws SauvegardeImpossible

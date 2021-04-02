@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -21,12 +23,19 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
 
 
 public class AddChangeEmploye {
 	
+	private static Ligue ligue;
+	
+	
+	 public AddChangeEmploye(Ligue ligue) {
+		    this.ligue = ligue;
+	}
 	
 	public static  void AddEmploye() {
 		
@@ -57,10 +66,6 @@ public class AddChangeEmploye {
 		TextField password = new TextField();
 		TextField dateArrivee= new TextField();
 		TextField dateDepart = new TextField();
-		JButton addbtn = new JButton("Ajouter");
-		JButton cancelbtn = new JButton("Annuler");
-		
-		
 		JLabel nomL = new JLabel("Nom :");
 		nomL.setFont(new Font("Serif", Font.PLAIN, 22));
 		JLabel prenomL = new JLabel("Prénom :");
@@ -87,9 +92,29 @@ public class AddChangeEmploye {
 		panel.add(dateArrivee);
 		panel.add(dateDepartL);
 		panel.add(dateDepart);
-		panel.add(addbtn);
-		panel.add(cancelbtn);
+		panel.add(addEmploye());
+		panel.add(cancelAdd());
 		return panel;
+	}
+	
+	private static JButton addEmploye()
+	{
+		JButton addbtn = new JButton("Ajouter");
+		addbtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ligue.addEmploye("test3", "test3", "test3@gmail.com", "test1234!", null, null);
+			}
+		});
+		return addbtn;
+	}
+	
+	private static JButton cancelAdd()
+	{
+		JButton cancelbtn = new JButton("Annuler");
+		
+		return cancelbtn;
 	}
 	
 	private static JPanel panelContainer()
@@ -107,7 +132,6 @@ public class AddChangeEmploye {
 		panelContainer.add(text, BorderLayout.NORTH);
 		return panelContainer;
 	}
-	
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {
 		 AddEmploye();

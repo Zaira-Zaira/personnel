@@ -23,6 +23,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import commandLine.EmployeConsole;
@@ -33,70 +34,114 @@ import personnel.Passerelle;
 import personnel.SauvegardeImpossible;
 
 
-public class signInPage {
+public class signInPage{
 	
-	
-    ButtonGroup group = new ButtonGroup();     
-    JRadioButton radio1 = new JRadioButton("ON", true);
-    JRadioButton radio2 = new JRadioButton("OFF", false);
+    static GestionPersonnel gestionPersonnel;
+    HomePage homepage;
+    listEmployes listemp;
+    Ligue ligue;
     
-    public static GestionPersonnel gestionPersonnel;
     
 	public signInPage(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;
+		this.homepage =  new HomePage(gestionPersonnel, listemp);
+		this.listemp =  new listEmployes(gestionPersonnel, ligue);
 	}
 	
     public static void signIn()
     {
-     JFrame frame = new JFrame();
-     frame.setTitle("Sign In !");
-     frame.setLayout(new GridBagLayout());
-     JPanel panel = new JPanel();
-     panel.setLayout(new GridLayout(0,2, 5,5));
-     panel.setPreferredSize(new Dimension(400,100));
-     JLabel loginL = new JLabel("Login : ");
-     loginL.setFont(new Font("Serif", Font.BOLD, 20));
-     panel.add(loginL);
-     TextField login = new TextField();
-     panel.add(login);
-     login.setPreferredSize(new Dimension(150,50));
-     JLabel passwordL = new JLabel("Mot de passe : ");
-     passwordL.setFont(new Font("Serif", Font.BOLD, 20));
-     panel.add(passwordL);
-     TextField passwordTxt = new TextField();
-     passwordTxt.setPreferredSize(new Dimension(150,50));
-     panel.add(passwordTxt);
-     JButton btnconnexion = new JButton("Connexion");
-     btnconnexion.setPreferredSize(new Dimension(150,50));
-     panel.add(btnconnexion);
-     btnconnexion.addActionListener(new ActionListener()
-     {
+    	frame();
+    }
+    
+    private static JFrame frame()
+    {
+    	JFrame frame = new JFrame();
+    	
+    	 frame.setTitle("Sign In !");
+         frame.setLayout(new GridBagLayout());
+         frame.setLocationRelativeTo(null);
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         frame.setJMenuBar(menuBar());
+         frame.add(container());
+         frame.setVisible(true);
+         frame.pack();
+    	
+    	return frame;
+    }
+    
+    private static JLabel login()
+    {
+    	JLabel loginL = new JLabel("Login : ");
+        loginL.setFont(new Font("Serif", Font.BOLD, 20));
+        
+        return loginL;
+    }
+    
+    private static TextField loginInput()
+    {
+    	TextField login = new TextField();
+        login.setPreferredSize(new Dimension(150,50));
+        
+        return login;
+    }
+    
+    private static JLabel password()
+    {
+    	JLabel passwordL = new JLabel("Mot de passe : ");
+        passwordL.setFont(new Font("Serif", Font.BOLD, 20));
+        
+        return passwordL;
+    }
+    
+    private static TextField passInput()
+    {
+    	TextField passwordTxt = new TextField();
+        passwordTxt.setPreferredSize(new Dimension(150,50));
+        
+        return passwordTxt;
+    }
+    private static  JButton btnConnexion()
+    {
+    	 JButton btnconnexion = new JButton("Connexion");
+         btnconnexion.setPreferredSize(new Dimension(150,50));
+         
+         btnconnexion.addActionListener(new ActionListener()
+         {
 
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			if(passwordTxt.getText().equals("root")) {
-				 frame.setVisible(false);
-				 InterfaceApplication.HomePage.Home();
-			}else {
-				frame.getContentPane().add(new JTextArea("Password incorrect"));
-			}
-			
-				if(checkPassword(passwordTxt.getText())) {
-					frame.setVisible(false);
-					 InterfaceApplication.HomePage.Home();
-				}else {
-					frame.getContentPane().add(new JTextArea("Password incorrect"));
-				}
-		   }
-    	 
-     });
-     frame.setLocationRelativeTo(null);
-     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     frame.setJMenuBar(menuBar());
-     frame.add(panel);
-     frame.setVisible(true);
-     frame.pack();
+    		@Override
+    		public void actionPerformed(ActionEvent arg0) {
+    			if(passInput().getText().equals("root")) {
+    				frame().setVisible(false);
+    				 InterfaceApplication.HomePage.Home();
+    			}else {
+    				frame().getContentPane().add(new JTextArea("Password incorrect"));
+    			}
+    			
+    				if(checkPassword(passInput().getText())) {
+    					frame().setVisible(false);
+    					 InterfaceApplication.HomePage.Home();
+    				}else {
+    					frame().getContentPane().add(new JTextArea("Password incorrect"));
+    				}
+    		   }
+        	 
+         });
+         
+         return btnconnexion;
+    }
+    
+    private static JPanel container()
+    {
+    	JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0,2, 5,5));
+        panel.setPreferredSize(new Dimension(400,100));
+        panel.add(login());
+        panel.add(loginInput());
+        panel.add(password());
+        panel.add(passInput());
+        panel.add(btnConnexion());
+        return panel;
     }
     
     private static boolean checkPassword(String password)
@@ -120,7 +165,6 @@ public class signInPage {
 		 menubar.add(menu);
 		return menubar;
 	 }
-   
     
     public static void HomePage() {
     	 JFrame homePage = new JFrame();
@@ -142,6 +186,7 @@ public class signInPage {
 	    }else {
 		System.out.println("data uncharged");
 	    }
+    	
     	signIn();
 	}
 	
