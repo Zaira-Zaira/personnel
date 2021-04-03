@@ -60,6 +60,7 @@ public class signInPage{
     	
     	 frame.setTitle("Sign In !");
          frame.setLayout(new GridBagLayout());
+         frame.setPreferredSize(new Dimension(600,600));
          frame.setLocationRelativeTo(null);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          frame.setJMenuBar(menuBar());
@@ -73,15 +74,15 @@ public class signInPage{
     private static JLabel login()
     {
     	JLabel loginL = new JLabel("Login : ");
-        loginL.setFont(new Font("Serif", Font.BOLD, 20));
-        
+        loginL.setFont(new Font("Serif", Font.BOLD, 25));
+        loginL.setForeground(Color.decode("#540b0e"));
         return loginL;
     }
     
     private static TextField loginInput()
     {
     	TextField login = new TextField();
-        login.setPreferredSize(new Dimension(150,50));
+        login.setPreferredSize(new Dimension(150,40));
         
         return login;
     }
@@ -89,8 +90,8 @@ public class signInPage{
     private static JLabel password()
     {
     	JLabel passwordL = new JLabel("Mot de passe : ");
-        passwordL.setFont(new Font("Serif", Font.BOLD, 20));
-        
+        passwordL.setFont(new Font("Serif", Font.BOLD, 25));
+        passwordL.setForeground(Color.decode("#540b0e"));
         return passwordL;
     }
     
@@ -104,8 +105,10 @@ public class signInPage{
     private static  JButton btnConnexion()
     {
     	 JButton btnconnexion = new JButton("Connexion");
-         btnconnexion.setPreferredSize(new Dimension(150,50));
-         
+         btnconnexion.setPreferredSize(new Dimension(200,50));
+         btnconnexion.setBackground(Color.decode("#540b0e"));
+         btnconnexion.setForeground(Color.decode("#fafafa"));
+         btnconnexion.setFont(new Font("Serif", Font.PLAIN, 20));
          btnconnexion.addActionListener(new ActionListener()
          {
 
@@ -134,8 +137,10 @@ public class signInPage{
     private static JPanel container()
     {
     	JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0,2, 5,5));
-        panel.setPreferredSize(new Dimension(400,100));
+    	GridLayout layout = new GridLayout(0,2);
+    	layout.setVgap(40);
+        panel.setLayout(layout);
+        panel.setPreferredSize(new Dimension(400,200));
         panel.add(login());
         panel.add(loginInput());
         panel.add(password());
@@ -156,11 +161,11 @@ public class signInPage{
 	 {
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(50,50));
-		 menubar.setBackground(Color.LIGHT_GRAY);
+		 menubar.setBackground(Color.decode("#540b0e"));
 		 JMenu menu = new JMenu("Gestion des ligues");
 		 menu.setAlignmentX(SwingConstants.WEST);
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
-		 menu.setForeground(Color.white);
+		 menu.setForeground(Color.decode("#fafafa"));
 		 menu.setSize(80,80);
 		 menubar.add(menu);
 		return menubar;
@@ -182,7 +187,7 @@ public class signInPage{
 				new signInPage(GestionPersonnel.getGestionPersonnel());
     	signInPage.gestionPersonnel.getRoot();
     	if (signInPage.checkPassword("toor")) {
-    		System.out.println("data charged");
+
 	    }else {
 		System.out.println("data uncharged");
 	    }

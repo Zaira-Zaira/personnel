@@ -1,5 +1,7 @@
 package InterfaceApplication;
 
+import static commandLineMenus.rendering.examples.util.InOut.getString;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -11,6 +13,7 @@ import java.awt.Insets;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -23,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
@@ -31,10 +35,12 @@ import personnel.SauvegardeImpossible;
 public class AddChangeEmploye {
 	
 	private static Ligue ligue;
-	
-	
-	 public AddChangeEmploye(Ligue ligue) {
+	private GestionPersonnel gestionPersonnel;
+	private HomePage ligues;
+	 public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues) {
 		    this.ligue = ligue;
+		    this.gestionPersonnel = gestionPersonnel;
+		    this.ligues = ligues;
 	}
 	
 	public static  void AddEmploye() {
@@ -51,7 +57,7 @@ public class AddChangeEmploye {
 		employeAdd.add(panelContainer(), panCont);
 		employeAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeAdd.pack();
-		
+		System.out.println(HomePage.listLigues());
 	}
 
 	
@@ -104,7 +110,7 @@ public class AddChangeEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ligue.addEmploye("test3", "test3", "test3@gmail.com", "test1234!", null, null);
+				ligue.addEmploye("test3", "test3", "test3@gmail.com", "test1234!", LocalDate.parse("2018-06-07"),  null);
 			}
 		});
 		return addbtn;

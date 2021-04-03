@@ -44,9 +44,9 @@ import personnel.SauvegardeImpossible;
 
 public class listEmployes {
 	
-	private GestionPersonnel gestionPersonnel;
+	private static GestionPersonnel gestionPersonnel;
 	private static Ligue ligue;
-	
+	private static HomePage homePage;
 	
 	 public listEmployes(GestionPersonnel gestionPersonnel, Ligue ligue) {
 		    this.ligue = ligue;
@@ -55,6 +55,9 @@ public class listEmployes {
 	 
 	public static void listEmployes()
 	{
+		for(Employe employe : ligue.getEmployes()) {
+			System.out.println(listEmploye());
+		}
 		frame();
 	}
 	
@@ -161,10 +164,11 @@ public class listEmployes {
 	
 	private static JPanel Container() {
 		JPanel panel = new JPanel();
-		GridLayout layout = new GridLayout(0,2);
+		GridLayout layout = new GridLayout(0,1);
+		layout.setVgap(10);
 		panel.setLayout(layout);
-		panel.add(listEmp());
 		panel.add(infoLigue());
+		panel.add(listEmp());
 		return panel;
 	}
 	
@@ -233,7 +237,11 @@ public class listEmployes {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					ligue.remove();
+				} catch (SauvegardeImpossible e1) {
+					e1.printStackTrace();
+				}
 				dialogDeleteLigue().setVisible(false);
 			}
 		});
@@ -251,26 +259,31 @@ public class listEmployes {
 	}
 	
 	
-	private static JList<Employe> listEmploye()
+	private static JList listEmploye()
 	{
 		
-		 SortedSet<Employe> choix = ligue.getEmployes();
-		 JList<Employe> listemp = new JList<>();
-		 listemp.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		 listemp.setLayoutOrientation(JList.VERTICAL_WRAP);
-		 DefaultListModel<String> listemploye = new DefaultListModel<>();
-		 listemp.setFont(new Font("Serif", Font.PLAIN, 22));
-		 for (Employe employe : choix) {
-			 listemploye.addElement(employe.getNom());
+		  DefaultListModel model = new DefaultListModel();
+		 for (Employe employe : ligue.getEmployes()) {
+			    model.addElement(employe.getNom());
 			}
-		 
-		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listemp.getCellRenderer();  
+		 JList names = new JList(model);
+		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)names.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
-		 listemp.setFixedCellWidth(700);
-		 listemp.setFixedCellHeight(70);
-		return listemp;
+		return names;
 	}
 	
+	private static JList<String> EmployesName()
+	{
+		SortedSet<Employe> choix = ligue.getEmployes();
+		JList<String> EmployesName = new JList<>();
+		DefaultListModel<String> names = new DefaultListModel<>();
+		
+		for(Employe employe : choix) {
+			names.addElement(employe.getNom());
+		}
+		EmployesName.setModel(names);
+		return EmployesName;
+	}
 	
 	private static JPanel infoLigue()
 	{
@@ -288,7 +301,7 @@ public class listEmployes {
 		addEmploye.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddChangeEmploye add = new AddChangeEmploye(ligue);
+				AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, homePage);
 				AddChangeEmploye.AddEmploye();
 			}
 		});

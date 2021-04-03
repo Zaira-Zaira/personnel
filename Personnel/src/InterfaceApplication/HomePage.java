@@ -1,5 +1,6 @@
 package InterfaceApplication;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,6 +22,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -30,8 +32,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -55,8 +60,7 @@ public class HomePage {
 	Color selectCouleur = Color.RED;
     private listEmployes listemp;
     public static int idLigue;
-    
-    
+    private HomePage homePage;
 	
 	 public HomePage(GestionPersonnel gestionPersonnel, listEmployes listemp) {
 		    this.gestionPersonnel = gestionPersonnel;
@@ -73,7 +77,6 @@ public class HomePage {
 		JFrame homePage = new JFrame();
 		 homePage.setLayout(new GridBagLayout());
 		 homePage.setTitle("Home page");
-		 homePage.setSize(700,600);
 		 homePage.setJMenuBar(menuBar());
 		 homePage.add(panelContainer());
 		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,8 +98,9 @@ public class HomePage {
 		 JButton addLigueBtn = new JButton("Ajouter une ligue");
 		 addLigueBtn.setFont(new Font("Serif", Font.BOLD, 20));
 		 addLigueBtn.setPreferredSize(new Dimension(220,30));
+		 addLigueBtn.setBackground(Color.decode("#ffcad4"));
+		 addLigueBtn.setForeground(Color.decode("#222"));
 		 addLigueBtn.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				addLigue().setVisible(true);
@@ -137,21 +141,23 @@ public class HomePage {
 		  return name;
 	 }
 	 
-	 private static TextField ligueNameInput()
+	 private static JTextField ligueNameInput()
 	 {
-		 TextField inputName = new TextField();
+		 JTextField inputName = new JTextField();
 		 return inputName;
 	 }
 	 
 	 private static JButton saveLigue()
 	 {
 		 JButton save = new JButton("Enregistrer");
+		 JTextField newLigue = ligueNameInput();
 		 save.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					try {
-						gestionPersonnel.addLigue("Marketing2");
+						gestionPersonnel.addLigue(newLigue.getText());
+						Ligue newL = gestionPersonnel.addLigue(newLigue.getText());
 					} catch (SauvegardeImpossible e1) {
 						e1.printStackTrace();
 					}
@@ -183,10 +189,10 @@ public class HomePage {
 		 JMenu menu = new JMenu("Mon compte");
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
 		 menu.setSize(70,70);
-		 menu.setForeground(Color.white);
+		 menu.setForeground(Color.decode("#fafafa"));
 		 menu.add(menuItem());
 		 menubar.add(menu);
-		 menubar.setBackground(Color.lightGray);
+		 menubar.setBackground(Color.decode("#9a031e"));
 		return menubar;
 	 }
 	 
@@ -194,6 +200,8 @@ public class HomePage {
 	 {
 		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
 		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
+		 itemMenu.setBackground(Color.decode("#9a031e"));
+		 itemMenu.setForeground(Color.decode("#fafafa"));
 		 itemMenu.addActionListener(new ActionListener() {
 			
 			@Override
@@ -213,13 +221,13 @@ public class HomePage {
 		 listLigues.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		 listLigues.setLayoutOrientation(JList.VERTICAL_WRAP);
 		 DefaultListModel<Ligue> listLigue = new DefaultListModel<>();
-		 listLigues.setFont(new Font("Serif", Font.PLAIN, 22));
+		 listLigues.setFont(new Font("Serif", Font.BOLD, 22));
+		 listLigues.setModel(listLigue);
 		 for (Ligue ligue : choix) {
 			   listLigue.addElement(ligue);
 			   listEmployes emplist = new listEmployes(gestionPersonnel,ligue);
 				 emplist.getList(ligue);
 			}
-		
 		 listLigues.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -236,13 +244,15 @@ public class HomePage {
 			}
 		});
 		 listLigues.setModel(listLigue);
-		 listLigues.setBackground(Color.lightGray);
+		 listLigues.setBackground(Color.decode("#b2f7ef"));
+		 listLigues.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
 		 listLigues.setFixedCellWidth(700);
 		 listLigues.setFixedCellHeight(70);
 		 return listLigues;
 	 }
+	
 
 	 /**
 	 * @return
@@ -250,30 +260,34 @@ public class HomePage {
 	private static JPanel panelContainer()
 	 {
 		 JPanel panelContainer = new JPanel();
-		 panelContainer.setPreferredSize(new Dimension(600,500));
-		 GridLayout layout = new GridLayout(0,1);
-		 layout.setVgap(-40);
-		 panelContainer.setLayout(layout);
-		 panelContainer.add(title());
-		 
-		Box boxaddLigueBtn = Box.createHorizontalBox();
-		 
-		 boxaddLigueBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-		 boxaddLigueBtn.add(addLigueBtn());
+		 BorderLayout card = new BorderLayout(0,1);
+		 card.setVgap(20);
+		 panelContainer.setLayout(card);
+		 panelContainer.add(title(), BorderLayout.NORTH);
+		 Box boxaddLigueBtn = Box.createHorizontalBox();
+		 boxaddLigueBtn.setPreferredSize(new Dimension(100,30));
+	     boxaddLigueBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+			boxaddLigueBtn.add(addLigueBtn());
 			
-			
-		 panelContainer.add(boxaddLigueBtn);
-		 panelContainer.add(listLigues());
+		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
+		 panelContainer.add(listLigues(), BorderLayout.CENTER);
 		 return panelContainer;
 	 }
 	
 	 
-	 private static SortedSet<Ligue> getLigues()
+	 public static SortedSet<Ligue> getLigues()
 	 {
 		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel());
 			InterfaceApplication.signInPage.gestionPersonnel.getRoot();
 			SortedSet<Ligue>  ligues = signInPage.gestionPersonnel.getLigues();
 			return ligues;
+	 }
+	 
+	 private static JTable model()
+	 {
+		TableModel model = new TableModel();
+		 JTable table = new JTable(model);
+		 return table;
 	 }
 	 
 	 public static Ligue getLigue()
@@ -285,3 +299,4 @@ public class HomePage {
 		 Home();
 	  }
 }
+
