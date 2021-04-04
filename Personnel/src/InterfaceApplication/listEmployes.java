@@ -29,6 +29,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -55,15 +56,11 @@ public class listEmployes {
 	 
 	public static void listEmployes()
 	{
-		for(Employe employe : ligue.getEmployes()) {
-			System.out.println(listEmploye());
-		}
 		frame();
 	}
 	
 	public Ligue getList(Ligue ligue) {
 		ligue = ligue;
-		 //System.out.println(ligueitem);
 		 return ligue;
 	}
 	
@@ -120,6 +117,33 @@ public class listEmployes {
 		 return itemMenu;
 	}
 	
+	public static JList<Employe> list()
+	{
+		SortedSet<Employe> emp = getEmployes();
+		JList<Employe> empL = new JList<>();
+		DefaultListModel<Employe> listEmp = new DefaultListModel<>();
+		empL.setModel(listEmp);
+		
+		for(Employe employe : emp)
+		{
+			listEmp.addElement(employe);
+		}
+		
+		 empL.setBackground(Color.decode("#b2f7ef"));
+		 empL.setForeground(Color.decode("#540b0e"));
+		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)empL.getCellRenderer();  
+		 renderer.setHorizontalAlignment(JLabel.CENTER);
+		 empL.setFixedCellWidth(700);
+		 empL.setFixedCellHeight(70);
+		
+		return empL;
+	}
+	
+	 public static SortedSet<Employe> getEmployes()
+	 {
+			SortedSet<Employe> employes = ligue.getEmployes();
+			return employes;
+	 }
 	
 	private static JMenuItem itemMenuLigues()
 	{
@@ -139,7 +163,7 @@ public class listEmployes {
 		boxaddEmployeBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		boxaddEmployeBtn.add(addEmploye());
 		panel.add(boxaddEmployeBtn);
-		panel.add(listEmploye());
+		panel.add(list());
 		return panel;
 	}
 	
@@ -200,12 +224,14 @@ public class listEmployes {
 		return deleteLigue;
 	}
 	
+	
 	private static JLabel deleteMsg()
 	{
 		JLabel label = new JLabel("La ligue a bien été supprimée");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		return label;
 	}
+	
 	
 	public static JDialog  dialogDeleteLigue()
 	{
@@ -258,32 +284,6 @@ public class listEmployes {
 		return title;
 	}
 	
-	
-	private static JList listEmploye()
-	{
-		
-		  DefaultListModel model = new DefaultListModel();
-		 for (Employe employe : ligue.getEmployes()) {
-			    model.addElement(employe.getNom());
-			}
-		 JList names = new JList(model);
-		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)names.getCellRenderer();  
-		 renderer.setHorizontalAlignment(JLabel.CENTER);
-		return names;
-	}
-	
-	private static JList<String> EmployesName()
-	{
-		SortedSet<Employe> choix = ligue.getEmployes();
-		JList<String> EmployesName = new JList<>();
-		DefaultListModel<String> names = new DefaultListModel<>();
-		
-		for(Employe employe : choix) {
-			names.addElement(employe.getNom());
-		}
-		EmployesName.setModel(names);
-		return EmployesName;
-	}
 	
 	private static JPanel infoLigue()
 	{

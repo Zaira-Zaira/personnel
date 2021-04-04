@@ -61,7 +61,7 @@ public class HomePage {
     private listEmployes listemp;
     public static int idLigue;
     private HomePage homePage;
-	
+    
 	 public HomePage(GestionPersonnel gestionPersonnel, listEmployes listemp) {
 		    this.gestionPersonnel = gestionPersonnel;
 			this.listemp = listemp;
@@ -232,8 +232,6 @@ public class HomePage {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				//JList theList = (JList) ListSelectionEvent.getSource();
-		         //System.out.println(listLigue.getSelectedValue());
 				if (!e.getValueIsAdjusting()){
 		            JList source = (JList)e.getSource();
 		            Ligue selected = (Ligue) source.getSelectedValue();

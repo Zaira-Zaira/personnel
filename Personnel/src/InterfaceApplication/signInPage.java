@@ -41,7 +41,6 @@ public class signInPage{
     listEmployes listemp;
     Ligue ligue;
     
-    
 	public signInPage(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;

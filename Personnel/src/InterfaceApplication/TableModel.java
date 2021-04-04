@@ -5,29 +5,31 @@ import javax.swing.JList;
 import javax.swing.table.AbstractTableModel;
 
 import InterfaceApplication.*;
+import personnel.Employe;
 import personnel.Ligue;
 
 public class TableModel  extends AbstractTableModel{
     private HomePage homePage;
-    
+    private listEmployes listEmployes;
+    private Employe employe;
 	public int getNbLigues() {
 		
-		return homePage.getLigues().size();
+		return listEmployes.getEmployes().size();
 	}
 	
-	public JList<Ligue> liguesList()
+	public JList<Employe> liguesList()
 	{
-		return homePage.listLigues();
+		return listEmployes.list();
 	}
 	
 	@Override
 	public int getColumnCount() {
-		return 3;
+		return 4;
 	}
 
 	@Override
 	public int getRowCount() {
-		return homePage.getLigues().size();
+		return listEmployes.getEmployes().size();
 	}
 
 	@Override
@@ -35,11 +37,15 @@ public class TableModel  extends AbstractTableModel{
 		
 		switch(indiceColonne) {
 		case 0 :
-			return homePage.getLigues();
+			return employe.getNom();
 		case 1 : 
-			return "Supprimer";
+			return employe.getPrenom();
 		case 2: 
-			return "Modifier";
+			return employe.getMail();
+		case 3:
+			return employe.getDateArrivee();
+		case 4 :
+			return employe.getDateDepart();
 			default: return null;
 		}
 	}
@@ -47,11 +53,15 @@ public class TableModel  extends AbstractTableModel{
 	public String getColumnName(int indiceColonne) {
 		switch(indiceColonne) {
 		case 0 :
-			return "ligue";
+			return "Nom";
 		case 1 :
-			return "";
+			return "Prénom";
 		case 2 :
-			return "";
+			return "Mail";
+		case 3 :
+			return "Date d'arrivée";
+		case 4 :
+			return "Date de départ";
 			default : return null;
 		}
 	}
