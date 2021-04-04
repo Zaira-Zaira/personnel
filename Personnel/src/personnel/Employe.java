@@ -292,6 +292,15 @@ public class Employe implements Serializable, Comparable<Employe>
 		 gestionPersonnel.update(this, string);
 	}
 	
+	public void updateEmploye()
+	{
+		try {
+			gestionPersonnel.updateEmploye(this);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
 
 

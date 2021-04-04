@@ -13,6 +13,7 @@ public interface Passerelle
 	public void updateEmploye(Employe employe, String string) throws SauvegardeImpossible;
 	//void updateEmployee(Employe employe, String dataList) throws SauvegardeImpossible;
 	public Employe getSuperAdmin(Employe root) throws SauvegardeImpossible;
+	public void updateEmp(Employe employe) throws SauvegardeImpossible;
 
 }
 

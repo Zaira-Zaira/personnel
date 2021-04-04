@@ -40,6 +40,7 @@ public class signInPage{
     HomePage homepage;
     listEmployes listemp;
     Ligue ligue;
+    Employe employe;
     
 	public signInPage(GestionPersonnel gestionPersonnel)
 	{

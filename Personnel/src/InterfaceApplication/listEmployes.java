@@ -30,10 +30,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import personnel.Employe;
 import personnel.GestionPersonnel;
@@ -48,10 +51,12 @@ public class listEmployes {
 	private static GestionPersonnel gestionPersonnel;
 	private static Ligue ligue;
 	private static HomePage homePage;
+	private static editEmploye employe;
+	
 	
 	 public listEmployes(GestionPersonnel gestionPersonnel, Ligue ligue) {
-		    this.ligue = ligue;
 		    this.gestionPersonnel = gestionPersonnel;
+		    this.ligue = ligue;
 	}
 	 
 	public static void listEmployes()
@@ -71,7 +76,7 @@ public class listEmployes {
 		employes.setLocationRelativeTo(null);
 		employes.setJMenuBar(menuBar());
 		employes.setLayout(new GridBagLayout());
-		employes.add(Container());
+		employes.add(ContainerEmployes());
 		employes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employes.setVisible(true);
 		return employes;
@@ -80,11 +85,10 @@ public class listEmployes {
 	private static JPanel ContainerEmployes()
 	{
 		JPanel employes = new JPanel();
-		employes.setLayout(new GridLayout(4,1));
+		employes.setLayout(new GridLayout(5,1));
 		Box back = Box.createHorizontalBox();
-		//back.add(backbtn());
-		//employes.add(back);
 		employes.add(titleLigue());
+		employes.add(renameAndDelete());
 		employes.add(title());
 		Box boxaddEmployeBtn = Box.createHorizontalBox();
 		boxaddEmployeBtn.add(addEmploye());
@@ -95,7 +99,9 @@ public class listEmployes {
 	private static JPanel Container()
 	{
 		JPanel cont = new JPanel();
-		cont.setLayout(new FlowLayout());
+		FlowLayout layout = new FlowLayout();
+		layout.setHgap(60);
+		cont.setLayout(layout);
 		cont.add(ContainerEmployes());
 		cont.add(renameAndDelete());
 		return cont;
@@ -151,14 +157,26 @@ public class listEmployes {
 		{
 			listEmp.addElement(employe);
 		}
+		empL.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (!e.getValueIsAdjusting()){
+		            JList source = (JList)e.getSource();
+		            Employe selectedEmploye = (Employe) source.getSelectedValue();
+		            editEmploye employe = new editEmploye(gestionPersonnel, selectedEmploye);
+		            editEmploye.listData();
+		        }
+				
+			}
+		});
 		 empL.setFont(new Font("Serif", Font.BOLD, 22));
 		 empL.setBackground(Color.decode("#b2f7ef"));
 		 empL.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)empL.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
 		 empL.setFixedCellWidth(700);
-		 empL.setFixedCellHeight(70);
-		
+		 empL.setFixedCellHeight(40);
 		return empL;
 	}
 	
@@ -199,11 +217,20 @@ public class listEmployes {
 	private static JPanel renameAndDelete()
 	{
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(3,1));
-		panel.setPreferredSize(new Dimension(300,400));
-		panel.add(backbtn());
+		FlowLayout layout = new FlowLayout();
+		panel.setLayout(layout);
+		Box delete = Box.createHorizontalBox();
+		delete.add(deleteLigue());
+		Box rename = Box.createHorizontalBox();
+		rename.add(renameLigue());
+		
+		Box changeAdmin = Box.createHorizontalBox();
+		rename.add(changeAdmin());
+		
+		
 		panel.add(deleteLigue());
 		panel.add(renameLigue());
+        panel.add(changeAdmin());
 		return panel;
 	}
 	
@@ -235,6 +262,13 @@ public class listEmployes {
 		return deleteLigue;
 	}
 	
+	private static JButton changeAdmin()
+	{
+		JButton btn = new JButton("Changer l'administrateur");
+		
+		return btn;
+	}
+	
 	
 	private static JLabel deleteMsg()
 	{
@@ -259,11 +293,26 @@ public class listEmployes {
 	
 	private static JDialog rename()
 	{
-		JDialog d = new JDialog(frame(), "Supprimer la ligue");
-		d.setLayout(new GridLayout(0,1));
+		JDialog d = new JDialog(frame(), "Renommer la ligue");
+		d.setLayout(new GridBagLayout());
 		d.setSize(400,400);
+		d.add(renameLigueDialog());
 		d.setLocationRelativeTo(null);
 		return d;
+	}
+	
+	private static JPanel renameLigueDialog()
+	{
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(300,100));
+		GridLayout layout = new GridLayout(2,2);
+		layout.setVgap(25);
+		panel.setLayout(layout);
+        panel.add(new JLabel("Nom :"));
+        panel.add(new JTextField());
+        panel.add(new JButton("Enregistrer"));
+        panel.add(new JButton("Annuler"));
+		return panel;
 	}
 	
 	
@@ -309,11 +358,5 @@ public class listEmployes {
 		});
 		return addEmploye;
 	}
-	
-	
-	 public static void main(String[] args)  throws SauvegardeImpossible
-	 {
-		 listEmployes();
-	  }
 
 }

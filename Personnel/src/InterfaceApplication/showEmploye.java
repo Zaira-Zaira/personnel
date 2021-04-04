@@ -23,6 +23,7 @@ import javax.swing.border.EmptyBorder;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
+
 public class showEmploye {
 
 	public static JFrame employeData()
@@ -115,6 +116,12 @@ public class showEmploye {
 		return edit;
 	}
 	
+	private static JButton delete()
+	{
+		JButton delete = new JButton("Supprimer l'employé");
+		
+		return delete;
+	}
 	
 	
 	public static void main(String[] args)  throws SauvegardeImpossible

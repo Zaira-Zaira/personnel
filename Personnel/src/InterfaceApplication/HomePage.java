@@ -1,30 +1,23 @@
 package InterfaceApplication;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.SortedSet;
+import java.util.prefs.BackingStoreException;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -34,12 +27,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
-import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -75,13 +64,13 @@ public class HomePage {
 	public static JFrame frame()
 	{
 		JFrame homePage = new JFrame();
-		 homePage.setLayout(new GridBagLayout());
+		homePage.setSize(900,900);
+		homePage.setLocationRelativeTo(null);
 		 homePage.setTitle("Home page");
 		 homePage.setJMenuBar(menuBar());
+		 homePage.setLayout(new GridBagLayout());
 		 homePage.add(panelContainer());
 		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 homePage.pack();
-		 homePage.setLocationRelativeTo(null);
 		 return homePage;
 	}
 	
@@ -141,9 +130,10 @@ public class HomePage {
 		  return name;
 	 }
 	 
-	 private static JTextField ligueNameInput()
+	 private static JFormattedTextField ligueNameInput()
 	 {
-		 JTextField inputName = new JTextField();
+		 String format = new String();
+		 JFormattedTextField inputName = new JFormattedTextField(format);
 		 return inputName;
 	 }
 	 
@@ -156,8 +146,9 @@ public class HomePage {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					try {
-						gestionPersonnel.addLigue(newLigue.getText());
-						Ligue newL = gestionPersonnel.addLigue(newLigue.getText());
+						gestionPersonnel.addLigue(ligueNameInput().getText());
+						addLigue().dispose();
+						addLigue().setVisible(false);
 					} catch (SauvegardeImpossible e1) {
 						e1.printStackTrace();
 					}
@@ -218,8 +209,6 @@ public class HomePage {
 	 {
 		 SortedSet<Ligue> choix = getLigues();
 		 JList<Ligue> listLigues = new JList<>();
-		 listLigues.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		 listLigues.setLayoutOrientation(JList.VERTICAL_WRAP);
 		 DefaultListModel<Ligue> listLigue = new DefaultListModel<>();
 		 listLigues.setFont(new Font("Serif", Font.BOLD, 22));
 		 listLigues.setModel(listLigue);
@@ -247,7 +236,7 @@ public class HomePage {
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
 		 listLigues.setFixedCellWidth(700);
-		 listLigues.setFixedCellHeight(70);
+		 listLigues.setFixedCellHeight(50);
 		 return listLigues;
 	 }
 	
@@ -258,19 +247,30 @@ public class HomePage {
 	private static JPanel panelContainer()
 	 {
 		 JPanel panelContainer = new JPanel();
-		 BorderLayout card = new BorderLayout(0,1);
-		 card.setVgap(20);
+		 GridLayout card = new GridLayout(4,1);
 		 panelContainer.setLayout(card);
-		 panelContainer.add(title(), BorderLayout.NORTH);
+		 
 		 Box boxaddLigueBtn = Box.createHorizontalBox();
-		 boxaddLigueBtn.setPreferredSize(new Dimension(100,30));
 	     boxaddLigueBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-			boxaddLigueBtn.add(addLigueBtn());
+		 boxaddLigueBtn.add(addLigueBtn());
+		 
+		 Box backBtn = Box.createHorizontalBox();
+		 backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		 backBtn.add(back());
 			
-		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
-		 panelContainer.add(listLigues(), BorderLayout.CENTER);
+		 //panelContainer.add(backBtn);
+		 panelContainer.add(title());
+		 panelContainer.add(boxaddLigueBtn);
+		 panelContainer.add(listLigues());
 		 return panelContainer;
 	 }
+	
+	private static JButton back()
+	{
+		JButton btn = new JButton("Retour");
+		
+		return btn;
+	}
 	
 	 
 	 public static SortedSet<Ligue> getLigues()
@@ -281,12 +281,6 @@ public class HomePage {
 			return ligues;
 	 }
 	 
-	 private static JTable model()
-	 {
-		TableModel model = new TableModel();
-		 JTable table = new JTable(model);
-		 return table;
-	 }
 	 
 	 public static Ligue getLigue()
 	 {

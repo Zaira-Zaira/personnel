@@ -43,7 +43,9 @@ public class AddChangeEmploye {
 	private static Ligue ligue;
 	private GestionPersonnel gestionPersonnel;
 	private HomePage ligues;
-	 public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues) {
+	
+	 
+	public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues) {
 		    this.ligue = ligue;
 		    this.gestionPersonnel = gestionPersonnel;
 		    this.ligues = ligues;

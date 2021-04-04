@@ -137,6 +137,10 @@ public class GestionPersonnel implements Serializable
 		passerelle.updateLigue(ligue);
 	}
 	
+	void updateEmploye(Employe employe) throws SauvegardeImpossible
+	{
+		passerelle.updateEmp(employe);
+	}
 	void update(Employe employe, String string) throws SauvegardeImpossible
 	{
 		passerelle.updateEmploye(employe, string);
