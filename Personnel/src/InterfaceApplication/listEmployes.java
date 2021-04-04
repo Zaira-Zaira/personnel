@@ -70,12 +70,35 @@ public class listEmployes {
 		employes.setSize(900,900);
 		employes.setLocationRelativeTo(null);
 		employes.setJMenuBar(menuBar());
-		employes.setLayout(new GridLayout(0,1));
-		employes.add(titleLigue());
+		employes.setLayout(new GridBagLayout());
 		employes.add(Container());
 		employes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employes.setVisible(true);
 		return employes;
+	}
+	
+	private static JPanel ContainerEmployes()
+	{
+		JPanel employes = new JPanel();
+		employes.setLayout(new GridLayout(4,1));
+		Box back = Box.createHorizontalBox();
+		//back.add(backbtn());
+		//employes.add(back);
+		employes.add(titleLigue());
+		employes.add(title());
+		Box boxaddEmployeBtn = Box.createHorizontalBox();
+		boxaddEmployeBtn.add(addEmploye());
+		employes.add(boxaddEmployeBtn);
+		employes.add(list());
+		return employes;
+	}
+	private static JPanel Container()
+	{
+		JPanel cont = new JPanel();
+		cont.setLayout(new FlowLayout());
+		cont.add(ContainerEmployes());
+		cont.add(renameAndDelete());
+		return cont;
 	}
 
 	private static JMenuBar menuBar()
@@ -128,7 +151,7 @@ public class listEmployes {
 		{
 			listEmp.addElement(employe);
 		}
-		
+		 empL.setFont(new Font("Serif", Font.BOLD, 22));
 		 empL.setBackground(Color.decode("#b2f7ef"));
 		 empL.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)empL.getCellRenderer();  
@@ -154,19 +177,7 @@ public class listEmployes {
 		 return itemaccount;
 	}
 	
-	
-	private static JPanel listEmp()
-	{
-		JPanel panel = new JPanel();
-		panel.add(title());
-		Box boxaddEmployeBtn = Box.createHorizontalBox();
-		boxaddEmployeBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		boxaddEmployeBtn.add(addEmploye());
-		panel.add(boxaddEmployeBtn);
-		panel.add(list());
-		return panel;
-	}
-	
+
 	
 	private static JLabel titleLigue()
 	{
@@ -182,17 +193,17 @@ public class listEmployes {
 	private static JButton backbtn()
 	{
 		JButton backbtn = new JButton("Retour");
-		
 		return backbtn;
 	}
 	
-	private static JPanel Container() {
+	private static JPanel renameAndDelete()
+	{
 		JPanel panel = new JPanel();
-		GridLayout layout = new GridLayout(0,1);
-		layout.setVgap(10);
-		panel.setLayout(layout);
-		panel.add(infoLigue());
-		panel.add(listEmp());
+		panel.setLayout(new GridLayout(3,1));
+		panel.setPreferredSize(new Dimension(300,400));
+		panel.add(backbtn());
+		panel.add(deleteLigue());
+		panel.add(renameLigue());
 		return panel;
 	}
 	
@@ -282,15 +293,6 @@ public class listEmployes {
 		title.setFont(new Font("Serif", Font.PLAIN, 27));
 		title.setForeground(Color.blue);
 		return title;
-	}
-	
-	
-	private static JPanel infoLigue()
-	{
-		JPanel info = new JPanel();
-		info.add(deleteLigue());
-		info.add(renameLigue());
-		return info;
 	}
 	
 	

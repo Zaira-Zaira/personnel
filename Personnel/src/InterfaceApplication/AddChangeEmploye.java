@@ -13,15 +13,21 @@ import java.awt.Insets;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -66,12 +72,6 @@ public class AddChangeEmploye {
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,2, 25,25));
 		panel.setPreferredSize(new Dimension(700,500));
-		TextField nom = new TextField();
-		TextField prenom = new TextField();
-		TextField mail = new TextField();
-		TextField password = new TextField();
-		TextField dateArrivee= new TextField();
-		TextField dateDepart = new TextField();
 		JLabel nomL = new JLabel("Nom :");
 		nomL.setFont(new Font("Serif", Font.PLAIN, 22));
 		JLabel prenomL = new JLabel("Prénom :");
@@ -87,21 +87,62 @@ public class AddChangeEmploye {
 
 		
 		panel.add(nomL);
-		panel.add(nom);
+		panel.add(nameInput());
 		panel.add(prenomL);
-		panel.add(prenom);
+		panel.add(secondNameInput());
 		panel.add(emailL);
-		panel.add(mail);
+		panel.add(mailInput());
 		panel.add(passwordL);
-		panel.add(password);
+		panel.add(passwordInput());
 		panel.add(dateArriveeL);
-		panel.add(dateArrivee);
+		panel.add(DateArriveInput());
 		panel.add(dateDepartL);
-		panel.add(dateDepart);
+		panel.add(DateDepartInput());
 		panel.add(addEmploye());
 		panel.add(cancelAdd());
 		return panel;
 	}
+	
+	private static JTextField nameInput()
+	{
+		JTextField nom = new JTextField();
+		return nom;
+	}
+	
+	private static JTextField secondNameInput()
+	{
+		JTextField prenom = new JTextField();
+		return prenom;
+	}
+	
+	
+	private static JTextField mailInput()
+	{
+		JTextField mail = new JTextField();
+		return mail;
+	}
+	
+	private static JTextField passwordInput()
+	{
+		JTextField pass = new JTextField();
+		return pass;
+	}
+	
+	private static JFormattedTextField DateArriveInput()
+	{
+		DateFormat date = new SimpleDateFormat("Y-m-d");
+		JFormattedTextField dateArrive = new JFormattedTextField(date);
+		return dateArrive;
+	}
+	
+	private static JFormattedTextField DateDepartInput()
+	{
+		DateFormat date = new SimpleDateFormat("Y-m-d");
+		JFormattedTextField dateDepart = new JFormattedTextField(date);
+		return dateDepart;
+	}
+	
+	
 	
 	private static JButton addEmploye()
 	{
@@ -110,7 +151,7 @@ public class AddChangeEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ligue.addEmploye("test3", "test3", "test3@gmail.com", "test1234!", LocalDate.parse("2018-06-07"),  null);
+				ligue.addEmploye(nameInput().getText(), secondNameInput().getText(), mailInput().getText(), passwordInput().getText(), null,  null);
 			}
 		});
 		return addbtn;

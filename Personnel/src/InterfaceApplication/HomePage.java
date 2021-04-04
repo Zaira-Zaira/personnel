@@ -84,7 +84,7 @@ public class HomePage {
 		 homePage.setLocationRelativeTo(null);
 		 return homePage;
 	}
-	 
+	
 	 private static JLabel title()
 	 {
 		 JLabel title = new JLabel("Liste des ligues");
