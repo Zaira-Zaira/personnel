@@ -85,7 +85,9 @@ public class listEmployes {
 	private  JPanel ContainerEmployes()
 	{
 		JPanel employes = new JPanel();
-		employes.setLayout(new GridLayout(5,1));
+		GridLayout layout = new GridLayout(5,1);
+		layout.setVgap(65);
+		employes.setLayout(layout);
 		Box back = Box.createHorizontalBox();
 		employes.add(titleLigue());
 		employes.add(renameAndDelete());
@@ -93,9 +95,15 @@ public class listEmployes {
 		Box boxaddEmployeBtn = Box.createHorizontalBox();
 		boxaddEmployeBtn.add(addEmploye());
 		employes.add(boxaddEmployeBtn);
-		employes.add(list());
+		if(getEmployes().size() > 0)
+		{
+			employes.add(list());
+		}else {
+			employes.add(notEmployesFunded());
+		}
 		return employes;
 	}
+	
 	private  JPanel Container()
 	{
 		JPanel cont = new JPanel();
@@ -106,6 +114,15 @@ public class listEmployes {
 		cont.add(renameAndDelete());
 		return cont;
 	}
+	
+	private JLabel notEmployesFunded()
+	{
+		JLabel label = new JLabel("Il y a aucun employé dans cette ligue");
+		label.setFont(new Font("Serif", Font.BOLD, 22));
+		label.setForeground(Color.RED);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		return label;
+	}
 
 	private JMenuBar menuBar()
 	{
@@ -113,7 +130,7 @@ public class listEmployes {
 		 menubar.setPreferredSize(new Dimension(60,60));
 		 menubar.add(menuCompte());
 		 menubar.add(menuLigues());
-		 menubar.setBackground(Color.lightGray);
+		 menubar.setBackground(Color.decode("#9a031e"));
 		return menubar;
 	}
 	
@@ -123,7 +140,7 @@ public class listEmployes {
 		 menu.add(itemMenuCompte());
 		 menu.setSize(70,70);
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
-		 menu.setForeground(Color.white);
+		 menu.setForeground(Color.decode("#fafafa"));
 		 return menu;
 	}
 	
@@ -132,7 +149,7 @@ public class listEmployes {
 		JMenu ligues = new JMenu("Gerer les ligues");
 		ligues.add(itemMenuLigues());
 		 ligues.setFont(new Font("Serif", Font.BOLD, 20));
-		 ligues.setForeground(Color.white);
+		 ligues.setForeground(Color.decode("#fafafa"));
 		 ligues.addSeparator();
 		 return ligues;
 	}
@@ -143,6 +160,8 @@ public class listEmployes {
 		 itemMenu.setBorder(borderitem);
 		 itemMenu.setSize(70,70);
 		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 17));
+		 itemMenu.setBackground(Color.decode("#9a031e"));
+		 itemMenu.setForeground(Color.decode("#fafafa"));
 		 return itemMenu;
 	}
 	
@@ -194,6 +213,8 @@ public class listEmployes {
 		Border borderitem = new EmptyBorder(7,7,7,7);
 		 itemaccount.setBorder(borderitem);
 		 itemaccount.setFont(new Font("Serif", Font.PLAIN, 17));
+		 itemaccount.setBackground(Color.decode("#9a031e"));
+		 itemaccount.setForeground(Color.decode("#fafafa"));
 		 return itemaccount;
 	}
 	
@@ -203,9 +224,8 @@ public class listEmployes {
 	{
 		JLabel title = new JLabel("La ligue " + ligue.getNom() + " administrée par  " + ligue.getAdministrateur().getNom());
 		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setFont(new Font("Serif", Font.PLAIN, 27));
-		Border margin = new EmptyBorder(0,0,30,0);
-		title.setBorder(margin);
+		title.setFont(new Font("Serif", Font.BOLD, 27));
+		title.setForeground(Color.decode("#9a031e"));
 		return  title;
 	}
 	
@@ -226,13 +246,13 @@ public class listEmployes {
 		Box rename = Box.createHorizontalBox();
 		rename.add(renameLigue());
 		
-		Box changeAdmin = Box.createHorizontalBox();
-		rename.add(changeAdmin());
+		Box back = Box.createHorizontalBox();
+		rename.add(back());
 		
 		
 		panel.add(deleteLigue());
 		panel.add(renameLigue());
-        panel.add(changeAdmin());
+        panel.add(back);
 		return panel;
 	}
 	
@@ -264,10 +284,18 @@ public class listEmployes {
 		return deleteLigue;
 	}
 	
-	private JButton changeAdmin()
+	private JButton back()
 	{
-		JButton btn = new JButton("Changer l'administrateur");
-		
+		JButton btn = new JButton("Retour");
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				HomePage pageLigues = new HomePage(gestionPersonnel);
+				pageLigues.frame().setVisible(true);
+				
+			}
+		});
 		return btn;
 	}
 	

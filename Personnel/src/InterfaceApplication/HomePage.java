@@ -53,9 +53,10 @@ public class HomePage {
     private HomePage homePage;
     public JTextField inputName;
     public JDialog add;
-	 public HomePage(GestionPersonnel gestionPersonnel, listEmployes listemp) {
+    public JFrame home = new JFrame();
+    
+	 public HomePage(GestionPersonnel gestionPersonnel) {
 		    this.gestionPersonnel = gestionPersonnel;
-			this.listemp = listemp;
 	}
 
 
@@ -65,15 +66,14 @@ public class HomePage {
 	 
 	public JFrame frame()
 	{
-		JFrame homePage = new JFrame();
-		homePage.setSize(900,900);
-		homePage.setLocationRelativeTo(null);
-		 homePage.setTitle("Home page");
-		 homePage.setJMenuBar(menuBar());
-		 homePage.setLayout(new GridBagLayout());
-		 homePage.add(panelContainer());
-		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 return homePage;
+		home.setSize(900,900);
+		home.setLocationRelativeTo(null);
+		home.setTitle("Home page");
+		home.setJMenuBar(menuBar());
+		home.setLayout(new GridBagLayout());
+		home.add(panelContainer());
+		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 return home;
 	}
 	
 	 private JLabel title()
@@ -94,6 +94,7 @@ public class HomePage {
 		 addLigueBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				frame().setVisible(false);
 				addLigue().setVisible(true);
 			}
 		});
@@ -222,6 +223,7 @@ public class HomePage {
 		            JList source = (JList)e.getSource();
 		            Ligue selected = (Ligue) source.getSelectedValue();
 		            listEmployes ligue = new listEmployes(gestionPersonnel,selected);
+		            frame().setVisible(false);
 		            ligue.listEmployes();
 		        }
 				
@@ -286,7 +288,7 @@ public class HomePage {
 	 
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {
-		HomePage home = new HomePage(gestionPersonnel, listemp);
+		HomePage home = new HomePage(gestionPersonnel);
 		home.Home();
 	  }
 }

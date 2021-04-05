@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -24,8 +26,12 @@ import personnel.SauvegardeImpossible;
 
 public class editEmploye {
 	
-    private static Employe employe;
+    private Employe employe;
     GestionPersonnel gestionPersonnel;
+    JTextField nom;
+    JTextField prenom;
+    JTextField mail;
+    JTextField password;
     
 	public editEmploye(GestionPersonnel gestionPersonnel, Employe employe) {
 		   this.gestionPersonnel = gestionPersonnel;
@@ -33,12 +39,12 @@ public class editEmploye {
 	}
 	
 	
-	public static void listData()
+	public void listData()
 	{
 		frame().setVisible(true);
 	}
 	
-	public static JFrame frame()
+	public JFrame frame()
 	{
 		JFrame employes = new JFrame();
 		employes.setSize(900,900);
@@ -51,7 +57,7 @@ public class editEmploye {
 		return employes;
 	}
 	
-	private static JPanel panel()
+	private JPanel panel()
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,2, 25,25));
@@ -87,63 +93,63 @@ public class editEmploye {
 		return panel;
 	}
 	
-	private static JButton addEmploye()
+	private JButton addEmploye()
 	{
 		JButton addbtn = new JButton("Enregistrer");
 		addbtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			  employe.setNom(nameInput().getText());
-			  employe.setPrenom(secondNameInput().getText());
-			  employe.setMail(mailInput().getText());
-			  employe.setPassword(passwordInput().getText());
+			  employe.setNom(nom.getText());
+			  employe.setPrenom(prenom.getText());
+			  employe.setMail(mail.getText());
+			  employe.setPassword(password.getText());
 			}
 		});
 		return addbtn;
 	}
 	
-	private static JButton cancelAdd()
+	private JButton cancelAdd()
 	{
 		JButton cancelbtn = new JButton("Annuler");
 		
 		return cancelbtn;
 	}
 	
-	private static JTextField nameInput()
+	private JTextField nameInput()
 	{
-		JTextField nom = new JTextField();
+		nom = new JTextField();
 		nom.setEditable(true);
 		nom.setText(employe.getNom());
 		return nom;
 	}
 	
-	private static JTextField secondNameInput()
+	private JTextField secondNameInput()
 	{
-		JTextField prenom = new JTextField();
+		prenom = new JTextField();
 		prenom.setEditable(true);
 		prenom.setText(employe.getPrenom());
 		return prenom;
 	}
 	
 	
-	private static JTextField mailInput()
+	private  JTextField mailInput()
 	{
-		JTextField mail = new JTextField();
+		mail = new JTextField();
 		mail.setEditable(true);
 		mail.setText(employe.getMail());
 		return mail;
 	}
 	
-	private static JTextField passwordInput()
+	private  JTextField passwordInput()
 	{
-		JTextField pass = new JTextField();
-		pass.setEditable(true);
-		pass.setText(employe.getPassword());
-		return pass;
+		password = new JTextField();
+		password.setEditable(true);
+		password.setText(employe.getPassword());
+		return password;
 	}
 	
-	private static JFormattedTextField DateArriveInput()
+	private  JFormattedTextField DateArriveInput()
 	{
 		DateFormat date = new SimpleDateFormat("Y-m-d");
 		JFormattedTextField dateArrive = new JFormattedTextField(date);
@@ -151,7 +157,7 @@ public class editEmploye {
 		return dateArrive;
 	}
 	
-	private static JFormattedTextField DateDepartInput()
+	private JFormattedTextField DateDepartInput()
 	{
 		DateFormat date = new SimpleDateFormat("Y-m-d");
 		JFormattedTextField dateDepart = new JFormattedTextField(date);

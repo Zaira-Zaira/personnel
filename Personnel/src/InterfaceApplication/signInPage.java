@@ -45,7 +45,7 @@ public class signInPage{
 	public signInPage(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;
-		this.homepage =  new HomePage(gestionPersonnel, listemp);
+		this.homepage =  new HomePage(gestionPersonnel);
 		this.listemp =  new listEmployes(gestionPersonnel, ligue);
 	}
 	
