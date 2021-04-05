@@ -32,13 +32,13 @@ public class editEmploye {
 		   this.employe = employe;
 	}
 	
+	
 	public static void listData()
 	{
-		System.out.println(employe);
-		frame();
+		frame().setVisible(true);
 	}
 	
-	private static JFrame frame()
+	public static JFrame frame()
 	{
 		JFrame employes = new JFrame();
 		employes.setSize(900,900);
@@ -48,7 +48,6 @@ public class editEmploye {
 		employes.add(panel());
 		//employes.add(Container());
 		employes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		employes.setVisible(true);
 		return employes;
 	}
 	

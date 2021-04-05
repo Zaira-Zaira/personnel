@@ -48,10 +48,10 @@ import personnel.SauvegardeImpossible;
 
 public class listEmployes {
 	
-	private static GestionPersonnel gestionPersonnel;
-	private static Ligue ligue;
-	private static HomePage homePage;
-	private static editEmploye employe;
+	private  GestionPersonnel gestionPersonnel;
+	private  Ligue ligue;
+	private  HomePage homePage;
+	private  editEmploye employe;
 	
 	
 	 public listEmployes(GestionPersonnel gestionPersonnel, Ligue ligue) {
@@ -59,7 +59,7 @@ public class listEmployes {
 		    this.ligue = ligue;
 	}
 	 
-	public static void listEmployes()
+	public void listEmployes()
 	{
 		frame();
 	}
@@ -69,7 +69,7 @@ public class listEmployes {
 		 return ligue;
 	}
 	
-	private static JFrame frame()
+	private JFrame frame()
 	{
 		JFrame employes = new JFrame();
 		employes.setSize(900,900);
@@ -82,7 +82,7 @@ public class listEmployes {
 		return employes;
 	}
 	
-	private static JPanel ContainerEmployes()
+	private  JPanel ContainerEmployes()
 	{
 		JPanel employes = new JPanel();
 		employes.setLayout(new GridLayout(5,1));
@@ -96,7 +96,7 @@ public class listEmployes {
 		employes.add(list());
 		return employes;
 	}
-	private static JPanel Container()
+	private  JPanel Container()
 	{
 		JPanel cont = new JPanel();
 		FlowLayout layout = new FlowLayout();
@@ -107,7 +107,7 @@ public class listEmployes {
 		return cont;
 	}
 
-	private static JMenuBar menuBar()
+	private JMenuBar menuBar()
 	{
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
@@ -117,7 +117,7 @@ public class listEmployes {
 		return menubar;
 	}
 	
-	private static JMenu menuCompte()
+	private JMenu menuCompte()
 	{
 		 JMenu menu = new JMenu("Mon compte");
 		 menu.add(itemMenuCompte());
@@ -127,7 +127,7 @@ public class listEmployes {
 		 return menu;
 	}
 	
-	private static JMenu menuLigues()
+	private JMenu menuLigues()
 	{
 		JMenu ligues = new JMenu("Gerer les ligues");
 		ligues.add(itemMenuLigues());
@@ -137,7 +137,7 @@ public class listEmployes {
 		 return ligues;
 	}
 	
-	private static JMenuItem itemMenuCompte() {
+	private JMenuItem itemMenuCompte() {
 		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
 		 Border borderitem = new EmptyBorder(7,7,7,7);
 		 itemMenu.setBorder(borderitem);
@@ -146,7 +146,7 @@ public class listEmployes {
 		 return itemMenu;
 	}
 	
-	public static JList<Employe> list()
+	public JList<Employe> list()
 	{
 		SortedSet<Employe> emp = getEmployes();
 		JList<Employe> empL = new JList<>();
@@ -164,8 +164,10 @@ public class listEmployes {
 				if (!e.getValueIsAdjusting()){
 		            JList source = (JList)e.getSource();
 		            Employe selectedEmploye = (Employe) source.getSelectedValue();
-		            editEmploye employe = new editEmploye(gestionPersonnel, selectedEmploye);
-		            editEmploye.listData();
+		            //editEmploye employe = new editEmploye(gestionPersonnel, selectedEmploye);
+		            //editEmploye.listData();
+		            showEmploye employe = new showEmploye(gestionPersonnel, selectedEmploye);
+		            showEmploye.employeData();
 		        }
 				
 			}
@@ -180,13 +182,13 @@ public class listEmployes {
 		return empL;
 	}
 	
-	 public static SortedSet<Employe> getEmployes()
+	 public SortedSet<Employe> getEmployes()
 	 {
 			SortedSet<Employe> employes = ligue.getEmployes();
 			return employes;
 	 }
 	
-	private static JMenuItem itemMenuLigues()
+	private JMenuItem itemMenuLigues()
 	{
 		JMenuItem itemaccount= new JMenuItem("Afficher les ligues");
 		Border borderitem = new EmptyBorder(7,7,7,7);
@@ -197,7 +199,7 @@ public class listEmployes {
 	
 
 	
-	private static JLabel titleLigue()
+	private JLabel titleLigue()
 	{
 		JLabel title = new JLabel("La ligue " + ligue.getNom() + " administrée par  " + ligue.getAdministrateur().getNom());
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -208,13 +210,13 @@ public class listEmployes {
 	}
 	
 	
-	private static JButton backbtn()
+	private JButton backbtn()
 	{
 		JButton backbtn = new JButton("Retour");
 		return backbtn;
 	}
 	
-	private static JPanel renameAndDelete()
+	private JPanel renameAndDelete()
 	{
 		JPanel panel = new JPanel();
 		FlowLayout layout = new FlowLayout();
@@ -234,7 +236,7 @@ public class listEmployes {
 		return panel;
 	}
 	
-	private static JButton renameLigue()
+	private JButton renameLigue()
 	{
 	    JButton renameLigue = new JButton("Renommer la ligue");
 	    renameLigue.addActionListener(new ActionListener() {
@@ -249,7 +251,7 @@ public class listEmployes {
 	}
 	
 	
-	private static JButton deleteLigue()
+	private JButton deleteLigue()
 	{
 		JButton deleteLigue = new JButton("Supprimer la ligue");
 		deleteLigue.addActionListener(new ActionListener() {
@@ -262,7 +264,7 @@ public class listEmployes {
 		return deleteLigue;
 	}
 	
-	private static JButton changeAdmin()
+	private JButton changeAdmin()
 	{
 		JButton btn = new JButton("Changer l'administrateur");
 		
@@ -270,7 +272,7 @@ public class listEmployes {
 	}
 	
 	
-	private static JLabel deleteMsg()
+	private JLabel deleteMsg()
 	{
 		JLabel label = new JLabel("La ligue a bien été supprimée");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -278,7 +280,7 @@ public class listEmployes {
 	}
 	
 	
-	public static JDialog  dialogDeleteLigue()
+	public JDialog  dialogDeleteLigue()
 	{
 		JDialog d = new JDialog(frame(), "Supprimer la ligue");
 		d.setLayout(new GridLayout(0,1));
@@ -291,7 +293,7 @@ public class listEmployes {
 	}
 	
 	
-	private static JDialog rename()
+	private JDialog rename()
 	{
 		JDialog d = new JDialog(frame(), "Renommer la ligue");
 		d.setLayout(new GridBagLayout());
@@ -301,7 +303,7 @@ public class listEmployes {
 		return d;
 	}
 	
-	private static JPanel renameLigueDialog()
+	private JPanel renameLigueDialog()
 	{
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(300,100));
@@ -316,7 +318,7 @@ public class listEmployes {
 	}
 	
 	
-	private static JButton ok()
+	private JButton ok()
 	{
 		JButton btn = new JButton("Ok");
 		btn.addActionListener(new ActionListener() {
@@ -329,13 +331,15 @@ public class listEmployes {
 					e1.printStackTrace();
 				}
 				dialogDeleteLigue().setVisible(false);
+				frame().dispose();
+				homePage.Home();
 			}
 		});
 		return btn;
 	}
 	
 	
-	private  static JLabel title()
+	private JLabel title()
 	{
 		JLabel title = new JLabel("La liste des employées");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -345,7 +349,7 @@ public class listEmployes {
 	}
 	
 	
-	private static JButton addEmploye()
+	private JButton addEmploye()
 	{
 		JButton addEmploye = new JButton("Ajouter un employé");
 		addEmploye.setFont(new Font("Serif", Font.BOLD, 20));
@@ -353,7 +357,7 @@ public class listEmployes {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, homePage);
-				AddChangeEmploye.AddEmploye();
+				add.AddEmploye();
 			}
 		});
 		return addEmploye;

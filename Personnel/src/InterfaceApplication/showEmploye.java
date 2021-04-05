@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -20,11 +22,22 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import personnel.Employe;
+import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
 
 public class showEmploye {
+	
+	private static GestionPersonnel gestionPersonnel;
+	private static Employe employe;
+	
+	public showEmploye(GestionPersonnel gestionPersonnel, Employe employe) {
+		   this.gestionPersonnel = gestionPersonnel;
+		   this.employe = employe;
+	}
+	
 
 	public static JFrame employeData()
 	{
@@ -46,15 +59,15 @@ public class showEmploye {
 		panelLabels.setPreferredSize(new Dimension(400,330));
 		ArrayList<JLabel> labels = new ArrayList<>();
 		labels.add(new JLabel("Nom : "));
-		labels.add(new JLabel("Baudet "));
+		labels.add(new JLabel(employe.getNom()));
 		labels.add(new JLabel("Prénom : "));
-		labels.add(new JLabel("Alice"));
+		labels.add(new JLabel(employe.getPrenom()));
 		labels.add(new JLabel("Email :"));
-		labels.add(new JLabel("alice@gmail.com"));
+		labels.add(new JLabel(employe.getMail()));
 		labels.add(new JLabel("Password : "));
-		labels.add(new JLabel("alice125! "));
+		labels.add(new JLabel(employe.getPassword()));
 		labels.add(new JLabel("Date d'arrivée (Y-m-d) : "));
-		labels.add(new JLabel("2020-08-04  "));
+		labels.add(new JLabel(" "));
 		labels.add(new JLabel("Date de départ (Y-m-d) : "));
 		labels.add(new JLabel("  "));
 		for(JLabel jlabel : labels) 
@@ -99,6 +112,8 @@ public class showEmploye {
 		contBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		contBtn.add(back());
 		contBtn.add(edit());
+		contBtn.add(delete());
+		contBtn.add(setAdmin());
 		return contBtn;
 	}
 	
@@ -113,14 +128,53 @@ public class showEmploye {
 	{
 		JButton edit = new JButton("Editer l'employé");
 		edit.setPreferredSize(new Dimension(130, 30));
+		edit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editEmploye editEmploye = new editEmploye(gestionPersonnel, employe);
+				editEmploye.frame().setVisible(true);
+				
+			}
+		});
 		return edit;
 	}
 	
 	private static JButton delete()
 	{
 		JButton delete = new JButton("Supprimer l'employé");
-		
+		delete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					employe.remove();
+				} catch (SauvegardeImpossible e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		return delete;
+	}
+	
+	private static JButton setAdmin()
+	{
+		JButton btn = new JButton("Mettre en admin");
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					employe.getLigue().changeAdmin(employe);
+				} catch (SauvegardeImpossible e) {
+					e.printStackTrace();
+				}
+				System.out.println("L'employe " + employe.getNom() + employe.getPrenom() + " est nommé en tant qu'administrateur de ligue " + employe.getLigue());
+				
+			}
+		});
+		return btn;
 	}
 	
 	

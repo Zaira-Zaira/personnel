@@ -182,6 +182,10 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		return id;
 	}
 	
+	public void setAdmin(Employe employe) 
+	{
+		gestionPersonnel.setAdmin(employe);
+	}
 	
 
 	

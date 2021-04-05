@@ -49,12 +49,12 @@ public class signInPage{
 		this.listemp =  new listEmployes(gestionPersonnel, ligue);
 	}
 	
-    public static void signIn()
+    public void signIn()
     {
-    	frame();
+    	frame().setVisible(true);
     }
     
-    private static JFrame frame()
+    private JFrame frame()
     {
     	JFrame frame = new JFrame();
     	
@@ -65,13 +65,12 @@ public class signInPage{
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          frame.setJMenuBar(menuBar());
          frame.add(container());
-         frame.setVisible(true);
          frame.pack();
     	
     	return frame;
     }
     
-    private static JLabel login()
+    private JLabel login()
     {
     	JLabel loginL = new JLabel("Login : ");
         loginL.setFont(new Font("Serif", Font.BOLD, 25));
@@ -79,7 +78,7 @@ public class signInPage{
         return loginL;
     }
     
-    private static TextField loginInput()
+    private TextField loginInput()
     {
     	TextField login = new TextField();
         login.setPreferredSize(new Dimension(150,40));
@@ -87,7 +86,7 @@ public class signInPage{
         return login;
     }
     
-    private static JLabel password()
+    private JLabel password()
     {
     	JLabel passwordL = new JLabel("Mot de passe : ");
         passwordL.setFont(new Font("Serif", Font.BOLD, 25));
@@ -95,14 +94,12 @@ public class signInPage{
         return passwordL;
     }
     
-    private static TextField passInput()
+    private JTextField passInput()
     {
-    	TextField passwordTxt = new TextField();
-        passwordTxt.setPreferredSize(new Dimension(150,50));
-        
+    	JTextField passwordTxt = new JTextField();
         return passwordTxt;
     }
-    private static  JButton btnConnexion()
+    private  JButton btnConnexion()
     {
     	 JButton btnconnexion = new JButton("Connexion");
          btnconnexion.setPreferredSize(new Dimension(200,50));
@@ -114,19 +111,13 @@ public class signInPage{
 
     		@Override
     		public void actionPerformed(ActionEvent arg0) {
-    			if(passInput().getText().equals("root")) {
-    				frame().setVisible(false);
-    				 InterfaceApplication.HomePage.Home();
-    			}else {
-    				frame().getContentPane().add(new JTextArea("Password incorrect"));
-    			}
-    			
-    				if(checkPassword(passInput().getText())) {
-    					frame().setVisible(false);
-    					 InterfaceApplication.HomePage.Home();
-    				}else {
-    					frame().getContentPane().add(new JTextArea("Password incorrect"));
-    				}
+    					
+    			if(passInput().getText() == "root") {
+    	    		System.out.println("pass correct");
+    	    	}
+    	    	else {
+    	    		System.out.println("pass incorrect");
+    	    	}
     		   }
         	 
          });
@@ -134,7 +125,7 @@ public class signInPage{
          return btnconnexion;
     }
     
-    private static JPanel container()
+    private JPanel container()
     {
     	JPanel panel = new JPanel();
     	GridLayout layout = new GridLayout(0,2);
@@ -149,7 +140,7 @@ public class signInPage{
         return panel;
     }
     
-    private static boolean checkPassword(String password)
+    private boolean checkPassword(String password)
     {
     	boolean ok = gestionPersonnel.getRoot().checkPassword(password);
     	return ok;
@@ -157,7 +148,7 @@ public class signInPage{
     
     
     
-    private static JMenuBar menuBar()
+    private JMenuBar menuBar()
 	 {
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(50,50));
@@ -171,7 +162,7 @@ public class signInPage{
 		return menubar;
 	 }
     
-    public static void HomePage() {
+    public void HomePage() {
     	 JFrame homePage = new JFrame();
     	 homePage.setVisible(true);
 		 homePage.setTitle("Home page");
@@ -186,13 +177,7 @@ public class signInPage{
     	signInPage signInPage = 
 				new signInPage(GestionPersonnel.getGestionPersonnel());
     	signInPage.gestionPersonnel.getRoot();
-    	if (signInPage.checkPassword("toor")) {
-
-	    }else {
-		System.out.println("data uncharged");
-	    }
-    	
-    	signIn();
+    	signInPage.signIn();
 	}
 	
 }

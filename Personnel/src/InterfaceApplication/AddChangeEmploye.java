@@ -41,8 +41,8 @@ import personnel.SauvegardeImpossible;
 public class AddChangeEmploye {
 	
 	private static Ligue ligue;
-	private GestionPersonnel gestionPersonnel;
-	private HomePage ligues;
+	private static GestionPersonnel gestionPersonnel;
+	private static HomePage ligues;
 	
 	 
 	public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues) {
@@ -51,7 +51,7 @@ public class AddChangeEmploye {
 		    this.ligues = ligues;
 	}
 	
-	public static  void AddEmploye() {
+	public void AddEmploye() {
 		
 		JFrame employeAdd = new JFrame();
 		employeAdd.setVisible(true);
@@ -65,11 +65,10 @@ public class AddChangeEmploye {
 		employeAdd.add(panelContainer(), panCont);
 		employeAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeAdd.pack();
-		System.out.println(HomePage.listLigues());
 	}
 
 	
-	private static JPanel panel()
+	private JPanel panel()
 	{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(0,2, 25,25));
@@ -105,39 +104,39 @@ public class AddChangeEmploye {
 		return panel;
 	}
 	
-	private static JTextField nameInput()
+	private JTextField nameInput()
 	{
 		JTextField nom = new JTextField();
 		return nom;
 	}
 	
-	private static JTextField secondNameInput()
+	private JTextField secondNameInput()
 	{
 		JTextField prenom = new JTextField();
 		return prenom;
 	}
 	
 	
-	private static JTextField mailInput()
+	private  JTextField mailInput()
 	{
 		JTextField mail = new JTextField();
 		return mail;
 	}
 	
-	private static JTextField passwordInput()
+	private  JTextField passwordInput()
 	{
 		JTextField pass = new JTextField();
 		return pass;
 	}
 	
-	private static JFormattedTextField DateArriveInput()
+	private JFormattedTextField DateArriveInput()
 	{
 		DateFormat date = new SimpleDateFormat("Y-m-d");
 		JFormattedTextField dateArrive = new JFormattedTextField(date);
 		return dateArrive;
 	}
 	
-	private static JFormattedTextField DateDepartInput()
+	private JFormattedTextField DateDepartInput()
 	{
 		DateFormat date = new SimpleDateFormat("Y-m-d");
 		JFormattedTextField dateDepart = new JFormattedTextField(date);
@@ -146,7 +145,7 @@ public class AddChangeEmploye {
 	
 	
 	
-	private static JButton addEmploye()
+	private  JButton addEmploye()
 	{
 		JButton addbtn = new JButton("Ajouter");
 		addbtn.addActionListener(new ActionListener() {
@@ -159,14 +158,14 @@ public class AddChangeEmploye {
 		return addbtn;
 	}
 	
-	private static JButton cancelAdd()
+	private JButton cancelAdd()
 	{
 		JButton cancelbtn = new JButton("Annuler");
 		
 		return cancelbtn;
 	}
 	
-	private static JPanel panelContainer()
+	private JPanel panelContainer()
 	{
 		JPanel panelContainer = new JPanel();
 		panelContainer.setLayout(new BorderLayout());
@@ -183,6 +182,7 @@ public class AddChangeEmploye {
 	}
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {
-		 AddEmploye();
+		 AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, ligues);
+		 add.addEmploye();
 	  }
 }

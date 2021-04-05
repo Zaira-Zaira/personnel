@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.SortedSet;
@@ -47,21 +48,22 @@ public class HomePage {
 	private static Ligue ligue;
 	private static GestionPersonnel gestionPersonnel;
 	Color selectCouleur = Color.RED;
-    private listEmployes listemp;
+    private static listEmployes listemp;
     public static int idLigue;
     private HomePage homePage;
-    
+    public JTextField inputName;
+    public JDialog add;
 	 public HomePage(GestionPersonnel gestionPersonnel, listEmployes listemp) {
 		    this.gestionPersonnel = gestionPersonnel;
 			this.listemp = listemp;
 	}
 
 
-	public static void Home() {
+	public void Home() {
 		frame().setVisible(true);
     }
 	 
-	public static JFrame frame()
+	public JFrame frame()
 	{
 		JFrame homePage = new JFrame();
 		homePage.setSize(900,900);
@@ -74,7 +76,7 @@ public class HomePage {
 		 return homePage;
 	}
 	
-	 private static JLabel title()
+	 private JLabel title()
 	 {
 		 JLabel title = new JLabel("Liste des ligues");
 		 title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,7 +84,7 @@ public class HomePage {
 		 return title;
 	 }
 	 
-	 private  static JButton addLigueBtn()
+	 private JButton addLigueBtn()
 	 {
 		 JButton addLigueBtn = new JButton("Ajouter une ligue");
 		 addLigueBtn.setFont(new Font("Serif", Font.BOLD, 20));
@@ -98,16 +100,16 @@ public class HomePage {
 		 return addLigueBtn;
 	 }
 	 
-	 private static JDialog addLigue()
+	 public JDialog addLigue()
 	 {
-		    JDialog add = new JDialog(frame(), "Ajouter ligue");
+		    add = new JDialog(frame(), "Ajouter ligue");
 			add.setSize(400,400);
 			add.setLocationRelativeTo(null);
 		    add.add(dialog());
 			return add;
 	 }
 	 
-	 private static JPanel dialog()
+	 private JPanel dialog()
 	 {
 		 JPanel panelCont = new JPanel();
 		 panelCont.setLayout(new FlowLayout());
@@ -124,43 +126,38 @@ public class HomePage {
 		 return panelCont;
 	 }
 	 
-	 private static JLabel ligueNameLabel()
+	 private JLabel ligueNameLabel()
 	 {
 		  JLabel  name = new JLabel("Nom :");
 		  return name;
 	 }
 	 
-	 private static JFormattedTextField ligueNameInput()
+	 public  JTextField ligueNameInput()
 	 {
-		 String format = new String();
-		 JFormattedTextField inputName = new JFormattedTextField(format);
+		 inputName = new JTextField();
 		 return inputName;
 	 }
 	 
-	 private static JButton saveLigue()
+	 private JButton saveLigue()
 	 {
 		 JButton save = new JButton("Enregistrer");
-		 JTextField newLigue = ligueNameInput();
 		 save.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					try {
-						gestionPersonnel.addLigue(ligueNameInput().getText());
-						addLigue().dispose();
-						addLigue().setVisible(false);
+						gestionPersonnel.addLigue(inputName.getText());
+						add.setVisible(false);
 					} catch (SauvegardeImpossible e1) {
 						e1.printStackTrace();
 					}
-				
-				
 			}
 		});
 		 return save;
 	 }
 	 
 	 
-	 private static JButton cancelAddLigue()
+	 private JButton cancelAddLigue()
 	 {
 		 JButton cancel = new JButton("Annuler");
 		 cancel.addActionListener(new ActionListener() {
@@ -173,7 +170,7 @@ public class HomePage {
 		 return cancel;
 	 }
 	 
-	 private static JMenuBar menuBar()
+	 private JMenuBar menuBar()
 	 {
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
@@ -187,7 +184,7 @@ public class HomePage {
 		return menubar;
 	 }
 	 
-	 private static JMenuItem menuItem()
+	 private JMenuItem menuItem()
 	 {
 		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
 		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -205,7 +202,7 @@ public class HomePage {
 	 }
 	 
 	  
-	 public static JList<Ligue>  listLigues()
+	 public JList<Ligue>  listLigues()
 	 {
 		 SortedSet<Ligue> choix = getLigues();
 		 JList<Ligue> listLigues = new JList<>();
@@ -225,7 +222,7 @@ public class HomePage {
 		            JList source = (JList)e.getSource();
 		            Ligue selected = (Ligue) source.getSelectedValue();
 		            listEmployes ligue = new listEmployes(gestionPersonnel,selected);
-		            listEmployes.listEmployes();
+		            ligue.listEmployes();
 		        }
 				
 			}
@@ -244,7 +241,7 @@ public class HomePage {
 	 /**
 	 * @return
 	 */
-	private static JPanel panelContainer()
+	private JPanel panelContainer()
 	 {
 		 JPanel panelContainer = new JPanel();
 		 GridLayout card = new GridLayout(4,1);
@@ -265,7 +262,7 @@ public class HomePage {
 		 return panelContainer;
 	 }
 	
-	private static JButton back()
+	private JButton back()
 	{
 		JButton btn = new JButton("Retour");
 		
@@ -273,7 +270,7 @@ public class HomePage {
 	}
 	
 	 
-	 public static SortedSet<Ligue> getLigues()
+	 public SortedSet<Ligue> getLigues()
 	 {
 		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel());
 			InterfaceApplication.signInPage.gestionPersonnel.getRoot();
@@ -282,13 +279,15 @@ public class HomePage {
 	 }
 	 
 	 
-	 public static Ligue getLigue()
+	 public  Ligue getLigue()
 	 {
 		 return ligue;
 	 }
+	 
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {
-		 Home();
+		HomePage home = new HomePage(gestionPersonnel, listemp);
+		home.Home();
 	  }
 }
 

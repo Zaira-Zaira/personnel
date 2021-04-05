@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Map;
-
 import personnel.*;
 
 
@@ -287,6 +286,23 @@ public class JDBC implements Passerelle
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
+	
+	public void setAdmin(Employe employe) throws SauvegardeImpossible
+	{
+		try 
+		{
+			PreparedStatement tableEmploye;
+			tableEmploye = connection.prepareStatement("UPDATE employe SET admin = (CASE WHEN id_employe = ? THEN 1 WHEN id_employe <> ? THEN 0 END) WHERE num_ligue = ?");
+			tableEmploye.setInt(1, employe.getId());
+			tableEmploye.setInt(2, employe.getId());
+			tableEmploye.setInt(3, employe.getLigue().getId());
+			tableEmploye.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
 			throw new SauvegardeImpossible(e);
 		}
 	}

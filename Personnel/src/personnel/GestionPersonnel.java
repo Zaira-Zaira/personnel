@@ -177,6 +177,18 @@ public class GestionPersonnel implements Serializable
 		
 	}
 	
+	void setAdmin(Employe employe)
+	{
+		try
+		{
+			passerelle.SetAdmin(employe);
+		}
+		catch(SauvegardeImpossible e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public void getRootBaseDeDonnees() throws SauvegardeImpossible
 	{
 		root.setId(1);

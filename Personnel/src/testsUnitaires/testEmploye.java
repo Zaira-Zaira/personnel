@@ -128,6 +128,33 @@ class testEmploye
 		}
 	}
 	
+	@Test
+	 void EstAdmin() throws SauvegardeImpossible
+	 {
+		 Ligue ligue = gestionPersonnel.addLigue ("ligue1");
+		 Ligue ligue1 = gestionPersonnel.addLigue("ligue2");
+		 Employe employe = ligue.addEmploye("test", "employe", "test@gmail.com","azerty", null, null);
+		 Employe employe2 = ligue.addEmploye("Jaen", "Mathilde", "mathilde@gmail.com", "azerty", null, null);
+		 ligue.setAdministrateur(employe);
+		 assertTrue(employe.estAdmin(ligue));
+		 assertFalse(employe.estAdmin(ligue1));
+		 assertFalse(employe2.estAdmin(ligue));  
+	 }
+	
+	 @Test
+     void RemoveAdminEmploye() throws SauvegardeImpossible
+     {
+             Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
+             Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty", null, null);
+             Employe employe2 = GestionPersonnel.getGestionPersonnel().getRoot();
+             ligue.setAdministrateur(employe);
+             employe.remove();
+             assertFalse(ligue.getEmployes().contains(employe));
+             assertNull(employe.getLigue());
+             assertTrue(ligue.getAdministrateur().equals(employe2));
+            
+     }
+	
 	
 }
 
