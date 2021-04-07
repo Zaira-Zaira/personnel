@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -20,7 +18,6 @@ import javax.swing.JTextField;
 
 import personnel.Employe;
 import personnel.GestionPersonnel;
-import personnel.SauvegardeImpossible;
 
 
 

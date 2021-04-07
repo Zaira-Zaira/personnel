@@ -7,18 +7,15 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.SortedSet;
-import java.util.prefs.BackingStoreException;
 
 import javax.swing.Box;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -26,21 +23,23 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
+import javax.swing.UIManager; 
 
 
 
 
+/**
+ * @author 33782
+ *
+ */
 public class HomePage {
 	
 	private Ligue ListLigues;
@@ -54,6 +53,8 @@ public class HomePage {
     public JTextField inputName;
     public JDialog add;
     public JFrame home = new JFrame();
+    
+    
     
 	 public HomePage(GestionPersonnel gestionPersonnel) {
 		    this.gestionPersonnel = gestionPersonnel;
@@ -80,7 +81,7 @@ public class HomePage {
 	 {
 		 JLabel title = new JLabel("Liste des ligues");
 		 title.setHorizontalAlignment(SwingConstants.CENTER);
-		 title.setFont(new Font("Serif", Font.BOLD, 25));			
+		 title.setFont(new Font("Serif", Font.BOLD, 25));
 		 return title;
 	 }
 	 
@@ -88,9 +89,8 @@ public class HomePage {
 	 {
 		 JButton addLigueBtn = new JButton("Ajouter une ligue");
 		 addLigueBtn.setFont(new Font("Serif", Font.BOLD, 20));
-		 addLigueBtn.setPreferredSize(new Dimension(220,30));
-		 addLigueBtn.setBackground(Color.decode("#ffcad4"));
-		 addLigueBtn.setForeground(Color.decode("#222"));
+		 addLigueBtn.setBackground(Color.decode("#0077b6"));
+		 addLigueBtn.setForeground(Color.decode("#fafafa"));
 		 addLigueBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -195,6 +195,8 @@ public class HomePage {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				itemMenu.setBackground(Color.decode("#222"));
+				itemMenu.setForeground(Color.decode("#fafafa"));
 			  RootData.AccountData();
 			}
 		});
@@ -230,7 +232,7 @@ public class HomePage {
 			}
 		});
 		 listLigues.setModel(listLigue);
-		 listLigues.setBackground(Color.decode("#b2f7ef"));
+		 listLigues.setBackground(Color.decode("#caf0f8"));
 		 listLigues.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -246,21 +248,16 @@ public class HomePage {
 	private JPanel panelContainer()
 	 {
 		 JPanel panelContainer = new JPanel();
-		 GridLayout card = new GridLayout(4,1);
-		 panelContainer.setLayout(card);
-		 
+		 BorderLayout layout = new BorderLayout();
+		 layout.setVgap(30);
+		 panelContainer.setLayout(layout);
 		 Box boxaddLigueBtn = Box.createHorizontalBox();
 	     boxaddLigueBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		 boxaddLigueBtn.add(addLigueBtn());
-		 
-		 Box backBtn = Box.createHorizontalBox();
-		 backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-		 backBtn.add(back());
-			
-		 //panelContainer.add(backBtn);
-		 panelContainer.add(title());
-		 panelContainer.add(boxaddLigueBtn);
-		 panelContainer.add(listLigues());
+		 	 
+		 panelContainer.add(title(), BorderLayout.NORTH);
+		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
+		 panelContainer.add(listLigues(), BorderLayout.CENTER);
 		 return panelContainer;
 	 }
 	

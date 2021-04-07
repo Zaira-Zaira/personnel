@@ -1,26 +1,17 @@
 package InterfaceApplication;
 
-import static commandLineMenus.rendering.examples.util.InOut.getString;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -43,8 +34,15 @@ public class AddChangeEmploye {
 	private static Ligue ligue;
 	private static GestionPersonnel gestionPersonnel;
 	private static HomePage ligues;
+	private JTextField nom;
+	private JTextField prenom;
+	private JTextField mail;
+	private JTextField pass;
+	private SimpleDateFormat date;
+	private SimpleDateFormat dateDepart;
 	
-	 
+	
+	
 	public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues) {
 		    this.ligue = ligue;
 		    this.gestionPersonnel = gestionPersonnel;
@@ -106,39 +104,39 @@ public class AddChangeEmploye {
 	
 	private JTextField nameInput()
 	{
-		JTextField nom = new JTextField();
+		nom = new JTextField();
 		return nom;
 	}
 	
 	private JTextField secondNameInput()
 	{
-		JTextField prenom = new JTextField();
+		prenom = new JTextField();
 		return prenom;
 	}
 	
 	
 	private  JTextField mailInput()
 	{
-		JTextField mail = new JTextField();
+		mail = new JTextField();
 		return mail;
 	}
 	
 	private  JTextField passwordInput()
 	{
-		JTextField pass = new JTextField();
+		pass = new JTextField();
 		return pass;
 	}
 	
 	private JFormattedTextField DateArriveInput()
 	{
-		DateFormat date = new SimpleDateFormat("Y-m-d");
+		date = new SimpleDateFormat("Y-m-d");
 		JFormattedTextField dateArrive = new JFormattedTextField(date);
 		return dateArrive;
 	}
 	
 	private JFormattedTextField DateDepartInput()
 	{
-		DateFormat date = new SimpleDateFormat("Y-m-d");
+		dateDepart = new SimpleDateFormat("Y-m-d");
 		JFormattedTextField dateDepart = new JFormattedTextField(date);
 		return dateDepart;
 	}
@@ -152,7 +150,7 @@ public class AddChangeEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ligue.addEmploye(nameInput().getText(), secondNameInput().getText(), mailInput().getText(), passwordInput().getText(), null,  null);
+				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), null, null);
 			}
 		});
 		return addbtn;
