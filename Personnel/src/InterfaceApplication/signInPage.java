@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.SortedSet;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -41,8 +42,10 @@ public class signInPage{
     listEmployes listemp;
     Ligue ligue;
     Employe employe;
+    private JTextField passwordTxt;
     
-	public signInPage(GestionPersonnel gestionPersonnel)
+    
+    public signInPage(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;
 		this.homepage =  new HomePage(gestionPersonnel);
@@ -96,7 +99,7 @@ public class signInPage{
     
     private JTextField passInput()
     {
-    	JTextField passwordTxt = new JTextField();
+    	passwordTxt = new JTextField();
         return passwordTxt;
     }
     private  JButton btnConnexion()
@@ -111,15 +114,18 @@ public class signInPage{
 
     		@Override
     		public void actionPerformed(ActionEvent arg0) {
-    					
-    			if(passInput().getText() == "root") {
-    	    		System.out.println("pass correct");
-    	    	}
-    	    	else {
-    	    		System.out.println("pass incorrect");
-    	    	}
-    		   }
-        	 
+    			
+    			if(passwordTxt.getText().equals(gestionPersonnel.getRoot().getPassword())){
+    				  System.out.println("password correcte");
+    				   HomePage home = new HomePage(gestionPersonnel);
+    				   home.frame().setVisible(true);
+    			}else {
+    				System.out.println("password incorrect");
+    			}
+    		
+    		
+    	
+    		}
          });
          
          return btnconnexion;
@@ -178,6 +184,7 @@ public class signInPage{
 				new signInPage(GestionPersonnel.getGestionPersonnel());
     	signInPage.gestionPersonnel.getRoot();
     	signInPage.signIn();
+    		      	 
 	}
 	
 }

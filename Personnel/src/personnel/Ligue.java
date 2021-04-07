@@ -187,6 +187,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		gestionPersonnel.setAdmin(employe);
 	}
 	
+	
 
 	
 }

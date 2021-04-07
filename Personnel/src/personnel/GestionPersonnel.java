@@ -195,4 +195,8 @@ public class GestionPersonnel implements Serializable
 		root = passerelle.getSuperAdmin(root);
 	}
 	
+	public Employe getAdmin(Employe admin) throws SauvegardeImpossible
+	{
+		return gestionPersonnel.getAdmin(admin);
+	}
 }

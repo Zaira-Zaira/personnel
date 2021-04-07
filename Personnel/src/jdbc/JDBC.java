@@ -335,6 +335,35 @@ public class JDBC implements Passerelle
 		}
 	}
 	
+	
+	
+	public Employe getAdmin(Employe admin) throws SauvegardeImpossible
+	{
+		try {
+			Statement intruction = connection.createStatement();
+			String requete = "SELECT * FROM employe WHERE admin = 1";
+			ResultSet response = intruction.executeQuery(requete);
+			if(!response.next()) {
+				setRoot(admin);
+			}
+			else {
+				admin.setId(1);
+				String nom = response.getString("nom_employe");
+				String prenom = response.getString("prenom_employe");
+				String mail =  response.getString("mail_employe");
+			    String password = response.getString("password_employe");
+			    admin.setNom(nom);
+			    admin.setPrenom(prenom);
+			    admin.setMail(mail);
+			    admin.setPassword(password);
+			}
+		    return admin;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw new SauvegardeImpossible(e);
+		}
+	}
 
 	
 	
