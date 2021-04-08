@@ -109,7 +109,7 @@ public class listEmployes {
 	{
 		JLabel label = new JLabel("Il y a aucun employé dans cette ligue");
 		label.setFont(new Font("Serif", Font.BOLD, 22));
-		label.setForeground(Color.RED);
+		label.setForeground(Color.decode("#fbb1bd"));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		return label;
 	}
@@ -120,7 +120,7 @@ public class listEmployes {
 		 menubar.setPreferredSize(new Dimension(60,60));
 		 menubar.add(menuCompte());
 		 menubar.add(menuLigues());
-		 menubar.setBackground(Color.decode("#9a031e"));
+		 menubar.setBackground(Color.decode("#540b0e"));
 		return menubar;
 	}
 	
@@ -149,7 +149,7 @@ public class listEmployes {
 		 itemMenu.setBorder(borderitem);
 		 itemMenu.setSize(70,70);
 		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 17));
-		 itemMenu.setBackground(Color.decode("#9a031e"));
+		 itemMenu.setBackground(Color.decode("#540b0e"));
 		 itemMenu.setForeground(Color.decode("#fafafa"));
 		 return itemMenu;
 	}
@@ -236,7 +236,7 @@ public class listEmployes {
 	    JButton renameLigue = new JButton("Renommer la ligue");
 	    renameLigue.setFont(new Font("Serif", Font.BOLD, 18));
 	    renameLigue.setForeground(Color.decode("#fafafa"));
-	    renameLigue.setBackground(Color.decode("#0077b6"));
+	    renameLigue.setBackground(Color.decode("#48cae4"));
 	    renameLigue.setPreferredSize(new Dimension(200,35));
 	    renameLigue.addActionListener(new ActionListener() {
 			@Override
@@ -254,7 +254,7 @@ public class listEmployes {
 		JButton deleteLigue = new JButton("Supprimer la ligue");
 		deleteLigue.setFont(new Font("Serif", Font.BOLD, 18));
 		deleteLigue.setForeground(Color.decode("#fafafa"));
-		deleteLigue.setBackground(Color.decode("#d00000"));
+		deleteLigue.setBackground(Color.decode("#48cae4"));
 		deleteLigue.setPreferredSize(new Dimension(200,35));
 		deleteLigue.addActionListener(new ActionListener() {
 			
@@ -274,6 +274,10 @@ public class listEmployes {
 	private JButton back()
 	{
 		JButton btn = new JButton("Retour");
+		btn.setBackground(Color.decode("#48cae4"));
+		btn.setForeground(Color.decode("#fafafa"));
+		btn.setPreferredSize(new Dimension(130,30));
+		btn.setFont(new Font("Serif", Font.PLAIN, 22));
 		btn.addActionListener(new ActionListener() {
 			
 			@Override
@@ -301,7 +305,7 @@ public class listEmployes {
 	{
 		JButton addEmploye = new JButton("Ajouter un employé");
 		addEmploye.setFont(new Font("Serif", Font.BOLD, 20));
-		addEmploye.setBackground(Color.decode("#008d4c"));
+		addEmploye.setBackground(Color.decode("#48cae4"));
 		addEmploye.setForeground(Color.decode("#fafafa"));
 		addEmploye.addActionListener(new ActionListener() {
 			@Override

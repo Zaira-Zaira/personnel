@@ -73,6 +73,7 @@ public class HomePage {
 		home.setJMenuBar(menuBar());
 		home.setLayout(new GridBagLayout());
 		home.add(panelContainer());
+		home.getContentPane().setBackground(Color.decode("#dee2e6"));
 		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 return home;
 	}
@@ -181,7 +182,7 @@ public class HomePage {
 		 menu.setForeground(Color.decode("#fafafa"));
 		 menu.add(menuItem());
 		 menubar.add(menu);
-		 menubar.setBackground(Color.decode("#9a031e"));
+		 menubar.setBackground(Color.decode("#6f1d1b"));
 		return menubar;
 	 }
 	 
@@ -189,7 +190,7 @@ public class HomePage {
 	 {
 		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
 		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
-		 itemMenu.setBackground(Color.decode("#9a031e"));
+		 itemMenu.setBackground(Color.decode("#540b0e"));
 		 itemMenu.setForeground(Color.decode("#fafafa"));
 		 itemMenu.addActionListener(new ActionListener() {
 			

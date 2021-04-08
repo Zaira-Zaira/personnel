@@ -23,7 +23,7 @@ import personnel.SauvegardeImpossible;
 
 
 public class RootData {
-	public static void AccountData()
+	public void AccountData()
 	{
 		JFrame account = new JFrame();
 		account.setVisible(true);
@@ -40,7 +40,8 @@ public class RootData {
 		account.pack();
 	}
 	
-	private static JPanel panelLabels()
+	
+	private JPanel panelLabels()
 	{
 		JPanel panelLabels = new JPanel();
 		panelLabels.setLayout(new GridLayout(0,2));
@@ -65,7 +66,7 @@ public class RootData {
 		return panelLabels;
 	}
 	
-	private static JPanel panelCobtainer()
+	private JPanel panelCobtainer()
 	{
 		JPanel panelContainer = new JPanel();
 		panelContainer.setLayout(new BorderLayout());
@@ -77,14 +78,10 @@ public class RootData {
 		return panelContainer;
 	}
 	
-	private static JButton editEmployeBtn()
+	private JButton editEmployeBtn()
 	{
 		 JButton editEmpBtn = new JButton("Editer");
 		 return editEmpBtn;
 	}
 	
-	 public static void main(String[] args)  throws SauvegardeImpossible
-	 {
-		 AccountData();
-	  }
 }
