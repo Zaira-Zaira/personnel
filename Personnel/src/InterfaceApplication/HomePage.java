@@ -28,6 +28,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
@@ -53,17 +54,22 @@ public class HomePage {
     public JTextField inputName;
     public JDialog add;
     public JFrame home = new JFrame();
+    private static Employe employe;
     
     
-    
-	 public HomePage(GestionPersonnel gestionPersonnel) {
+	 public HomePage(GestionPersonnel gestionPersonnel, Employe employe) {
 		    this.gestionPersonnel = gestionPersonnel;
+		    this.employe = employe;
 	}
 
 
 	public void Home() {
 		frame().setVisible(true);
     }
+	
+	public Employe getEmploye(Employe employe) {
+		return employe = employe;
+	}
 	 
 	public JFrame frame()
 	{
@@ -75,6 +81,7 @@ public class HomePage {
 		home.add(panelContainer());
 		home.getContentPane().setBackground(Color.decode("#dee2e6"));
 		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		System.out.println(employe);
 		 return home;
 	}
 	
@@ -198,7 +205,7 @@ public class HomePage {
 			public void actionPerformed(ActionEvent e) {
 				itemMenu.setBackground(Color.decode("#222"));
 				itemMenu.setForeground(Color.decode("#fafafa"));
-			  RootData.AccountData();
+				
 			}
 		});
 		 itemMenu.setSize(70,70);
@@ -272,7 +279,7 @@ public class HomePage {
 	 
 	 public SortedSet<Ligue> getLigues()
 	 {
-		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel());
+		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel(), homePage);
 			InterfaceApplication.signInPage.gestionPersonnel.getRoot();
 			SortedSet<Ligue>  ligues = signInPage.gestionPersonnel.getLigues();
 			return ligues;
@@ -286,7 +293,7 @@ public class HomePage {
 	 
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {
-		HomePage home = new HomePage(gestionPersonnel);
+		HomePage home = new HomePage(gestionPersonnel, employe);
 		home.Home();
 	  }
 }

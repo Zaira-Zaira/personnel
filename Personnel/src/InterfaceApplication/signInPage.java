@@ -1,9 +1,5 @@
 package InterfaceApplication;
 
-import static commandLineMenus.rendering.examples.util.InOut.getString;
-
-import personnel.Ligue;
-import personnel.Employe;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -13,46 +9,36 @@ import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.SortedSet;
 
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 
-import commandLine.EmployeConsole;
-import commandLine.LigueConsole;
-import commandLine.PersonnelConsole;
+import personnel.Employe;
 import personnel.GestionPersonnel;
-import personnel.Passerelle;
+import personnel.Ligue;
 import personnel.SauvegardeImpossible;
 
 
 public class signInPage{
 	
     static GestionPersonnel gestionPersonnel;
-    HomePage homepage;
+    private  static HomePage homepage;
     listEmployes listemp;
     Ligue ligue;
     Employe employe;
     private JTextField passwordTxt;
     
     
-    public signInPage(GestionPersonnel gestionPersonnel)
+    public signInPage(GestionPersonnel gestionPersonnel, HomePage homepage)
 	{
 		this.gestionPersonnel = gestionPersonnel;
-		this.homepage =  new HomePage(gestionPersonnel);
+		this.homepage =  homepage;
 		this.listemp =  new listEmployes(gestionPersonnel, ligue);
 	}
 	
@@ -120,14 +106,29 @@ public class signInPage{
     		public void actionPerformed(ActionEvent arg0) {
     			
     			if(passwordTxt.getText().equals(gestionPersonnel.getRoot().getPassword())){
-    				  System.out.println("password correcte");
-    				   HomePage home = new HomePage(gestionPersonnel);
+    				   HomePage home = new HomePage(gestionPersonnel, gestionPersonnel.getRoot());
     				   home.frame().setVisible(true);
+    				   home.getEmploye(gestionPersonnel.getRoot());
     			}else {
-    				System.out.println("password incorrect");
+    				for(Ligue ligue : gestionPersonnel.getLigues()) {
+       		    	 for(Employe employe : ligue.getEmployes()) {
+       		    		 if(passwordTxt.getText().equals(employe.getPassword())) { 
+       		    			Employe connectedEmploye = employe;
+       		    			HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
+       		    			home.getEmploye(connectedEmploye);
+         				    home.frame().setVisible(true);
+       		    		 }
+       		    		 else {
+       		    			 System.out.println("password n'est pas reconnu");
+       		    		 }
+       		    	 }
+       		     }
     			}
+    			
+    		    
     		
     		
+    		 
     	
     		}
          });
@@ -185,7 +186,7 @@ public class signInPage{
     public static void main(String[] args) throws SauvegardeImpossible
     {
     	signInPage signInPage = 
-				new signInPage(GestionPersonnel.getGestionPersonnel());
+				new signInPage(GestionPersonnel.getGestionPersonnel(), homepage);
     	signInPage.gestionPersonnel.getRoot();
     	signInPage.signIn();
     		      	 

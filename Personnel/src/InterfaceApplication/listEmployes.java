@@ -45,6 +45,7 @@ public class listEmployes {
 	private  HomePage homePage;
 	private  editEmploye employe;
 	private  JTextField newLigue;
+	private Employe currentEmploye;
 	
 	 public listEmployes(GestionPersonnel gestionPersonnel, Ligue ligue) {
 		    this.gestionPersonnel = gestionPersonnel;
@@ -282,7 +283,8 @@ public class listEmployes {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				HomePage pageLigues = new HomePage(gestionPersonnel);
+				System.out.println(ligue);
+				HomePage pageLigues = new HomePage(gestionPersonnel, currentEmploye);
 				frame().setVisible(false);
 				pageLigues.frame().setVisible(true);
 			}
