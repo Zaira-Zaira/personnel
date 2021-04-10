@@ -1,6 +1,7 @@
 package InterfaceApplication;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -17,6 +18,9 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -54,25 +58,58 @@ public class AddChangeEmploye {
 	public void AddEmploye() {
 		
 		JFrame employeAdd = new JFrame();
+		employeAdd.getContentPane().setBackground(Color.decode("#cbc0d3"));
 		employeAdd.setVisible(true);
 		employeAdd.setTitle("Ajouter un employé");
-		employeAdd.getContentPane().setLayout(new GridBagLayout());
-			
-		GridBagConstraints panCont = new GridBagConstraints();
-		panCont.ipady = panCont.anchor = GridBagConstraints.CENTER;
-		employeAdd.setSize(750,700);
+		employeAdd.setLayout(new GridBagLayout());
+		employeAdd.setSize(750,750);
 		employeAdd.setLocationRelativeTo(null);
-		employeAdd.add(panelContainer(), panCont);
+		employeAdd.setJMenuBar(menuBar());
+		employeAdd.add(panelContainer());
 		employeAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeAdd.pack();
 	}
+	
+	 private JMenuBar menuBar()
+	 {
+		 JMenuBar menubar = new JMenuBar();
+		 menubar.setPreferredSize(new Dimension(60,60));
+		 JMenu menu = new JMenu("Mon compte");
+		 menu.setFont(new Font("Serif", Font.BOLD, 20));
+		 menu.setSize(70,70);
+		 menu.setForeground(Color.decode("#fafafa"));
+		 menu.add(menuItem());
+		 menubar.add(menu);
+		 menubar.setBackground(Color.decode("#6f1d1b"));
+		return menubar;
+	 }
 
+	 
+	 private JMenuItem menuItem()
+	 {
+		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
+		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
+		 itemMenu.setBackground(Color.decode("#540b0e"));
+		 itemMenu.setForeground(Color.decode("#fafafa"));
+		 itemMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				itemMenu.setBackground(Color.decode("#222"));
+				itemMenu.setForeground(Color.decode("#fafafa"));
+				
+			}
+		});
+		 itemMenu.setSize(70,70);
+		 return itemMenu;
+	 }
 	
 	private JPanel panel()
 	{
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.decode("#cbc0d3"));
 		panel.setLayout(new GridLayout(0,2, 25,25));
-		panel.setPreferredSize(new Dimension(700,500));
+		panel.setPreferredSize(new Dimension(500,500));
 		JLabel nomL = new JLabel("Nom :");
 		nomL.setFont(new Font("Serif", Font.PLAIN, 22));
 		JLabel prenomL = new JLabel("Prénom :");
@@ -150,6 +187,8 @@ public class AddChangeEmploye {
 	private  JButton addEmploye()
 	{
 		JButton addbtn = new JButton("Ajouter");
+		addbtn.setBackground(Color.decode("#feeafa"));
+		addbtn.setForeground(Color.decode("#540b0e"));
 		addbtn.addActionListener(new ActionListener() {
 			
 			@Override
@@ -163,22 +202,24 @@ public class AddChangeEmploye {
 	private JButton cancelAdd()
 	{
 		JButton cancelbtn = new JButton("Annuler");
-		
+		cancelbtn.setBackground(Color.decode("#feeafa"));
+		cancelbtn.setForeground(Color.decode("#540b0e"));
 		return cancelbtn;
 	}
 	
 	private JPanel panelContainer()
 	{
 		JPanel panelContainer = new JPanel();
+		panelContainer.setBackground(Color.decode("#cbc0d3"));
 		panelContainer.setLayout(new BorderLayout());
-		panelContainer.add(panel(), BorderLayout.CENTER);
-		panelContainer.setPreferredSize(new Dimension(750,550));
+		panelContainer.setPreferredSize(new Dimension(550,600));
 		JLabel text = new JLabel("Ajouter un employe");
 		text.setHorizontalAlignment(SwingConstants.CENTER);
+		text.setForeground(Color.decode("#540b0e"));
 		Border borderTitle = new EmptyBorder(25,25,25,25);
 		text.setBorder(borderTitle);
 		text.setFont(new Font("Serif", Font.BOLD, 30));
-		JTextArea back = new JTextArea("Quitter");
+		panelContainer.add(panel(), BorderLayout.CENTER);
 		panelContainer.add(text, BorderLayout.NORTH);
 		return panelContainer;
 	}

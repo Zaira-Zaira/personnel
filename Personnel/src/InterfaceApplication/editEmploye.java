@@ -1,5 +1,6 @@
 package InterfaceApplication;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -13,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -44,55 +48,126 @@ public class editEmploye {
 	public JFrame frame()
 	{
 		JFrame employes = new JFrame();
-		employes.setSize(900,900);
+		employes.getContentPane().setBackground(Color.decode("#cbc0d3"));
+		employes.setSize(750,750);
 		employes.setLocationRelativeTo(null);
-		//employes.setJMenuBar(menuBar());
+		employes.setJMenuBar(menuBar());
 		employes.setLayout(new GridBagLayout());
 		employes.add(panel());
-		//employes.add(Container());
 		employes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		return employes;
 	}
 	
+	 private JMenuBar menuBar()
+	 {
+		 JMenuBar menubar = new JMenuBar();
+		 menubar.setPreferredSize(new Dimension(60,60));
+		 JMenu menu = new JMenu("Mon compte");
+		 menu.setFont(new Font("Serif", Font.BOLD, 20));
+		 menu.setSize(70,70);
+		 menu.setForeground(Color.decode("#fafafa"));
+		 menu.add(menuItem());
+		 menubar.add(menu);
+		 menubar.setBackground(Color.decode("#6f1d1b"));
+		return menubar;
+	 }
+
+	 
+	 private JMenuItem menuItem()
+	 {
+		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
+		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
+		 itemMenu.setBackground(Color.decode("#540b0e"));
+		 itemMenu.setForeground(Color.decode("#fafafa"));
+		 itemMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				itemMenu.setBackground(Color.decode("#222"));
+				itemMenu.setForeground(Color.decode("#fafafa"));
+				
+			}
+		});
+		 itemMenu.setSize(70,70);
+		 return itemMenu;
+	 }
+	
 	private JPanel panel()
 	{
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.decode("#cbc0d3"));
 		panel.setLayout(new GridLayout(0,2, 25,25));
-		panel.setPreferredSize(new Dimension(700,500));
-		JLabel nomL = new JLabel("Nom :");
-		nomL.setFont(new Font("Serif", Font.PLAIN, 22));
-		JLabel prenomL = new JLabel("Prénom :");
-		prenomL.setFont(new Font("Serif", Font.PLAIN, 22));
-		JLabel emailL = new JLabel("Email :");
-		emailL.setFont(new Font("Serif", Font.PLAIN, 22));
-		JLabel passwordL = new JLabel("Password :");
-		passwordL.setFont(new Font("Serif", Font.PLAIN, 22));
-		JLabel dateArriveeL = new JLabel("Date d'arrivée :");
-		dateArriveeL.setFont(new Font("Serif", Font.PLAIN, 22));
-		JLabel dateDepartL = new JLabel("Date de départ :");
-		dateDepartL.setFont(new Font("Serif", Font.PLAIN, 22));
-
-		
-		panel.add(nomL);
+		panel.setPreferredSize(new Dimension(750,650));		
+		panel.add(nomL());
 		panel.add(nameInput());
-		panel.add(prenomL);
+		panel.add(prenomL());
 		panel.add(secondNameInput());
-		panel.add(emailL);
+		panel.add(emailL());
 		panel.add(mailInput());
-		panel.add(passwordL);
+		panel.add(passwordL());
 		panel.add(passwordInput());
-		panel.add(dateArriveeL);
+		panel.add(dateArriveeL());
 		panel.add(DateArriveInput());
-		panel.add(dateDepartL);
+		panel.add(dateDepartL());
 		panel.add(DateDepartInput());
 		panel.add(addEmploye());
 		panel.add(cancelAdd());
 		return panel;
 	}
 	
+	private JLabel nomL()
+	{
+		JLabel nom = new JLabel("Nom : ");
+		nom.setFont(new Font("Serif", Font.PLAIN, 22));
+		nom.setForeground(Color.decode("#540b0e"));
+		 return nom;	
+	}
+	
+	private JLabel prenomL()
+	{
+		JLabel prenom = new JLabel("Prenom : ");
+		prenom.setFont(new Font("Serif", Font.PLAIN, 22));
+		prenom.setForeground(Color.decode("#540b0e"));
+		 return prenom;	
+	}
+	
+	private JLabel emailL()
+	{
+		JLabel emailL = new JLabel("Email : ");
+		emailL.setFont(new Font("Serif", Font.PLAIN, 22));
+		emailL.setForeground(Color.decode("#540b0e"));
+		 return emailL;	
+	}
+	
+	private JLabel passwordL()
+	{
+		JLabel passwordL = new JLabel("Mot de passe : ");
+		passwordL.setFont(new Font("Serif", Font.PLAIN, 22));
+		passwordL.setForeground(Color.decode("#540b0e"));
+		 return passwordL;	
+	}
+	
+	private JLabel dateArriveeL()
+	{
+		JLabel dateArriveeL = new JLabel("Date d'arrivée : ");
+		dateArriveeL.setFont(new Font("Serif", Font.PLAIN, 22));
+		dateArriveeL.setForeground(Color.decode("#540b0e"));
+		 return dateArriveeL;	
+	}
+	
+	private JLabel dateDepartL()
+	{
+		JLabel dateDepartL = new JLabel("Date de départ : ");
+		dateDepartL.setFont(new Font("Serif", Font.PLAIN, 22));
+		dateDepartL.setForeground(Color.decode("#540b0e"));
+		 return dateDepartL;	
+	}
+	
 	private JButton addEmploye()
 	{
 		JButton addbtn = new JButton("Enregistrer");
+		addbtn.setBackground(Color.decode("#feeafa"));
+		addbtn.setForeground(Color.decode("#540b0e"));
 		addbtn.addActionListener(new ActionListener() {
 			
 			@Override
@@ -109,7 +184,8 @@ public class editEmploye {
 	private JButton cancelAdd()
 	{
 		JButton cancelbtn = new JButton("Annuler");
-		
+		cancelbtn.setBackground(Color.decode("#feeafa"));
+		cancelbtn.setForeground(Color.decode("#540b0e"));
 		return cancelbtn;
 	}
 	
