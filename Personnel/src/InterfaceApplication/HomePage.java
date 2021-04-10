@@ -247,7 +247,7 @@ public class HomePage {
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
 		 //listLigues.setFixedCellWidth(700);
-		 //listLigues.setFixedCellHeight(50);
+		 listLigues.setFixedCellHeight(50);
 		 return listLigues;
 	 }
 	 
@@ -276,6 +276,7 @@ public class HomePage {
 	 {
 		 JPanel panelContainer = new JPanel();
 		 panelContainer.setBackground(Color.decode("#feeafa"));
+		 panelContainer.setMinimumSize(new Dimension(500,350));
 		 BorderLayout layout = new BorderLayout();
 		 layout.setVgap(30);
 		 panelContainer.setLayout(layout);

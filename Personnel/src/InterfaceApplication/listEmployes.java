@@ -1,5 +1,6 @@
 package InterfaceApplication;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,6 +24,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -66,52 +68,63 @@ public class listEmployes {
 	public JFrame frame()
 	{
 		JFrame employes = new JFrame();
-		employes.setSize(900,900);
+		employes.getContentPane().setBackground(Color.decode("#cbc0d3"));
+		employes.setSize(750,750);
 		employes.setLocationRelativeTo(null);
 		employes.setJMenuBar(menuBar());
 		employes.setLayout(new GridBagLayout());
-		employes.add(ContainerEmployes());
+		employes.add(container());
 		employes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		return employes;
 	}
-	
-	private  JPanel ContainerEmployes()
+	private JPanel container()
 	{
-		JPanel employes = new JPanel();
-		GridLayout layout = new GridLayout(5,1);
-		layout.setVgap(65);
-		employes.setLayout(layout);
-		Box back = Box.createHorizontalBox();
-		back.add(back());
-		employes.add(back);
-		employes.add(titleLigue());
-		employes.add(title());
-		if(getEmployes().size() > 0)
-		{
-			employes.add(list());
-		}else {
-			employes.add(notEmployesFunded());
-		}
-		employes.add(renameAndDelete());
-		return employes;
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.decode("#cbc0d3"));
+		panel.setMinimumSize(new Dimension(500,500));
+		BorderLayout layout = new BorderLayout();
+		layout.setVgap(25);
+		panel.setLayout(layout);
+		panel.add(backAndTitleComponent(), BorderLayout.NORTH);
+		panel.add(employesList(), BorderLayout.CENTER);
+		panel.add(renameAndDelete(), BorderLayout.SOUTH);
+		return panel;
 	}
 	
-	private  JPanel Container()
+	
+	private JPanel backAndTitleComponent()
 	{
-		JPanel cont = new JPanel();
-		FlowLayout layout = new FlowLayout();
-		layout.setHgap(60);
-		cont.setLayout(layout);
-		cont.add(ContainerEmployes());
-		cont.add(renameAndDelete());
-		return cont;
+		JPanel panel = new JPanel();
+		GridLayout layout = new GridLayout(2,1);
+		layout.setVgap(15);
+		panel.setLayout(layout);
+		panel.setBackground(Color.decode("#cbc0d3"));
+		Box back = Box.createHorizontalBox();
+		back.add(back());
+		panel.add(back);
+		panel.add(titleLigue());
+		return panel;
+	}
+	
+	private JPanel employesList()
+	{
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(200,500));
+		panel.setBackground(Color.decode("#feeafa"));
+		if(getEmployes().size() > 0)
+		{
+			panel.add(list());
+		}else {
+			panel.add(notEmployesFunded());
+		}
+		return panel;
 	}
 	
 	private JLabel notEmployesFunded()
 	{
 		JLabel label = new JLabel("Il y a aucun employé dans cette ligue");
 		label.setFont(new Font("Serif", Font.BOLD, 22));
-		label.setForeground(Color.decode("#fbb1bd"));
+		label.setForeground(Color.decode("#cbc0d3"));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		return label;
 	}
@@ -181,11 +194,11 @@ public class listEmployes {
 			}
 		});
 		 empL.setFont(new Font("Serif", Font.BOLD, 22));
-		 empL.setBackground(Color.decode("#b2f7ef"));
+		 empL.setBackground(Color.decode("#feeafa"));
 		 empL.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)empL.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
-		 empL.setFixedCellWidth(700);
+		 empL.setFixedCellWidth(500);
 		 empL.setFixedCellHeight(40);
 		return empL;
 	}
@@ -204,13 +217,15 @@ public class listEmployes {
 		JLabel title = new JLabel("La ligue " + ligue.getNom() + " administrée par  " + ligue.getAdministrateur().getNom());
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Serif", Font.BOLD, 27));
-		title.setForeground(Color.decode("#9a031e"));
+		title.setForeground(Color.decode("#540b0e"));
 		return  title;
 	}
 	
 	private JPanel renameAndDelete()
 	{
 		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(650,150));
+		panel.setBackground(Color.decode("#cbc0d3"));
 		FlowLayout layout = new FlowLayout();
 		panel.setLayout(layout);
 		
@@ -239,7 +254,7 @@ public class listEmployes {
 	 }
 	    renameLigue.setFont(new Font("Serif", Font.BOLD, 18));
 	    renameLigue.setForeground(Color.decode("#fafafa"));
-	    renameLigue.setBackground(Color.decode("#48cae4"));
+	    renameLigue.setBackground(Color.decode("#540b0e"));
 	    renameLigue.setPreferredSize(new Dimension(200,35));
 	    renameLigue.addActionListener(new ActionListener() {
 			@Override
@@ -260,7 +275,7 @@ public class listEmployes {
 		 }
 		deleteLigue.setFont(new Font("Serif", Font.BOLD, 18));
 		deleteLigue.setForeground(Color.decode("#fafafa"));
-		deleteLigue.setBackground(Color.decode("#48cae4"));
+		deleteLigue.setBackground(Color.decode("#540b0e"));
 		deleteLigue.setPreferredSize(new Dimension(200,35));
 		deleteLigue.addActionListener(new ActionListener() {
 			
@@ -302,7 +317,7 @@ public class listEmployes {
 		JLabel title = new JLabel("La liste des employées");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Serif", Font.PLAIN, 27));
-		title.setForeground(Color.decode("#222"));
+		title.setForeground(Color.decode("#540b0e"));
 		return title;
 	}
 	
@@ -314,7 +329,7 @@ public class listEmployes {
 			addEmploye.setEnabled(false);
 	 }
 		addEmploye.setFont(new Font("Serif", Font.BOLD, 20));
-		addEmploye.setBackground(Color.decode("#48cae4"));
+		addEmploye.setBackground(Color.decode("#540b0e"));
 		addEmploye.setForeground(Color.decode("#fafafa"));
 		addEmploye.addActionListener(new ActionListener() {
 			@Override

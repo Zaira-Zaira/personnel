@@ -56,6 +56,7 @@ public class showEmploye {
 	public JFrame frame()
 	{
 		JFrame employeData = new JFrame();
+		employeData.getContentPane().setBackground(Color.decode("#cbc0d3"));
 		employeData.setLayout(new GridBagLayout());
 		employeData.add(container());
 		employeData.setSize(800,800);
@@ -71,7 +72,7 @@ public class showEmploye {
 		 menubar.setPreferredSize(new Dimension(60,60));
 		 menubar.add(menuCompte());
 		 menubar.add(menuLigues());
-		 menubar.setBackground(Color.decode("#9a031e"));
+		 menubar.setBackground(Color.decode("#540b0e"));
 		return menubar;
 	}
 	
@@ -108,11 +109,11 @@ public class showEmploye {
 	private JPanel data()
 	{
 		JPanel panelLabels = new JPanel();
-		Border EtchedBorderLowered = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
-		panelLabels.setBorder(EtchedBorderLowered);
-		panelLabels.setBackground(Color.decode("#f5f3f4"));
-		panelLabels.setLayout(new GridLayout(0,2));
-		panelLabels.setPreferredSize(new Dimension(400,330));
+		panelLabels.setBorder(BorderFactory.createLineBorder(Color.decode("#540b0e"), 1));
+		panelLabels.setBackground(Color.decode("#feeafa"));
+		GridLayout layout = new GridLayout(0,2);
+		layout.setVgap(9);
+		panelLabels.setLayout(layout);
 		ArrayList<JLabel> labels = new ArrayList<>();
 		labels.add(new JLabel("Nom : "));
 		labels.add(new JLabel(employe.getNom()));
@@ -129,23 +130,27 @@ public class showEmploye {
 		for(JLabel jlabel : labels) 
 		{
 			panelLabels.add(jlabel);
-			jlabel.setFont(new Font("Serif", Font.BOLD, 21));
-			jlabel.setForeground(Color.decode("#023e8a"));
+			jlabel.setFont(new Font("Serif", Font.PLAIN, 21));
+			jlabel.setForeground(Color.decode("#540b0e"));
 		}
 		return panelLabels;
-		
 	}
+	
+	
 	
 	
 	private JPanel container()
 	{
 		JPanel container = new JPanel();
-		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+		container.setBackground(Color.decode("#cbc0d3"));
+		GridLayout layout = new GridLayout(3,1);
+		layout.setVgap(30);
+		container.setLayout(layout);
 		container.setSize(700,600);
 		
 		Box boxtitle = Box.createHorizontalBox();
 		 
-		boxtitle.setAlignmentX(Component.BOTTOM_ALIGNMENT);
+		boxtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 		boxtitle.add(title());
 		
 		container.add(boxtitle);
@@ -156,17 +161,17 @@ public class showEmploye {
 	
 	private  JLabel title()
 	{
-		JLabel title = new JLabel("L'employé " + employe.getNom() + " " + employe.getPrenom() );
+		JLabel title = new JLabel("Informations");
+		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Serif", Font.BOLD, 27));
-		title.setForeground(Color.decode("#9a031e"));
-		Border margin = new EmptyBorder(0,0,70,0);
-		title.setBorder(margin);
+		title.setForeground(Color.decode("#fafafa"));
 		return title;
 	}
 	
 	private JPanel contBtn()
 	{
 		JPanel contBtn = new JPanel();
+		contBtn.setBackground(Color.decode("#cbc0d3"));
 		contBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		contBtn.add(back());
 		contBtn.add(edit());
@@ -179,7 +184,7 @@ public class showEmploye {
 	{
 		JButton back = new JButton("Retour");
 		back.setPreferredSize(new Dimension(125,30));
-		back.setBackground(Color.decode("#0096c7"));
+		back.setBackground(Color.decode("#540b0e"));
 		back.setFont(new Font("Serif", Font.BOLD, 19));
 		back.setForeground(Color.decode("#fafafa"));
 		back.addActionListener(new ActionListener() {
@@ -202,7 +207,7 @@ public class showEmploye {
 		 }
 		edit.setPreferredSize(new Dimension(130, 30));
 		edit.setFont(new Font("Serif", Font.BOLD, 19));
-		edit.setBackground(Color.decode("#0096c7"));
+		edit.setBackground(Color.decode("#540b0e"));
 		edit.setForeground(Color.decode("#fafafa"));
 		edit.addActionListener(new ActionListener() {
 			
@@ -222,7 +227,7 @@ public class showEmploye {
 		if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
 			delete.setEnabled(false);
 		 }
-		delete.setBackground(Color.decode("#0096c7"));
+		delete.setBackground(Color.decode("#540b0e"));
 		delete.setForeground(Color.decode("#fafafa"));
 		delete.setFont(new Font("Serif", Font.BOLD, 19));
 		delete.addActionListener(new ActionListener() {
@@ -246,7 +251,7 @@ public class showEmploye {
 		if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
 			btn.setEnabled(false);
 		 }
-		btn.setBackground(Color.decode("#0096c7"));
+		btn.setBackground(Color.decode("#540b0e"));
 		btn.setForeground(Color.decode("#fafafa"));
 		btn.setFont(new Font("Serif", Font.BOLD, 19));
 		btn.addActionListener(new ActionListener() {

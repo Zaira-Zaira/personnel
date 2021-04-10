@@ -127,12 +127,6 @@ public class signInPage{
        		    	 }
        		     }
     			}
-    			
-    		    
-    		
-    		
-    		 
-    	
     		}
          });
          
