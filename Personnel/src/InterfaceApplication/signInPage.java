@@ -33,13 +33,12 @@ public class signInPage{
     Ligue ligue;
     Employe employe;
     private JTextField passwordTxt;
+    Employe connectedEmploye;
     
-    
-    public signInPage(GestionPersonnel gestionPersonnel, HomePage homepage)
+    public signInPage(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;
-		this.homepage =  homepage;
-		this.listemp =  new listEmployes(gestionPersonnel, ligue);
+		this.listemp =  new listEmployes(gestionPersonnel, ligue, connectedEmploye);
 	}
 	
     public void signIn()
@@ -106,20 +105,23 @@ public class signInPage{
     		public void actionPerformed(ActionEvent arg0) {
     			
     			if(passwordTxt.getText().equals(gestionPersonnel.getRoot().getPassword())){
-    				   HomePage home = new HomePage(gestionPersonnel, gestionPersonnel.getRoot());
+    				connectedEmploye = gestionPersonnel.getRoot();
+    				   HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
     				   home.frame().setVisible(true);
     				   home.getEmploye(gestionPersonnel.getRoot());
     			}else {
     				for(Ligue ligue : gestionPersonnel.getLigues()) {
        		    	 for(Employe employe : ligue.getEmployes()) {
        		    		 if(passwordTxt.getText().equals(employe.getPassword())) { 
-       		    			Employe connectedEmploye = employe;
+       		    			connectedEmploye = employe;
        		    			HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
        		    			home.getEmploye(connectedEmploye);
          				    home.frame().setVisible(true);
-       		    		 }
-       		    		 else {
-       		    			 System.out.println("password n'est pas reconnu");
+       		    		 }else if(passwordTxt.getText().equals(ligue.getAdministrateur().getPassword())) {
+       		    			 connectedEmploye = ligue.getAdministrateur();
+       		    			HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
+       		    			home.getEmploye(connectedEmploye);
+         				    home.frame().setVisible(true);
        		    		 }
        		    	 }
        		     }
@@ -186,7 +188,7 @@ public class signInPage{
     public static void main(String[] args) throws SauvegardeImpossible
     {
     	signInPage signInPage = 
-				new signInPage(GestionPersonnel.getGestionPersonnel(), homepage);
+				new signInPage(GestionPersonnel.getGestionPersonnel());
     	signInPage.gestionPersonnel.getRoot();
     	signInPage.signIn();
     		      	 

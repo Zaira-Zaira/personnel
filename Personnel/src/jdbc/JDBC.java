@@ -118,7 +118,6 @@ public class JDBC implements Passerelle
 		}		
 	}
 	
-	
 	@Override
 	public void updateLigue(Ligue ligue) throws SauvegardeImpossible 
 	{
@@ -363,8 +362,5 @@ public class JDBC implements Passerelle
 			e.printStackTrace();
 			throw new SauvegardeImpossible(e);
 		}
-	}
-
-	
-	
+	}	
 }

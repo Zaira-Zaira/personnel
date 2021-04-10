@@ -39,10 +39,13 @@ public class showEmploye {
 	private static GestionPersonnel gestionPersonnel;
 	private static Employe employe;
 	private static Ligue ligue;
-	public showEmploye(GestionPersonnel gestionPersonnel, Employe employe, Ligue ligue) {
+	private static Employe connectedEmploye;
+	
+	public showEmploye(GestionPersonnel gestionPersonnel, Employe employe, Ligue ligue, Employe connectedEmploye) {
 		   this.gestionPersonnel = gestionPersonnel;
 		   this.employe = employe;
 		   this.ligue = ligue;
+		   this.connectedEmploye = connectedEmploye;
 	}
 	
 	public void employeShow()
@@ -184,7 +187,7 @@ public class showEmploye {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					 frame().setVisible(false);
-					 listEmployes list = new listEmployes(gestionPersonnel, ligue);
+					 listEmployes list = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
 					 list.frame().setVisible(true);
 			}
 		});
@@ -194,6 +197,9 @@ public class showEmploye {
 	private JButton edit()
 	{
 		JButton edit = new JButton("Editer l'employé");
+		  if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
+			  edit.setEnabled(false);
+		 }
 		edit.setPreferredSize(new Dimension(130, 30));
 		edit.setFont(new Font("Serif", Font.BOLD, 19));
 		edit.setBackground(Color.decode("#0096c7"));
@@ -213,6 +219,9 @@ public class showEmploye {
 	private JButton delete()
 	{
 		JButton delete = new JButton("Supprimer l'employé");
+		if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
+			delete.setEnabled(false);
+		 }
 		delete.setBackground(Color.decode("#0096c7"));
 		delete.setForeground(Color.decode("#fafafa"));
 		delete.setFont(new Font("Serif", Font.BOLD, 19));
@@ -234,6 +243,9 @@ public class showEmploye {
 	private JButton setAdmin()
 	{
 		JButton btn = new JButton("Mettre en admin");
+		if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
+			btn.setEnabled(false);
+		 }
 		btn.setBackground(Color.decode("#0096c7"));
 		btn.setForeground(Color.decode("#fafafa"));
 		btn.setFont(new Font("Serif", Font.BOLD, 19));

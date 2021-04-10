@@ -45,11 +45,12 @@ public class listEmployes {
 	private  HomePage homePage;
 	private  editEmploye employe;
 	private  JTextField newLigue;
-	private Employe currentEmploye;
+	private Employe connectedEmploye;
 	
-	 public listEmployes(GestionPersonnel gestionPersonnel, Ligue ligue) {
+	 public listEmployes(GestionPersonnel gestionPersonnel, Ligue ligue, Employe connectedEmploye) {
 		    this.gestionPersonnel = gestionPersonnel;
 		    this.ligue = ligue;
+		    this.connectedEmploye = connectedEmploye;
 	}
 	 
 	public void listEmployes()
@@ -173,9 +174,7 @@ public class listEmployes {
 				if (!e.getValueIsAdjusting()){
 		            JList source = (JList)e.getSource();
 		            Employe selectedEmploye = (Employe) source.getSelectedValue();
-		            //editEmploye employe = new editEmploye(gestionPersonnel, selectedEmploye);
-		            //editEmploye.listData();
-		            showEmploye employe = new showEmploye(gestionPersonnel, selectedEmploye, ligue);
+		            showEmploye employe = new showEmploye(gestionPersonnel, selectedEmploye, ligue, connectedEmploye);
 		            employe.employeShow();
 		        }
 				
@@ -235,6 +234,9 @@ public class listEmployes {
 	private JButton renameLigue()
 	{
 	    JButton renameLigue = new JButton("Renommer la ligue");
+	    if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
+	    	renameLigue.setEnabled(false);
+	 }
 	    renameLigue.setFont(new Font("Serif", Font.BOLD, 18));
 	    renameLigue.setForeground(Color.decode("#fafafa"));
 	    renameLigue.setBackground(Color.decode("#48cae4"));
@@ -253,6 +255,9 @@ public class listEmployes {
 	private JButton deleteLigue()
 	{
 		JButton deleteLigue = new JButton("Supprimer la ligue");
+		 if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
+			      deleteLigue.setEnabled(false);
+		 }
 		deleteLigue.setFont(new Font("Serif", Font.BOLD, 18));
 		deleteLigue.setForeground(Color.decode("#fafafa"));
 		deleteLigue.setBackground(Color.decode("#48cae4"));
@@ -283,8 +288,7 @@ public class listEmployes {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(ligue);
-				HomePage pageLigues = new HomePage(gestionPersonnel, currentEmploye);
+				HomePage pageLigues = new HomePage(gestionPersonnel, connectedEmploye);
 				frame().setVisible(false);
 				pageLigues.frame().setVisible(true);
 			}
@@ -306,6 +310,9 @@ public class listEmployes {
 	private JButton addEmploye()
 	{
 		JButton addEmploye = new JButton("Ajouter un employé");
+		if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
+			addEmploye.setEnabled(false);
+	 }
 		addEmploye.setFont(new Font("Serif", Font.BOLD, 20));
 		addEmploye.setBackground(Color.decode("#48cae4"));
 		addEmploye.setForeground(Color.decode("#fafafa"));

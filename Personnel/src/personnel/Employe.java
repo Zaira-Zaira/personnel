@@ -62,6 +62,8 @@ public class Employe implements Serializable, Comparable<Employe>
 		return ligue.getAdministrateur() == this;
 	}
 	
+	
+	
 	/**
 	 * Retourne vrai ssi l'employé est le root.
 	 * @return vrai ssi l'employé est le root.

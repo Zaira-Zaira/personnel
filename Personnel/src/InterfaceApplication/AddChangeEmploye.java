@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.chrono.JapaneseDate;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -22,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DateFormatter;
 
 import personnel.GestionPersonnel;
 import personnel.Ligue;
@@ -130,14 +132,16 @@ public class AddChangeEmploye {
 	private JFormattedTextField DateArriveInput()
 	{
 		date = new SimpleDateFormat("Y-m-d");
-		JFormattedTextField dateArrive = new JFormattedTextField(date);
+		DateFormatter formatter = new DateFormatter(date);
+		JFormattedTextField dateArrive = new JFormattedTextField(formatter);
 		return dateArrive;
 	}
 	
 	private JFormattedTextField DateDepartInput()
 	{
 		dateDepart = new SimpleDateFormat("Y-m-d");
-		JFormattedTextField dateDepart = new JFormattedTextField(date);
+		DateFormatter formatter = new DateFormatter(dateDepart);
+		JFormattedTextField dateDepart = new JFormattedTextField(formatter);
 		return dateDepart;
 	}
 	
@@ -150,7 +154,7 @@ public class AddChangeEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), null, null);
+				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), LocalDate.now(), null);
 			}
 		});
 		return addbtn;

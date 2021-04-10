@@ -125,7 +125,19 @@ public class GestionPersonnel implements Serializable
 		return passerelle.insert(ligue);
 	}
 	
-	
+	public boolean haveWritePermission(Ligue ligue, Employe employe) {
+		if(employe.estRoot()) {
+			return true;
+		}
+		else if(ligue.getAdministrateur().equals(employe))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
 	
 	int insert(Employe employe) throws SauvegardeImpossible
 	{

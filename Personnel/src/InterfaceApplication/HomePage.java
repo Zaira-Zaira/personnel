@@ -23,6 +23,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -55,11 +57,11 @@ public class HomePage {
     public JDialog add;
     public JFrame home = new JFrame();
     private static Employe employe;
+    private  static Employe connectedEmploye;
     
-    
-	 public HomePage(GestionPersonnel gestionPersonnel, Employe employe) {
+	 public HomePage(GestionPersonnel gestionPersonnel, Employe connectedEmploye) {
 		    this.gestionPersonnel = gestionPersonnel;
-		    this.employe = employe;
+		    this.connectedEmploye = connectedEmploye;
 	}
 
 
@@ -81,7 +83,6 @@ public class HomePage {
 		home.add(panelContainer());
 		home.getContentPane().setBackground(Color.decode("#dee2e6"));
 		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		System.out.println(employe);
 		 return home;
 	}
 	
@@ -222,8 +223,6 @@ public class HomePage {
 		 listLigues.setModel(listLigue);
 		 for (Ligue ligue : choix) {
 			   listLigue.addElement(ligue);
-			   listEmployes emplist = new listEmployes(gestionPersonnel,ligue);
-				 emplist.getList(ligue);
 			}
 		 listLigues.addListSelectionListener(new ListSelectionListener() {
 			
@@ -232,7 +231,7 @@ public class HomePage {
 				if (!e.getValueIsAdjusting()){
 		            JList source = (JList)e.getSource();
 		            Ligue selected = (Ligue) source.getSelectedValue();
-		            listEmployes ligue = new listEmployes(gestionPersonnel,selected);
+		            listEmployes ligue = new listEmployes(gestionPersonnel,selected, connectedEmploye);
 		            frame().setVisible(false);
 		            ligue.listEmployes();
 		        }
@@ -247,6 +246,13 @@ public class HomePage {
 		 listLigues.setFixedCellWidth(700);
 		 listLigues.setFixedCellHeight(50);
 		 return listLigues;
+	 }
+	 
+	 private JScrollPane scrollList()
+	 {
+	    JScrollPane scrollpane = new JScrollPane(listLigues());
+	    
+	    return scrollpane;
 	 }
 	
 
@@ -265,7 +271,7 @@ public class HomePage {
 		 	 
 		 panelContainer.add(title(), BorderLayout.NORTH);
 		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
-		 panelContainer.add(listLigues(), BorderLayout.CENTER);
+		 panelContainer.add(scrollList(), BorderLayout.CENTER);
 		 return panelContainer;
 	 }
 	
@@ -279,7 +285,7 @@ public class HomePage {
 	 
 	 public SortedSet<Ligue> getLigues()
 	 {
-		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel(), homePage);
+		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel());
 			InterfaceApplication.signInPage.gestionPersonnel.getRoot();
 			SortedSet<Ligue>  ligues = signInPage.gestionPersonnel.getLigues();
 			return ligues;
@@ -293,7 +299,7 @@ public class HomePage {
 	 
 	 public static void main(String[] args)  throws SauvegardeImpossible
 	 {
-		HomePage home = new HomePage(gestionPersonnel, employe);
+		HomePage home = new HomePage(gestionPersonnel, connectedEmploye );
 		home.Home();
 	  }
 }
