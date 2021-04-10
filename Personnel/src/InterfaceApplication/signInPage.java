@@ -10,6 +10,7 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -49,7 +50,7 @@ public class signInPage{
     private JFrame frame()
     {
     	JFrame frame = new JFrame();
-    	
+    	frame.getContentPane().setBackground(Color.decode("#cbc0d3"));
     	 frame.setTitle("Sign In !");
          frame.setLayout(new GridBagLayout());
          frame.setPreferredSize(new Dimension(600,600));
@@ -141,6 +142,17 @@ public class signInPage{
     private JPanel container()
     {
     	JPanel panel = new JPanel();
+    	panel.setPreferredSize(new Dimension(450,250));
+    	panel.setBackground(Color.decode("#feeafa"));
+    	//panel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#540b0e")));
+    	panel.setBorder(BorderFactory.createLineBorder(Color.decode("#540b0e"), 1));
+        panel.add(loginPasswordInput());
+        return panel;
+    }
+    private JPanel  loginPasswordInput()
+    {
+    	JPanel panel = new JPanel();
+    	panel.setBackground(Color.decode("#feeafa"));
     	GridLayout layout = new GridLayout(0,2);
     	layout.setVgap(40);
         panel.setLayout(layout);
@@ -150,6 +162,7 @@ public class signInPage{
         panel.add(password());
         panel.add(passInput());
         panel.add(btnConnexion());
+        
         return panel;
     }
     

@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.SortedSet;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -75,13 +76,14 @@ public class HomePage {
 	 
 	public JFrame frame()
 	{
-		home.setSize(900,900);
+		JFrame home = new JFrame();
+		home.getContentPane().setBackground(Color.decode("#cbc0d3"));
+		home.setSize(700,700);
 		home.setLocationRelativeTo(null);
 		home.setTitle("Home page");
 		home.setJMenuBar(menuBar());
 		home.setLayout(new GridBagLayout());
 		home.add(panelContainer());
-		home.getContentPane().setBackground(Color.decode("#dee2e6"));
 		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 return home;
 	}
@@ -98,7 +100,7 @@ public class HomePage {
 	 {
 		 JButton addLigueBtn = new JButton("Ajouter une ligue");
 		 addLigueBtn.setFont(new Font("Serif", Font.BOLD, 20));
-		 addLigueBtn.setBackground(Color.decode("#0077b6"));
+		 addLigueBtn.setBackground(Color.decode("#540b0e"));
 		 addLigueBtn.setForeground(Color.decode("#fafafa"));
 		 addLigueBtn.addActionListener(new ActionListener() {
 			@Override
@@ -218,6 +220,7 @@ public class HomePage {
 	 {
 		 SortedSet<Ligue> choix = getLigues();
 		 JList<Ligue> listLigues = new JList<>();
+		 listLigues.setOpaque(true);
 		 DefaultListModel<Ligue> listLigue = new DefaultListModel<>();
 		 listLigues.setFont(new Font("Serif", Font.BOLD, 22));
 		 listLigues.setModel(listLigue);
@@ -243,16 +246,26 @@ public class HomePage {
 		 listLigues.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
-		 listLigues.setFixedCellWidth(700);
-		 listLigues.setFixedCellHeight(50);
+		 //listLigues.setFixedCellWidth(700);
+		 //listLigues.setFixedCellHeight(50);
 		 return listLigues;
 	 }
 	 
 	 private JScrollPane scrollList()
 	 {
 	    JScrollPane scrollpane = new JScrollPane(listLigues());
-	    
+	    scrollpane.setPreferredSize(new Dimension(450,300));
+	    scrollpane.getViewport().setBackground(Color.black);
+	    scrollpane.setOpaque(true);
+	    scrollpane.setBorder(BorderFactory.createLineBorder(Color.decode("#540b0e"), 1));
 	    return scrollpane;
+	 }
+	 
+	 private JPanel scrollListPanel()
+	 {
+		 JPanel panel = new JPanel();
+		 panel.add(scrollList());
+		 return panel;
 	 }
 	
 
@@ -262,6 +275,7 @@ public class HomePage {
 	private JPanel panelContainer()
 	 {
 		 JPanel panelContainer = new JPanel();
+		 panelContainer.setBackground(Color.decode("#feeafa"));
 		 BorderLayout layout = new BorderLayout();
 		 layout.setVgap(30);
 		 panelContainer.setLayout(layout);
@@ -271,7 +285,7 @@ public class HomePage {
 		 	 
 		 panelContainer.add(title(), BorderLayout.NORTH);
 		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
-		 panelContainer.add(scrollList(), BorderLayout.CENTER);
+		 panelContainer.add(scrollListPanel(), BorderLayout.CENTER);
 		 return panelContainer;
 	 }
 	
