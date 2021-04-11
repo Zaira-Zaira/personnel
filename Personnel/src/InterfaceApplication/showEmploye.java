@@ -36,10 +36,10 @@ import personnel.SauvegardeImpossible;
 
 public class showEmploye {
 	
-	private static GestionPersonnel gestionPersonnel;
-	private static Employe employe;
-	private static Ligue ligue;
-	private static Employe connectedEmploye;
+	private  GestionPersonnel gestionPersonnel;
+	private  Employe employe;
+	private  Ligue ligue;
+	private  Employe connectedEmploye;
 	
 	public showEmploye(GestionPersonnel gestionPersonnel, Employe employe, Ligue ligue, Employe connectedEmploye) {
 		   this.gestionPersonnel = gestionPersonnel;
@@ -214,8 +214,8 @@ public class showEmploye {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame().setVisible(false);
-				editEmploye editEmploye = new editEmploye(gestionPersonnel, employe);
-				editEmploye.frame().setVisible(true);
+				editEmploye edit = new editEmploye(gestionPersonnel, employe, ligue, connectedEmploye);
+				edit.listData();
 			}
 		});
 		return edit;
@@ -240,6 +240,10 @@ public class showEmploye {
 					e1.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(null, "L'employé a été supprimé", "supprimer l'employé", JOptionPane.INFORMATION_MESSAGE);
+				frame().setVisible(false);
+				frame().dispose();
+				listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+				employesPage.listEmployes();
 			}
 		});
 		return delete;
@@ -264,7 +268,10 @@ public class showEmploye {
 					e.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(null, "L'émployé est maintenant l'admin de la ligue" + ligue.getNom() + ".", "Nommer admin", JOptionPane.INFORMATION_MESSAGE);
-				
+				frame().setVisible(false);
+				frame().dispose();
+				listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+				employesPage.listEmployes();
 			}
 		});
 		return btn;

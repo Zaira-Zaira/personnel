@@ -29,6 +29,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DateFormatter;
 
+import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
 import personnel.SauvegardeImpossible;
@@ -46,20 +47,25 @@ public class AddChangeEmploye {
 	private JTextField pass;
 	private SimpleDateFormat date;
 	private SimpleDateFormat dateDepart;
+	private Employe connectedEmploye;
 	
 	
-	
-	public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues) {
+	public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues, Employe connectedEmploye) {
 		    this.ligue = ligue;
 		    this.gestionPersonnel = gestionPersonnel;
 		    this.ligues = ligues;
+		    this.connectedEmploye = connectedEmploye;
 	}
 	
 	public void AddEmploye() {
 		
+		frame().setVisible(true);
+	}
+	
+	private JFrame frame()
+	{
 		JFrame employeAdd = new JFrame();
 		employeAdd.getContentPane().setBackground(Color.decode("#cbc0d3"));
-		employeAdd.setVisible(true);
 		employeAdd.setTitle("Ajouter un employé");
 		employeAdd.setLayout(new GridBagLayout());
 		employeAdd.setSize(750,750);
@@ -68,6 +74,7 @@ public class AddChangeEmploye {
 		employeAdd.add(panelContainer());
 		employeAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		employeAdd.pack();
+		return employeAdd;
 	}
 	
 	 private JMenuBar menuBar()
@@ -194,6 +201,10 @@ public class AddChangeEmploye {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), LocalDate.now(), null);
+	            frame().setVisible(false);
+	            frame().dispose();
+	            listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+				employesPage.listEmployes();
 			}
 		});
 		return addbtn;
@@ -204,6 +215,16 @@ public class AddChangeEmploye {
 		JButton cancelbtn = new JButton("Annuler");
 		cancelbtn.setBackground(Color.decode("#feeafa"));
 		cancelbtn.setForeground(Color.decode("#540b0e"));
+		cancelbtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame().setVisible(false);
+				frame().dispose();
+				listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+				employesPage.listEmployes();
+			}
+		});
 		return cancelbtn;
 	}
 	
@@ -223,9 +244,4 @@ public class AddChangeEmploye {
 		panelContainer.add(text, BorderLayout.NORTH);
 		return panelContainer;
 	}
-	 public static void main(String[] args)  throws SauvegardeImpossible
-	 {
-		 AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, ligues);
-		 add.addEmploye();
-	  }
 }

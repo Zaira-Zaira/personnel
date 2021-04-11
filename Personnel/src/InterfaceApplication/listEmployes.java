@@ -190,7 +190,6 @@ public class listEmployes {
 		            showEmploye employe = new showEmploye(gestionPersonnel, selectedEmploye, ligue, connectedEmploye);
 		            employe.employeShow();
 		        }
-				
 			}
 		});
 		 empL.setFont(new Font("Serif", Font.BOLD, 22));
@@ -261,6 +260,10 @@ public class listEmployes {
 			public void actionPerformed(ActionEvent e) {
 				String inputValue = JOptionPane.showInputDialog("Nom de la ligue"); 
 				ligue.setNom(inputValue);
+				HomePage pageLigues = new HomePage(gestionPersonnel, connectedEmploye);
+				frame().setVisible(false);
+				frame().dispose();
+				pageLigues.frame().setVisible(true);
 			}
 		});
 	    return renameLigue;
@@ -286,7 +289,11 @@ public class listEmployes {
 				} catch (SauvegardeImpossible e1) {
 					e1.printStackTrace();
 				}
-				JOptionPane.showMessageDialog(null, "la ligue a été supprimée", "supprimer la ligue", JOptionPane.INFORMATION_MESSAGE); 
+				JOptionPane.showMessageDialog(null, "la ligue a été supprimée", "supprimer la ligue", JOptionPane.INFORMATION_MESSAGE);
+				HomePage pageLigues = new HomePage(gestionPersonnel, connectedEmploye);
+				frame().setVisible(false);
+				frame().dispose();
+				pageLigues.frame().setVisible(true);
 			}
 		});
 		return deleteLigue;
@@ -334,7 +341,7 @@ public class listEmployes {
 		addEmploye.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, homePage);
+				AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, homePage, connectedEmploye);
 				frame().setVisible(false);
 				add.AddEmploye();
 			}

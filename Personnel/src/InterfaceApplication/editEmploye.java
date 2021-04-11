@@ -22,21 +22,26 @@ import javax.swing.JTextField;
 
 import personnel.Employe;
 import personnel.GestionPersonnel;
+import personnel.Ligue;
 
 
 
 public class editEmploye {
 	
     private Employe employe;
-    GestionPersonnel gestionPersonnel;
+    private GestionPersonnel gestionPersonnel;
     JTextField nom;
     JTextField prenom;
     JTextField mail;
     JTextField password;
+    private Employe connectedEmploye;
+    private Ligue ligue;
     
-	public editEmploye(GestionPersonnel gestionPersonnel, Employe employe) {
+	public editEmploye(GestionPersonnel gestionPersonnel, Employe employe, Ligue ligue, Employe connectedEmploye) {
 		   this.gestionPersonnel = gestionPersonnel;
 		   this.employe = employe;
+		   this.ligue = ligue;
+		   this.connectedEmploye = connectedEmploye;
 	}
 	
 	
@@ -176,6 +181,10 @@ public class editEmploye {
 			  employe.setPrenom(prenom.getText());
 			  employe.setMail(mail.getText());
 			  employe.setPassword(password.getText());
+			  frame().setVisible(false);
+			  frame().dispose();
+			  listEmployes employespage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+			  employespage.listEmployes();
 			}
 		});
 		return addbtn;
@@ -186,6 +195,16 @@ public class editEmploye {
 		JButton cancelbtn = new JButton("Annuler");
 		cancelbtn.setBackground(Color.decode("#feeafa"));
 		cancelbtn.setForeground(Color.decode("#540b0e"));
+		cancelbtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				  frame().setVisible(false);
+				  frame().dispose();
+				  listEmployes employespage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+				  employespage.listEmployes();
+			}
+		});
 		return cancelbtn;
 	}
 	
