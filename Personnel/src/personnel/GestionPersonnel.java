@@ -193,7 +193,7 @@ public class GestionPersonnel implements Serializable
 	{
 		try
 		{
-			passerelle.SetAdmin(employe);
+			passerelle.setAdmin(employe);
 		}
 		catch(SauvegardeImpossible e)
 		{

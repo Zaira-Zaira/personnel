@@ -262,11 +262,8 @@ public class showEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					employe.getLigue().changeAdmin(employe);
-				} catch (SauvegardeImpossible e) {
-					e.printStackTrace();
-				}
+				//employe.getLigue().changeAdmin(employe);
+				ligue.setAdministrateur(employe);
 				JOptionPane.showMessageDialog(null, "L'émployé est maintenant l'admin de la ligue" + ligue.getNom() + ".", "Nommer admin", JOptionPane.INFORMATION_MESSAGE);
 				frame().setVisible(false);
 				frame().dispose();

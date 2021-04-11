@@ -8,12 +8,13 @@ public interface Passerelle
 	public void deleteLigue(Ligue ligue) throws SauvegardeImpossible ;
 	public int insert(Employe employe) throws SauvegardeImpossible;
 	public void deleteEmploye(Employe employe) throws SauvegardeImpossible;
-	public void SetAdmin(Employe employe)  throws SauvegardeImpossible;
+	public void setAdmin(Employe employe)  throws SauvegardeImpossible;
 	public void updateLigue(Ligue ligue) throws SauvegardeImpossible;
 	public void updateEmploye(Employe employe, String string) throws SauvegardeImpossible;
 	//void updateEmployee(Employe employe, String dataList) throws SauvegardeImpossible;
 	public Employe getSuperAdmin(Employe root) throws SauvegardeImpossible;
 	public void updateEmp(Employe employe) throws SauvegardeImpossible;
+	void SetAdmin(Employe employe) throws SauvegardeImpossible;
 
 }
 

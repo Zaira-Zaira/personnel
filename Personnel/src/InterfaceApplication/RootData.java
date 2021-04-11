@@ -22,12 +22,19 @@ import javax.swing.plaf.SeparatorUI;
 import personnel.SauvegardeImpossible;
 
 
+
 public class RootData {
+	
+	
 	public void AccountData()
 	{
+		frame().setVisible(true);
+	}
+	
+	private JFrame frame()
+	{
 		JFrame account = new JFrame();
-		account.setVisible(true);
-		account.setTitle("Mon compte root");
+		account.setTitle("Le compte root");
 		account.getContentPane().setLayout(new BoxLayout(account, BoxLayout.Y_AXIS));
 		account.setSize(600, 500);
 		
@@ -38,6 +45,7 @@ public class RootData {
 		account.add(panelCobtainer());
 		account.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		account.pack();
+		return account;
 	}
 	
 	
