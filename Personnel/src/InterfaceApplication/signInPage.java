@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -176,13 +177,31 @@ public class signInPage{
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(50,50));
 		 menubar.setBackground(Color.decode("#540b0e"));
-		 JMenu menu = new JMenu("Gestion des ligues");
+		 JMenu menu = new JMenu("Compte root");
+		 menu.add(menuItem());
 		 menu.setAlignmentX(SwingConstants.WEST);
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
 		 menu.setForeground(Color.decode("#fafafa"));
 		 menu.setSize(80,80);
 		 menubar.add(menu);
 		return menubar;
+	 }
+	 private JMenuItem menuItem()
+	 {
+		 JMenuItem itemMenu = new JMenuItem("Gérer le compte root");
+		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
+		 itemMenu.setBackground(Color.decode("#540b0e"));
+		 itemMenu.setForeground(Color.decode("#fafafa"));
+		 itemMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RootData root = new RootData(gestionPersonnel);
+				root.AccountData();
+			}
+		});
+		 //itemMenu.setSize(70,70);
+		 return itemMenu;
 	 }
     
     public void HomePage() {

@@ -62,13 +62,6 @@ class testEmploye
 	}
 	
 	@Test
-	void getAdmin() throws SauvegardeImpossible
-	{
-		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-		assertEquals("root   (super-utilisateur)", ligue.getAdministrateur().toString());
-	}
-	
-	@Test
 	void setAdmin() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");

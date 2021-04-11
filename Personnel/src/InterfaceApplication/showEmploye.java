@@ -234,16 +234,21 @@ public class showEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					employe.remove();
-				} catch (SauvegardeImpossible e1) {
-					e1.printStackTrace();
+				if(employe.equals(ligue.getAdministrateur())) {
+					JOptionPane.showMessageDialog(null, "Impossible de supprimer le compte admin", "supprimer admin", JOptionPane.ERROR_MESSAGE);
 				}
-				JOptionPane.showMessageDialog(null, "L'employé a été supprimé", "supprimer l'employé", JOptionPane.INFORMATION_MESSAGE);
-				frame().setVisible(false);
-				frame().dispose();
-				listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
-				employesPage.listEmployes();
+				else {
+					try {
+						employe.remove();
+					} catch (SauvegardeImpossible e1) {
+						e1.printStackTrace();
+					}
+					JOptionPane.showMessageDialog(null, "L'employé a été supprimé", "supprimer l'employé", JOptionPane.INFORMATION_MESSAGE);
+					frame().setVisible(false);
+					frame().dispose();
+					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+					employesPage.listEmployes();
+				}
 			}
 		});
 		return delete;

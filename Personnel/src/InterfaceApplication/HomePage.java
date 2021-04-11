@@ -61,6 +61,8 @@ public class HomePage {
     private static Employe employe;
     private  static Employe connectedEmploye;
     
+    
+    
 	 public HomePage(GestionPersonnel gestionPersonnel, Employe connectedEmploye) {
 		    this.gestionPersonnel = gestionPersonnel;
 		    this.connectedEmploye = connectedEmploye;
@@ -190,19 +192,20 @@ public class HomePage {
 	 {
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
-		 JMenu menu = new JMenu("Mon compte");
-		 menu.setFont(new Font("Serif", Font.BOLD, 20));
-		 menu.setSize(70,70);
-		 menu.setForeground(Color.decode("#fafafa"));
+		 JMenu menu = new JMenu("Compte root");
 		 menu.add(menuItem());
-		 menubar.add(menu);
+		 menu.setFont(new Font("Serif", Font.BOLD, 20));
+		 //menu.setSize(70,70);
+		 menu.setForeground(Color.decode("#fafafa"));
 		 menubar.setBackground(Color.decode("#6f1d1b"));
+		 menubar.add(menu);
 		return menubar;
 	 }
 	 
+	 
 	 private JMenuItem menuItem()
 	 {
-		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
+		 JMenuItem itemMenu = new JMenuItem("Gérer le compte root");
 		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
 		 itemMenu.setBackground(Color.decode("#540b0e"));
 		 itemMenu.setForeground(Color.decode("#fafafa"));
@@ -210,12 +213,11 @@ public class HomePage {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				itemMenu.setBackground(Color.decode("#222"));
-				itemMenu.setForeground(Color.decode("#fafafa"));
-				
+				RootData root = new RootData(gestionPersonnel);
+				root.AccountData();
 			}
 		});
-		 itemMenu.setSize(70,70);
+		 //itemMenu.setSize(70,70);
 		 return itemMenu;
 	 }
 	 
