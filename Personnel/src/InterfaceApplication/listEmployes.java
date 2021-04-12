@@ -69,7 +69,7 @@ public class listEmployes {
 	{
 		JFrame employes = new JFrame();
 		employes.getContentPane().setBackground(Color.decode("#cbc0d3"));
-		employes.setSize(750,750);
+		employes.setSize(700,700);
 		employes.setLocationRelativeTo(null);
 		employes.setJMenuBar(menuBar());
 		employes.setLayout(new GridBagLayout());
@@ -133,20 +133,9 @@ public class listEmployes {
 	{
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
-		 menubar.add(menuCompte());
 		 menubar.add(menuLigues());
 		 menubar.setBackground(Color.decode("#540b0e"));
 		return menubar;
-	}
-	
-	private JMenu menuCompte()
-	{
-		 JMenu menu = new JMenu("Mon compte");
-		 menu.add(itemMenuCompte());
-		 menu.setSize(70,70);
-		 menu.setFont(new Font("Serif", Font.BOLD, 20));
-		 menu.setForeground(Color.decode("#fafafa"));
-		 return menu;
 	}
 	
 	private JMenu menuLigues()
@@ -156,17 +145,6 @@ public class listEmployes {
 		 ligues.setForeground(Color.decode("#fafafa"));
 		 ligues.addSeparator();
 		 return ligues;
-	}
-	
-	private JMenuItem itemMenuCompte() {
-		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
-		 Border borderitem = new EmptyBorder(7,7,7,7);
-		 itemMenu.setBorder(borderitem);
-		 itemMenu.setSize(70,70);
-		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 17));
-		 itemMenu.setBackground(Color.decode("#540b0e"));
-		 itemMenu.setForeground(Color.decode("#fafafa"));
-		 return itemMenu;
 	}
 	
 	public JList<Employe> list()
@@ -213,7 +191,12 @@ public class listEmployes {
 	
 	private JLabel titleLigue()
 	{
-		JLabel title = new JLabel("La ligue " + ligue.getNom() + " administrée par  " + ligue.getAdministrateur().getNom());
+		JLabel title = new JLabel();
+		if(connectedEmploye.equals(ligue.getAdministrateur())) {
+			title.setText("Vous êtes administrateur de cette ligue");
+		}else {
+			title.setText(ligue.getNom() + " administrée par  " + ligue.getAdministrateur().getNom());
+		}
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Serif", Font.BOLD, 27));
 		title.setForeground(Color.decode("#540b0e"));

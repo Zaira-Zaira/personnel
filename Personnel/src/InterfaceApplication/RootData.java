@@ -16,6 +16,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -47,12 +49,26 @@ public class RootData {
 		account.setLayout(new GridBagLayout());
 		account.setPreferredSize(new Dimension(700,700));
 		account.setLocationRelativeTo(null);
+		account.setJMenuBar(menuBar());
 		account.add(panelCobtainer());
 		account.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		account.pack();
 		return account;
 	}
 	
+	private JMenuBar menuBar()
+	 {
+		 JMenuBar menubar = new JMenuBar();
+		 menubar.setPreferredSize(new Dimension(50,50));
+		 menubar.setBackground(Color.decode("#540b0e"));
+		 JMenu menu = new JMenu("Compte root");
+		 menu.setAlignmentX(SwingConstants.WEST);
+		 menu.setFont(new Font("Serif", Font.BOLD, 20));
+		 menu.setForeground(Color.decode("#fafafa"));
+		 menu.setSize(80,80);
+		 menubar.add(menu);
+		return menubar;
+	 }
 	
 	private JPanel panelLabels()
 	{
@@ -113,6 +129,17 @@ public class RootData {
 		 editEmpBtn.setFont(new Font("Serif", Font.PLAIN, 25));
 		 editEmpBtn.setBackground(Color.decode("#540b0e"));
 		 editEmpBtn.setForeground(Color.decode("#fafafa"));
+		 editEmpBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				EditRoot edit = new EditRoot(gestionPersonnel);
+				frame().setVisible(false);
+				frame().dispose();
+				edit.frame().setVisible(true);
+				
+			}
+		});
 		 return editEmpBtn;
 	}
 	

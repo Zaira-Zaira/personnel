@@ -59,7 +59,7 @@ public class showEmploye {
 		employeData.getContentPane().setBackground(Color.decode("#cbc0d3"));
 		employeData.setLayout(new GridBagLayout());
 		employeData.add(container());
-		employeData.setSize(800,800);
+		employeData.setSize(700,700);
 		employeData.setLocationRelativeTo(null);
 		employeData.setJMenuBar(menuBar());
 		employeData.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,22 +70,10 @@ public class showEmploye {
 	{
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
-		 menubar.add(menuCompte());
 		 menubar.add(menuLigues());
 		 menubar.setBackground(Color.decode("#540b0e"));
 		return menubar;
 	}
-	
-	private JMenu menuCompte()
-	{
-		 JMenu menu = new JMenu("Mon compte");
-		 menu.add(itemMenuCompte());
-		 menu.setSize(70,70);
-		 menu.setFont(new Font("Serif", Font.BOLD, 20));
-		 menu.setForeground(Color.decode("#fafafa"));
-		 return menu;
-	}
-	
 	private JMenu menuLigues()
 	{
 		JMenu ligues = new JMenu("Quitter");
@@ -94,18 +82,6 @@ public class showEmploye {
 		 ligues.addSeparator();
 		 return ligues;
 	}
-	
-	private JMenuItem itemMenuCompte() {
-		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
-		 Border borderitem = new EmptyBorder(7,7,7,7);
-		 itemMenu.setBorder(borderitem);
-		 itemMenu.setSize(70,70);
-		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 17));
-		 itemMenu.setBackground(Color.decode("#9a031e"));
-		 itemMenu.setForeground(Color.decode("#fafafa"));
-		 return itemMenu;
-	}
-	
 	private JPanel data()
 	{
 		JPanel panelLabels = new JPanel();

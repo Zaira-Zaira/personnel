@@ -68,12 +68,11 @@ public class AddChangeEmploye {
 		employeAdd.getContentPane().setBackground(Color.decode("#cbc0d3"));
 		employeAdd.setTitle("Ajouter un employé");
 		employeAdd.setLayout(new GridBagLayout());
-		employeAdd.setSize(750,750);
+		employeAdd.setSize(700,700);
 		employeAdd.setLocationRelativeTo(null);
 		employeAdd.setJMenuBar(menuBar());
 		employeAdd.add(panelContainer());
 		employeAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		employeAdd.pack();
 		return employeAdd;
 	}
 	
@@ -81,35 +80,15 @@ public class AddChangeEmploye {
 	 {
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
-		 JMenu menu = new JMenu("Mon compte");
+		 JMenu menu = new JMenu("Quitter");
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
 		 menu.setSize(70,70);
 		 menu.setForeground(Color.decode("#fafafa"));
-		 menu.add(menuItem());
 		 menubar.add(menu);
 		 menubar.setBackground(Color.decode("#6f1d1b"));
 		return menubar;
 	 }
 
-	 
-	 private JMenuItem menuItem()
-	 {
-		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
-		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
-		 itemMenu.setBackground(Color.decode("#540b0e"));
-		 itemMenu.setForeground(Color.decode("#fafafa"));
-		 itemMenu.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				itemMenu.setBackground(Color.decode("#222"));
-				itemMenu.setForeground(Color.decode("#fafafa"));
-				
-			}
-		});
-		 itemMenu.setSize(70,70);
-		 return itemMenu;
-	 }
 	
 	private JPanel panel()
 	{

@@ -51,16 +51,14 @@ public class signInPage{
     private JFrame frame()
     {
     	JFrame frame = new JFrame();
-    	frame.getContentPane().setBackground(Color.decode("#cbc0d3"));
+    	 frame.getContentPane().setBackground(Color.decode("#cbc0d3"));
     	 frame.setTitle("Sign In !");
+    	 frame.setSize(700,700);
+    	 frame.setLocationRelativeTo(null);
          frame.setLayout(new GridBagLayout());
-         frame.setPreferredSize(new Dimension(600,600));
-         frame.setLocationRelativeTo(null);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          frame.setJMenuBar(menuBar());
          frame.add(container());
-         frame.pack();
-    	
     	return frame;
     }
     
@@ -177,8 +175,7 @@ public class signInPage{
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(50,50));
 		 menubar.setBackground(Color.decode("#540b0e"));
-		 JMenu menu = new JMenu("Compte root");
-		 menu.add(menuItem());
+		 JMenu menu = new JMenu("Connexion");
 		 menu.setAlignmentX(SwingConstants.WEST);
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
 		 menu.setForeground(Color.decode("#fafafa"));
@@ -186,24 +183,6 @@ public class signInPage{
 		 menubar.add(menu);
 		return menubar;
 	 }
-	 private JMenuItem menuItem()
-	 {
-		 JMenuItem itemMenu = new JMenuItem("Gérer le compte root");
-		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
-		 itemMenu.setBackground(Color.decode("#540b0e"));
-		 itemMenu.setForeground(Color.decode("#fafafa"));
-		 itemMenu.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				RootData root = new RootData(gestionPersonnel);
-				root.AccountData();
-			}
-		});
-		 //itemMenu.setSize(70,70);
-		 return itemMenu;
-	 }
-    
     public void HomePage() {
     	 JFrame homePage = new JFrame();
     	 homePage.setVisible(true);

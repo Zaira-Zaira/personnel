@@ -49,16 +49,35 @@ class testEmploye
 	@Test
 	void getNom() throws SauvegardeImpossible
 	{
-		Ligue ligue = gestionPersonnel.addLigue("nomLigue");
-		assertEquals("nomLigue", ligue.getNom());
+		Ligue ligue = gestionPersonnel.addLigue("ligue1");
+		Employe employe = ligue.addEmploye("test", "test", "test@gmail.com", "admin", null, null);
+		assertEquals("test", employe.getNom());
 	}
-	
+
 	@Test
 	void setNom() throws SauvegardeImpossible
 	{
-		Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
-		ligue.setNom("nomLigue");
-		assertEquals("nomLigue", ligue.getNom());
+		Ligue ligue = gestionPersonnel.addLigue("ligue1");
+		Employe employe = ligue.addEmploye("test", "test", "test@mail.com", "admin", null, null);
+		employe.setNom("John");
+		assertEquals("John", employe.getNom());
+	}
+	
+	@Test
+	void getPrenom() throws SauvegardeImpossible
+	{
+		Ligue ligue = gestionPersonnel.addLigue("ligue1");
+		Employe employe = ligue.addEmploye("test", "test", "test@mail.com", "admin", null, null);
+		assertEquals("test", employe.getPrenom());
+	}
+	
+	@Test
+	void setPrenom() throws SauvegardeImpossible
+	{
+		Ligue ligue = gestionPersonnel.addLigue("ffsc");
+		Employe employe = ligue.addEmploye("test", "test", "test@mail.com", "admin", null, null);
+		employe.setPrenom("Doe");
+		assertEquals("Doe", employe.getPrenom());
 	}
 	
 	@Test
