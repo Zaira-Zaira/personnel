@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import personnel.Employe;
 import personnel.GestionPersonnel;
 
 public class EditRoot {
@@ -142,6 +145,21 @@ private JTextField pass;
     	btn.setBackground(Color.decode("#540b0e"));
 		btn.setForeground(Color.decode("#fafafa"));
 		btn.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				 gestionPersonnel.getRoot().setNom(nom.getText());
+				 gestionPersonnel.getRoot().setPrenom(prenom.getText());
+				 gestionPersonnel.getRoot().setMail(email.getText());
+				 gestionPersonnel.getRoot().setPassword(pass.getText());
+				 frame().setVisible(false);
+				 frame().dispose();
+				 HomePage home  = new HomePage(gestionPersonnel, gestionPersonnel.getRoot());
+				 home.frame().setVisible(true);
+				
+			}
+		});
     	return btn;
     }
     private JButton cancel()

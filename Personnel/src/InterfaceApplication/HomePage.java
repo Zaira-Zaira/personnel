@@ -24,6 +24,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -195,7 +196,6 @@ public class HomePage {
 		 JMenu menu = new JMenu("Compte root");
 		 menu.add(menuItem());
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
-		 //menu.setSize(70,70);
 		 menu.setForeground(Color.decode("#fafafa"));
 		 menubar.setBackground(Color.decode("#6f1d1b"));
 		 menubar.add(menu);
@@ -213,8 +213,13 @@ public class HomePage {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RootData root = new RootData(gestionPersonnel);
-				root.AccountData();
+				
+				if(connectedEmploye.equals(gestionPersonnel.getRoot())) {
+					RootData root = new RootData(gestionPersonnel);
+					root.AccountData();
+				}else {
+					JOptionPane.showMessageDialog(null, "Vous n'avez pas l'accès à cette page", "droits insuffisants", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		 //itemMenu.setSize(70,70);
