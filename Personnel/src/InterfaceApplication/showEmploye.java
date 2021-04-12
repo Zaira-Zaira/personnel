@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -100,9 +101,9 @@ public class showEmploye {
 		labels.add(new JLabel("Password : "));
 		labels.add(new JLabel(employe.getPassword()));
 		labels.add(new JLabel("Date d'arrivée (Y-m-d) : "));
-		labels.add(new JLabel(" "));
+		labels.add(new JLabel(String.valueOf(employe.getDateArrivee())));
 		labels.add(new JLabel("Date de départ (Y-m-d) : "));
-		labels.add(new JLabel("  "));
+		labels.add(new JLabel(String.valueOf(employe.getDateDepart())));
 		for(JLabel jlabel : labels) 
 		{
 			panelLabels.add(jlabel);

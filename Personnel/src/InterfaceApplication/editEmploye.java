@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -20,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import commandLine.DateInvalideException;
 import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.Ligue;
@@ -34,6 +36,8 @@ public class editEmploye {
     JTextField prenom;
     JTextField mail;
     JTextField password;
+    JTextField dateArrive;
+    JTextField dateDepart;
     private Employe connectedEmploye;
     private Ligue ligue;
     
@@ -161,6 +165,18 @@ public class editEmploye {
 			  employe.setPrenom(prenom.getText());
 			  employe.setMail(mail.getText());
 			  employe.setPassword(password.getText());
+			  try {
+				employe.setDateArrivee(LocalDate.parse(dateArrive.getText()));
+			} catch (DateInvalideException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			  try {
+				employe.setDateDepart(LocalDate.parse(dateDepart.getText()));
+			} catch (DateInvalideException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			  frame().setVisible(false);
 			  frame().dispose();
 			  listEmployes employespage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
@@ -221,18 +237,16 @@ public class editEmploye {
 		return password;
 	}
 	
-	private  JFormattedTextField DateArriveInput()
+	private  JTextField DateArriveInput()
 	{
-		DateFormat date = new SimpleDateFormat("Y-m-d");
-		JFormattedTextField dateArrive = new JFormattedTextField(date);
+		dateArrive = new JTextField();
 		dateArrive.setEditable(true);
 		return dateArrive;
 	}
 	
-	private JFormattedTextField DateDepartInput()
+	private JTextField DateDepartInput()
 	{
-		DateFormat date = new SimpleDateFormat("Y-m-d");
-		JFormattedTextField dateDepart = new JFormattedTextField(date);
+		dateDepart = new JTextField();
 		dateDepart.setEditable(true);
 		return dateDepart;
 	}

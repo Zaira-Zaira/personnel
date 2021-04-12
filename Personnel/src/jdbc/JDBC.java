@@ -188,7 +188,7 @@ public class JDBC implements Passerelle
 			instruction2.setString(2, employe.getPrenom());	
 			instruction2.setString(3, employe.getMail());
 			instruction2.setString(4, employe.getPassword());
-			instruction2.setString(5, String.valueOf(employe.getDateArrivee()));
+			instruction2.setString(5, employe.getDateArrivee() == null ? null :  String.valueOf(employe.getDateArrivee()));
 			instruction2.setInt(6, employe.getLigue().getId());
 			instruction2.executeUpdate();
 			ResultSet id = instruction2.getGeneratedKeys();
