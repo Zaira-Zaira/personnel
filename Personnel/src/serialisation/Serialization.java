@@ -107,6 +107,18 @@ public class Serialization implements personnel.Passerelle
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void updateRoot(Employe employe) throws SauvegardeImpossible {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRoot(Employe employe) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

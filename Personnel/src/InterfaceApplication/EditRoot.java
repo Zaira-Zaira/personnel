@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 
 import personnel.Employe;
 import personnel.GestionPersonnel;
+import personnel.SauvegardeImpossible;
 
 public class EditRoot {
  
@@ -37,13 +38,12 @@ private JTextField pass;
 		JFrame root = new JFrame();
 		root.getContentPane().setBackground(Color.decode("#cbc0d3"));
 		root.setTitle("Editer le root");
-		root.setLayout(new GridBagLayout());
-		root.setPreferredSize(new Dimension(700,700));
+		root.setSize(700,700);
 		root.setLocationRelativeTo(null);
+		root.setLayout(new GridBagLayout());
 		root.setJMenuBar(menuBar());
 		root.add(panelContainer());
 		root.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		root.pack();
 		return root;
 	}
 	private JMenuBar menuBar()
@@ -71,9 +71,11 @@ private JTextField pass;
 	private JPanel labelAndInput()
 	{
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.decode("#cbc0d3"));
 		panel.setPreferredSize(new Dimension(350,350));
 		GridLayout layout = new GridLayout(0,2);
-		layout.setVgap(30);
+		layout.setVgap(40);
+		layout.setHgap(10);
 		panel.setLayout(layout);
 		panel.add(nom());
 		panel.add(nomInput());
@@ -91,24 +93,32 @@ private JTextField pass;
     private JLabel nom()
     {
     	JLabel label = new JLabel("Nom :");
+    	label.setFont(new Font("Serif", Font.PLAIN, 20));
+    	label.setForeground(Color.decode("#540b0e"));
     	return label;
     }
     
     private JLabel prenom()
     {
     	JLabel label = new JLabel("Prénom :");
+    	label.setFont(new Font("Serif", Font.PLAIN, 20));
+    	label.setForeground(Color.decode("#540b0e"));
     	return label;
     }
     
     private JLabel email()
     {
     	JLabel label = new JLabel("Email :");
+    	label.setFont(new Font("Serif", Font.PLAIN, 20));
+    	label.setForeground(Color.decode("#540b0e"));
     	return label;
     }
     
     private JLabel pass()
     {
     	JLabel label = new JLabel("Password :");
+    	label.setFont(new Font("Serif", Font.PLAIN, 20));
+    	label.setForeground(Color.decode("#540b0e"));
     	return label;
     }
     
@@ -153,6 +163,12 @@ private JTextField pass;
 				 gestionPersonnel.getRoot().setPrenom(prenom.getText());
 				 gestionPersonnel.getRoot().setMail(email.getText());
 				 gestionPersonnel.getRoot().setPassword(pass.getText());
+				 try {
+					gestionPersonnel.updateRoot(gestionPersonnel.getRoot());
+				} catch (SauvegardeImpossible e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				 frame().setVisible(false);
 				 frame().dispose();
 				 HomePage home  = new HomePage(gestionPersonnel, gestionPersonnel.getRoot());
@@ -168,6 +184,16 @@ private JTextField pass;
     	btn.setBackground(Color.decode("#540b0e"));
 		btn.setForeground(Color.decode("#fafafa"));
 		btn.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame().setVisible(false);
+				signInPage login = new signInPage(gestionPersonnel);
+				login.signIn();
+				
+			}
+		});
     	return btn;
     }
 }

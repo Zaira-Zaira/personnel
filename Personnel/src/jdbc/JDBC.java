@@ -271,7 +271,7 @@ public class JDBC implements Passerelle
 		}
 	}
 	
-	public void setRoot(Employe employe) throws SauvegardeImpossible
+	public void setRoot(Employe employe) 
 	{
 		try {
 			PreparedStatement instruction;
@@ -285,9 +285,33 @@ public class JDBC implements Passerelle
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void updateRoot(Employe employe) throws SauvegardeImpossible
+	{
+		try {
+			PreparedStatement instruction;
+			instruction = connection.prepareStatement("UPDATE employe SET nom_employe = ?, prenom_employe = ?, mail_employe = ?, password_employe = ? WHERE superAdmin = 1");
+			instruction.setString(1, employe.getNom());
+			instruction.setString(2, employe.getPrenom());
+			instruction.setString(3, employe.getMail());
+			instruction.setString(4, employe.getPassword());
+			instruction.executeUpdate();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
 			throw new SauvegardeImpossible(e);
 		}
 	}
+	
+	
+	
+	
+	
+	
 	
 	public void setAdmin(Employe employe) throws SauvegardeImpossible
 	{

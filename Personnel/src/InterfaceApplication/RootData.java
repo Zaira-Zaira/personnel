@@ -47,12 +47,11 @@ public class RootData {
 		account.getContentPane().setBackground(Color.decode("#cbc0d3"));
 		account.setTitle("Le compte root");
 		account.setLayout(new GridBagLayout());
-		account.setPreferredSize(new Dimension(700,700));
+		account.setSize(700,700);
 		account.setLocationRelativeTo(null);
 		account.setJMenuBar(menuBar());
 		account.add(panelCobtainer());
 		account.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		account.pack();
 		return account;
 	}
 	

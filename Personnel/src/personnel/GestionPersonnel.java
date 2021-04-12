@@ -189,6 +189,11 @@ public class GestionPersonnel implements Serializable
 		
 	}
 	
+	public void updateRoot(Employe employe) throws SauvegardeImpossible
+	{
+		passerelle.updateRoot(employe);
+	}
+	
 	void setAdmin(Employe employe)
 	{
 		try

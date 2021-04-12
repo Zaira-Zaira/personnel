@@ -15,6 +15,7 @@ public interface Passerelle
 	public Employe getSuperAdmin(Employe root) throws SauvegardeImpossible;
 	public void updateEmp(Employe employe) throws SauvegardeImpossible;
 	void SetAdmin(Employe employe) throws SauvegardeImpossible;
-
+    void updateRoot(Employe employe) throws SauvegardeImpossible;
+	public void setRoot(Employe employe);
 }
 
