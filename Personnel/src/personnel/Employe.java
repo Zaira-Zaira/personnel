@@ -195,8 +195,7 @@ public class Employe implements Serializable, Comparable<Employe>
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	/**
 	 * Retourne vrai ssi le password passé en paramètre est bien celui
 	 * de l'employé.

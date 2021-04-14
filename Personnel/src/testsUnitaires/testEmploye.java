@@ -94,8 +94,8 @@ class testEmploye
 	void getDateDepart() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("nomLigue");
-		Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-10-05"), LocalDate.parse("2017-07-15"));
-		assertEquals(LocalDate.parse("2018-12-30"), employe.getDateDepart());
+		Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-04-05"), LocalDate.parse("2017-02-04"));
+		assertEquals(LocalDate.parse("2017-02-04"), employe.getDateDepart());
 	}
 	
 	@Test
@@ -103,12 +103,12 @@ class testEmploye
 	{
 		try {
 			Ligue ligue = gestionPersonnel.addLigue("nomLigue");
-			Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-10-05"), LocalDate.parse("2017-09-20"));
-			employe.setDateDepart(LocalDate.parse("2019-01-21"));
-			assertEquals(LocalDate.parse("2019-01-21"), employe.getDateDepart());
+			Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-07-05"), LocalDate.parse("2017-09-07"));
+			employe.setDateDepart(LocalDate.parse("2019-01-09"));
+			assertEquals(LocalDate.parse("2019-01-09"), employe.getDateDepart());
 			employe.setDateDepart(null);
 			assertEquals(null, employe.getDateDepart());
-			employe.setDateDepart(LocalDate.parse("2019-01-13"));
+			employe.setDateDepart(LocalDate.parse("2019-01-08"));
 		}
 		catch (DateInvalideException err) {
 			assertTrue(err instanceof DateInvalideException);
@@ -119,8 +119,8 @@ class testEmploye
 	void getDateArrivee() throws SauvegardeImpossible
 	{
 		Ligue ligue = gestionPersonnel.addLigue("nomLigue");
-		Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-10-05"), LocalDate.parse("2017-07-15"));
-		assertEquals(LocalDate.parse("2019-04-18"), employe.getDateArrivee());
+		Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-09-05"), LocalDate.parse("2017-07-02"));
+		assertEquals(LocalDate.parse("2016-09-05"), employe.getDateArrivee());
 	}
 	
 	@Test
@@ -128,12 +128,12 @@ class testEmploye
 	{
 		try {
 			Ligue ligue = gestionPersonnel.addLigue("nomLigue");
-			Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-10-05"), LocalDate.parse("2017-09-20"));
-			employe.setDateDepart(LocalDate.parse("2016-01-21"));
-			assertEquals(LocalDate.parse("2016-01-21"), employe.getDateArrivee());
+			Employe employe = ligue.addEmploye("Joseph", "Mozart", "josephmozart@gmail.com", "admin", LocalDate.parse("2016-01-05"), LocalDate.parse("2017-09-02"));
+			employe.setDateArrivee(LocalDate.parse("2016-01-04"));
+			assertEquals(LocalDate.parse("2016-01-04"), employe.getDateArrivee());
 			employe.setDateArrivee(null);
 			assertEquals(null, employe.getDateArrivee());
-			employe.setDateArrivee(LocalDate.parse("2016-01-13"));
+			employe.setDateArrivee(LocalDate.parse("2016-01-04"));
 		} 
 		catch (DateInvalideException err) {
 			assertTrue(err instanceof DateInvalideException);
@@ -154,7 +154,7 @@ class testEmploye
 	 }
 	
 	 @Test
-     void RemoveAdminEmploye() throws SauvegardeImpossible
+     void remove() throws SauvegardeImpossible
      {
              Ligue ligue = gestionPersonnel.addLigue("Fléchettes");
              Employe employe = ligue.addEmploye("Bouchard", "Gérard", "g.bouchard@gmail.com", "azerty", null, null);
@@ -162,7 +162,6 @@ class testEmploye
              ligue.setAdministrateur(employe);
              employe.remove();
              assertFalse(ligue.getEmployes().contains(employe));
-             assertNull(employe.getLigue());
              assertTrue(ligue.getAdministrateur().equals(employe2));
             
      }
