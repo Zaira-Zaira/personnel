@@ -88,9 +88,7 @@ public class HomePage {
 		home.setJMenuBar(menuBar());
 		home.setLayout(new GridBagLayout());
 		home.add(panelContainer());
-		//home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		home.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		//home.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
+		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 return home;
 	}
 	
@@ -111,7 +109,6 @@ public class HomePage {
 		 addLigueBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//frame().dispatchEvent(new WindowEvent(frame(), WindowEvent.WINDOW_CLOSING)); 
 				frame().setVisible(false);
 				addLigue().setVisible(true);
 			}

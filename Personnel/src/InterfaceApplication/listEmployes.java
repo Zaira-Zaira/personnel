@@ -74,7 +74,7 @@ public class listEmployes {
 		employes.setJMenuBar(menuBar());
 		employes.setLayout(new GridBagLayout());
 		employes.add(container());
-		employes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		employes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		return employes;
 	}
 	private JPanel container()
@@ -144,6 +144,14 @@ public class listEmployes {
 		 ligues.setFont(new Font("Serif", Font.BOLD, 20));
 		 ligues.setForeground(Color.decode("#fafafa"));
 		 ligues.addSeparator();
+		 ligues.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				frame().dispose();
+				
+			}
+		});
 		 return ligues;
 	}
 	

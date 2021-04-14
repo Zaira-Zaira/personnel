@@ -102,9 +102,9 @@ public class showEmploye {
 		labels.add(new JLabel("Password : "));
 		labels.add(new JLabel(employe.getPassword()));
 		labels.add(new JLabel("Date d'arrivée (Y-m-d) : "));
-		labels.add(new JLabel(String.valueOf(employe.getDateArrivee())));
-		labels.add(new JLabel("Date de départ (Y-m-d) : "));
 		labels.add(new JLabel(String.valueOf(employe.getDateDepart())));
+		labels.add(new JLabel("Date de départ (Y-m-d) : "));
+		labels.add(new JLabel(String.valueOf(employe.getDateArrivee())));
 		for(JLabel jlabel : labels) 
 		{
 			panelLabels.add(jlabel);

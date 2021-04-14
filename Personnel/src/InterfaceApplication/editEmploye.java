@@ -172,7 +172,7 @@ public class editEmploye {
 				e1.printStackTrace();
 			}
 			  try {
-				employe.setDateDepart(LocalDate.parse(dateDepart.getText()));
+				employe.setDateDepart(dateDepart.getText().isEmpty() ? null : LocalDate.parse(dateDepart.getText()));
 			} catch (DateInvalideException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -241,6 +241,10 @@ public class editEmploye {
 	{
 		dateArrive = new JTextField();
 		dateArrive.setEditable(true);
+		if(employe.getDateArrivee() != null)
+		{
+			dateArrive.setText(String.valueOf(employe.getDateArrivee()));
+		}
 		return dateArrive;
 	}
 	
@@ -248,6 +252,9 @@ public class editEmploye {
 	{
 		dateDepart = new JTextField();
 		dateDepart.setEditable(true);
+		if(employe.getDateDepart() != null) {
+			dateDepart.setText(String.valueOf(employe.getDateDepart()));
+		}
 		return dateDepart;
 	}
 	

@@ -1,5 +1,6 @@
 package InterfaceApplication;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -36,7 +37,7 @@ public class signInPage{
     Employe employe;
     private JTextField passwordTxt;
     Employe connectedEmploye;
-    
+    private JLabel passIncorrect;
     public signInPage(GestionPersonnel gestionPersonnel)
 	{
 		this.gestionPersonnel = gestionPersonnel;
@@ -126,6 +127,9 @@ public class signInPage{
        		    			home.getEmploye(connectedEmploye);
          				    home.frame().setVisible(true);
        		    		 }
+       		    		 else {
+       		    			 passIncorrect.setText("Mot de passe incorrect!");
+       		    		 }
        		    	 }
        		     }
     			}
@@ -138,12 +142,18 @@ public class signInPage{
     private JPanel container()
     {
     	JPanel panel = new JPanel();
-    	panel.setPreferredSize(new Dimension(450,250));
+    	panel.setPreferredSize(new Dimension(450,300));
     	panel.setBackground(Color.decode("#feeafa"));
     	//panel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#540b0e")));
     	panel.setBorder(BorderFactory.createLineBorder(Color.decode("#540b0e"), 1));
         panel.add(loginPasswordInput());
         return panel;
+    }
+    
+    private JLabel passwordFailed() 
+    {
+    	passIncorrect = new JLabel();
+    	return passIncorrect;
     }
     private JPanel  loginPasswordInput()
     {
@@ -151,14 +161,14 @@ public class signInPage{
     	panel.setBackground(Color.decode("#feeafa"));
     	GridLayout layout = new GridLayout(0,2);
     	layout.setVgap(40);
+    	layout.setHgap(10);
         panel.setLayout(layout);
-        panel.setPreferredSize(new Dimension(400,200));
         panel.add(login());
         panel.add(loginInput());
         panel.add(password());
         panel.add(passInput());
         panel.add(btnConnexion());
-        
+        panel.add(passwordFailed());
         return panel;
     }
     
