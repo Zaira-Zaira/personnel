@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -254,5 +255,24 @@ public class showEmploye {
 			}
 		});
 		return btn;
+	}
+	
+	private JCheckBox checkAdmin()
+	{
+		JCheckBox check = new JCheckBox();
+		
+		if(employe.estAdmin(ligue)) {
+			check.setSelected(true);
+			check.setText("Admin du ligue");
+		}
+		else {
+			check.setSelected(false);
+			check.setText("Mettre en admin");
+		}
+		
+		if(check.isSelected()) {
+			ligue.setAdministrateur(employe);
+		}
+		return check;
 	}
 }
