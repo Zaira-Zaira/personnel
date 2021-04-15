@@ -67,17 +67,19 @@ public class HomePage {
 	 public HomePage(GestionPersonnel gestionPersonnel, Employe connectedEmploye) {
 		    this.gestionPersonnel = gestionPersonnel;
 		    this.connectedEmploye = connectedEmploye;
-	}
+	 }
 
 
 	public void Home() {
 		frame().setVisible(true);
     }
 	
+	
 	public Employe getEmploye(Employe employe) {
 		return employe = employe;
 	}
 	 
+	
 	public JFrame frame()
 	{
 		JFrame home = new JFrame();
@@ -91,6 +93,25 @@ public class HomePage {
 		home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 return home;
 	}
+	
+	private JPanel panelContainer()
+	 {
+		 JPanel panelContainer = new JPanel();
+		 panelContainer.setBackground(Color.decode("#feeafa"));
+		 panelContainer.setMinimumSize(new Dimension(500,350));
+		 BorderLayout layout = new BorderLayout();
+		 layout.setVgap(30);
+		 panelContainer.setLayout(layout);
+		 Box boxaddLigueBtn = Box.createHorizontalBox();
+	     boxaddLigueBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		 boxaddLigueBtn.add(addLigueBtn());
+		 	 
+		 panelContainer.add(title(), BorderLayout.NORTH);
+		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
+		 panelContainer.add(scrollListPanel(), BorderLayout.CENTER);
+		 return panelContainer;
+	 }
+	
 	
 	 private JLabel title()
 	 {
@@ -113,7 +134,6 @@ public class HomePage {
 				try {
 					gestionPersonnel.addLigue(inputValue);
 				} catch (SauvegardeImpossible e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				frame().setVisible(false);
@@ -123,74 +143,11 @@ public class HomePage {
 		 return addLigueBtn;
 	 }
 	 
-	 public JDialog addLigue()
-	 {
-		    add = new JDialog(frame(), "Ajouter ligue");
-			add.setSize(400,400);
-			add.setLocationRelativeTo(null);
-		    add.add(dialog());
-			return add;
-	 }
-	 
-	 private JPanel dialog()
-	 {
-		 JPanel panelCont = new JPanel();
-		 panelCont.setLayout(new FlowLayout());
-		 JPanel panel = new JPanel();
-		 GridLayout gridLayout = new GridLayout(0,2);
-		 gridLayout.setVgap(10);
-		 gridLayout.setHgap(10);
-		 panel.setLayout(gridLayout);
-		 panel.add(ligueNameLabel());
-		 panel.add(ligueNameInput());
-		 panel.add(saveLigue());
-		 panel.add(cancelAddLigue());
-		 panelCont.add(panel);
-		 return panelCont;
-	 }
-	 
-	 private JLabel ligueNameLabel()
-	 {
-		  JLabel  name = new JLabel("Nom :");
-		  return name;
-	 }
 	 
 	 public  JTextField ligueNameInput()
 	 {
 		 inputName = new JTextField();
 		 return inputName;
-	 }
-	 
-	 private JButton saveLigue()
-	 {
-		 JButton save = new JButton("Enregistrer");
-		 save.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-					try {
-						gestionPersonnel.addLigue(inputName.getText());
-						add.setVisible(false);
-					} catch (SauvegardeImpossible e1) {
-						e1.printStackTrace();
-					}
-			}
-		});
-		 return save;
-	 }
-	 
-	 
-	 private JButton cancelAddLigue()
-	 {
-		 JButton cancel = new JButton("Annuler");
-		 cancel.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				addLigue().setVisible(false);				
-			}
-		});
-		 return cancel;
 	 }
 	 
 	 private JMenuBar menuBar()
@@ -219,21 +176,20 @@ public class HomePage {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(connectedEmploye.equals(gestionPersonnel.getRoot())) {
-					RootData root = new RootData(gestionPersonnel);
+					RootData root = new RootData(gestionPersonnel, connectedEmploye);
 					root.AccountData();
 				}else {
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas l'accès à cette page", "droits insuffisants", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		 //itemMenu.setSize(70,70);
 		 return itemMenu;
 	 }
 	 
 	  
 	 public JList<Ligue>  listLigues()
 	 {
-		 SortedSet<Ligue> choix = getLigues();
+		 SortedSet<Ligue> choix = gestionPersonnel.getLigues();
 		 JList<Ligue> listLigues = new JList<>();
 		 listLigues.setOpaque(true);
 		 DefaultListModel<Ligue> listLigue = new DefaultListModel<>();
@@ -250,7 +206,6 @@ public class HomePage {
 		            JList source = (JList)e.getSource();
 		            Ligue selected = (Ligue) source.getSelectedValue();
 		            listEmployes ligue = new listEmployes(gestionPersonnel,selected, connectedEmploye);
-		            frame().setVisible(false);
 		            ligue.listEmployes();
 		        }
 				
@@ -261,7 +216,6 @@ public class HomePage {
 		 listLigues.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
-		 //listLigues.setFixedCellWidth(700);
 		 listLigues.setFixedCellHeight(50);
 		 return listLigues;
 	 }
@@ -286,50 +240,11 @@ public class HomePage {
 	 /**
 	 * @return
 	 */
-	private JPanel panelContainer()
-	 {
-		 JPanel panelContainer = new JPanel();
-		 panelContainer.setBackground(Color.decode("#feeafa"));
-		 panelContainer.setMinimumSize(new Dimension(500,350));
-		 BorderLayout layout = new BorderLayout();
-		 layout.setVgap(30);
-		 panelContainer.setLayout(layout);
-		 Box boxaddLigueBtn = Box.createHorizontalBox();
-	     boxaddLigueBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-		 boxaddLigueBtn.add(addLigueBtn());
-		 	 
-		 panelContainer.add(title(), BorderLayout.NORTH);
-		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
-		 panelContainer.add(scrollListPanel(), BorderLayout.CENTER);
-		 return panelContainer;
-	 }
-	
-	private JButton back()
-	{
-		JButton btn = new JButton("Retour");
-		
-		return btn;
-	}
-	
-	 
-	 public SortedSet<Ligue> getLigues()
-	 {
-		    signInPage signInPage = new signInPage(GestionPersonnel.getGestionPersonnel());
-			InterfaceApplication.signInPage.gestionPersonnel.getRoot();
-			SortedSet<Ligue>  ligues = signInPage.gestionPersonnel.getLigues();
-			return ligues;
-	 }
-	 
 	 
 	 public  Ligue getLigue()
 	 {
 		 return ligue;
 	 }
 	 
-	 public static void main(String[] args)  throws SauvegardeImpossible
-	 {
-		HomePage home = new HomePage(gestionPersonnel, connectedEmploye );
-		home.Home();
-	  }
 }
 

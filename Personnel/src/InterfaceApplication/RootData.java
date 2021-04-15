@@ -23,6 +23,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.plaf.SeparatorUI;
 
+import personnel.Employe;
 import personnel.GestionPersonnel;
 import personnel.SauvegardeImpossible;
 
@@ -31,9 +32,11 @@ import personnel.SauvegardeImpossible;
 public class RootData {
 	
 	private GestionPersonnel gestionPersonnel;
+	private Employe connectedEmploye;
 	
-	public RootData(GestionPersonnel gestionPersonnel) {
+	public RootData(GestionPersonnel gestionPersonnel, Employe connectedEmploye) {
 		  this.gestionPersonnel = gestionPersonnel;
+		  this.connectedEmploye = connectedEmploye;
 	}
 	
 	public void AccountData()
@@ -68,6 +71,25 @@ public class RootData {
 		 menubar.add(menu);
 		return menubar;
 	 }
+
+	private JPanel panelCobtainer()
+	{
+		JPanel panelContainer = new JPanel();
+		panelContainer.setBackground(Color.decode("#cbc0d3"));
+		panelContainer.setPreferredSize(new Dimension(400,600));
+		GridLayout layout = new GridLayout(3,1);
+		layout.setVgap(30);
+		panelContainer.setLayout(layout);
+		JLabel titleAccount = new JLabel("Compte root");
+		titleAccount.setHorizontalAlignment(SwingConstants.CENTER);
+		titleAccount.setFont(new Font("Serif", Font.BOLD, 25));
+		titleAccount.setForeground(Color.decode("#540b0e"));
+		panelContainer.add(titleAccount);
+		panelContainer.add(panelLabels());
+		panelContainer.add(btns());
+		return panelContainer;
+	}
+
 	
 	private JPanel panelLabels()
 	{
@@ -94,24 +116,6 @@ public class RootData {
 		return panelLabels;
 	}
 	
-	private JPanel panelCobtainer()
-	{
-		JPanel panelContainer = new JPanel();
-		panelContainer.setBackground(Color.decode("#cbc0d3"));
-		panelContainer.setPreferredSize(new Dimension(400,600));
-		GridLayout layout = new GridLayout(3,1);
-		layout.setVgap(30);
-		panelContainer.setLayout(layout);
-		JLabel titleAccount = new JLabel("Compte root");
-		titleAccount.setHorizontalAlignment(SwingConstants.CENTER);
-		titleAccount.setFont(new Font("Serif", Font.BOLD, 25));
-		titleAccount.setForeground(Color.decode("#540b0e"));
-		panelContainer.add(titleAccount);
-		panelContainer.add(panelLabels());
-		panelContainer.add(btns());
-		return panelContainer;
-	}
-	
 	private JPanel btns()
 	{
 		JPanel panel = new JPanel();
@@ -132,7 +136,7 @@ public class RootData {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				EditRoot edit = new EditRoot(gestionPersonnel);
+				EditRoot edit = new EditRoot(gestionPersonnel, connectedEmploye);
 				frame().setVisible(false);
 				frame().dispose();
 				edit.frame().setVisible(true);
@@ -142,12 +146,24 @@ public class RootData {
 		 return editEmpBtn;
 	}
 	
+	
+	
 	private JButton back()
 	{
 		JButton back = new JButton("Retour");
 		back.setFont(new Font("Serif", Font.PLAIN, 25));
 		back.setBackground(Color.decode("#540b0e"));
 		back.setForeground(Color.decode("#fafafa"));
+		back.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame().setVisible(false);
+				HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
+				home.frame().setVisible(true);
+				
+			}
+		});
 		return back;
 	}
 	

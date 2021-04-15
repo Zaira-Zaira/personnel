@@ -45,8 +45,6 @@ public class listEmployes {
 	private  GestionPersonnel gestionPersonnel;
 	private  Ligue ligue;
 	private  HomePage homePage;
-	private  editEmploye employe;
-	private  JTextField newLigue;
 	private Employe connectedEmploye;
 	
 	 public listEmployes(GestionPersonnel gestionPersonnel, Ligue ligue, Employe connectedEmploye) {
@@ -59,12 +57,7 @@ public class listEmployes {
 	{
 		frame().setVisible(true);
 	}
-	
-	public Ligue getList(Ligue ligue) {
-		ligue = ligue;
-		 return ligue;
-	}
-	
+
 	public JFrame frame()
 	{
 		JFrame employes = new JFrame();
@@ -111,7 +104,7 @@ public class listEmployes {
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(200,500));
 		panel.setBackground(Color.decode("#feeafa"));
-		if(getEmployes().size() > 0)
+		if(ligue.getEmployes().size() > 0)
 		{
 			panel.add(list());
 		}else {
@@ -157,7 +150,7 @@ public class listEmployes {
 	
 	public JList<Employe> list()
 	{
-		SortedSet<Employe> emp = getEmployes();
+		SortedSet<Employe> emp = ligue.getEmployes();
 		JList<Employe> empL = new JList<>();
 		DefaultListModel<Employe> listEmp = new DefaultListModel<>();
 		empL.setModel(listEmp);
@@ -173,6 +166,7 @@ public class listEmployes {
 				if (!e.getValueIsAdjusting()){
 		            JList source = (JList)e.getSource();
 		            Employe selectedEmploye = (Employe) source.getSelectedValue();
+		            frame().setVisible(false);
 		            showEmploye employe = new showEmploye(gestionPersonnel, selectedEmploye, ligue, connectedEmploye);
 		            employe.employeShow();
 		        }
@@ -187,15 +181,6 @@ public class listEmployes {
 		 empL.setFixedCellHeight(40);
 		return empL;
 	}
-	
-	 public SortedSet<Employe> getEmployes()
-	 {
-			SortedSet<Employe> employes = ligue.getEmployes();
-			return employes;
-	 }
-
-	
-
 	
 	private JLabel titleLigue()
 	{
@@ -305,17 +290,6 @@ public class listEmployes {
 		return btn;
 	}
 	
-		
-	private JLabel title()
-	{
-		JLabel title = new JLabel("La liste des employées");
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setFont(new Font("Serif", Font.PLAIN, 27));
-		title.setForeground(Color.decode("#540b0e"));
-		return title;
-	}
-	
-	
 	private JButton addEmploye()
 	{
 		JButton addEmploye = new JButton("Ajouter un employé");
@@ -328,7 +302,7 @@ public class listEmployes {
 		addEmploye.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, homePage, connectedEmploye);
+				AddChangeEmploye add = new AddChangeEmploye(gestionPersonnel, ligue, connectedEmploye);
 				frame().setVisible(false);
 				add.AddEmploye();
 			}

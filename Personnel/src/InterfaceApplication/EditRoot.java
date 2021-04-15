@@ -28,9 +28,11 @@ private JTextField nom;
 private JTextField prenom;
 private JTextField email;
 private JTextField pass;
+private Employe connectedEmploye;
 
-	public EditRoot(GestionPersonnel gestionPersonnel) {
+	public EditRoot(GestionPersonnel gestionPersonnel, Employe connectedEmploye) {
 		  this.gestionPersonnel = gestionPersonnel;
+		  this.connectedEmploye = connectedEmploye;
 	}
 	
 	public JFrame frame()
@@ -189,9 +191,8 @@ private JTextField pass;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame().setVisible(false);
-				signInPage login = new signInPage(gestionPersonnel);
-				login.signIn();
-				
+				HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
+				home.frame().setVisible(true);
 			}
 		});
     	return btn;

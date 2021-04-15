@@ -45,13 +45,13 @@ import personnel.SauvegardeImpossible;
 public class showEmploye {
 	
 	private  GestionPersonnel gestionPersonnel;
-	private  Employe employe;
+	private  Employe selectedEmploye;
 	private  Ligue ligue;
 	private  Employe connectedEmploye;
 	
-	public showEmploye(GestionPersonnel gestionPersonnel, Employe employe, Ligue ligue, Employe connectedEmploye) {
+	public showEmploye(GestionPersonnel gestionPersonnel, Employe selectedEmploye, Ligue ligue, Employe connectedEmploye) {
 		   this.gestionPersonnel = gestionPersonnel;
-		   this.employe = employe;
+		   this.selectedEmploye = selectedEmploye;
 		   this.ligue = ligue;
 		   this.connectedEmploye = connectedEmploye;
 	}
@@ -100,17 +100,17 @@ public class showEmploye {
 		panelLabels.setLayout(layout);
 		ArrayList<JLabel> labels = new ArrayList<>();
 		labels.add(new JLabel("Nom : "));
-		labels.add(new JLabel(employe.getNom()));
+		labels.add(new JLabel(selectedEmploye.getNom()));
 		labels.add(new JLabel("Prénom : "));
-		labels.add(new JLabel(employe.getPrenom()));
+		labels.add(new JLabel(selectedEmploye.getPrenom()));
 		labels.add(new JLabel("Email :"));
-		labels.add(new JLabel(employe.getMail()));
+		labels.add(new JLabel(selectedEmploye.getMail()));
 		labels.add(new JLabel("Password : "));
-		labels.add(new JLabel(employe.getPassword()));
+		labels.add(new JLabel(selectedEmploye.getPassword()));
 		labels.add(new JLabel("Date d'arrivée (Y-m-d) : "));
-		labels.add(new JLabel(String.valueOf(employe.getDateArrivee())));
+		labels.add(new JLabel(String.valueOf(selectedEmploye.getDateDepart())));
 		labels.add(new JLabel("Date de départ (Y-m-d) : "));
-		labels.add(new JLabel(String.valueOf(employe.getDateDepart())));
+		labels.add(new JLabel(String.valueOf(selectedEmploye.getDateArrivee())));
 		for(JLabel jlabel : labels) 
 		{
 			panelLabels.add(jlabel);
@@ -198,7 +198,7 @@ public class showEmploye {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame().setVisible(false);
-				editEmploye edit = new editEmploye(gestionPersonnel, employe, ligue, connectedEmploye);
+				editEmploye edit = new editEmploye(gestionPersonnel, selectedEmploye, ligue, connectedEmploye);
 				edit.listData();
 			}
 		});
@@ -218,12 +218,12 @@ public class showEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(employe.equals(ligue.getAdministrateur())) {
+				if(selectedEmploye.equals(ligue.getAdministrateur())) {
 					JOptionPane.showMessageDialog(null, "Impossible de supprimer le compte admin", "supprimer admin", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					try {
-						employe.remove();
+						selectedEmploye.remove();
 					} catch (SauvegardeImpossible e1) {
 						e1.printStackTrace();
 					}
@@ -241,10 +241,10 @@ public class showEmploye {
 	private JButton setAdmin()
 	{
 		JButton btn = new JButton();
-		if(employe.estAdmin(ligue)) {
+		if(selectedEmploye.estAdmin(ligue)) {
 			btn.setText("Remove admin");
 		}
-		else if(!employe.estAdmin(ligue)) {
+		else if(!selectedEmploye.estAdmin(ligue)) {
 			btn.setText("Mettre en admin");
 		}
 		
@@ -258,22 +258,21 @@ public class showEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//employe.getLigue().changeAdmin(employe);
-				if(!employe.estAdmin(ligue)) {
-					ligue.setAdministrateur(employe);
+				if(!selectedEmploye.estAdmin(ligue)) {
+					ligue.setAdministrateur(selectedEmploye);
 					JOptionPane.showMessageDialog(null, "L'émployé est maintenant l'admin de la ligue" + ligue.getNom() + ".", "Nommer admin", JOptionPane.INFORMATION_MESSAGE);
 					frame().setVisible(false);
 					frame().dispose();
 					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
 					employesPage.listEmployes();
 				}
-				else if(employe.estAdmin(ligue)) {
+				else if(selectedEmploye.estAdmin(ligue)) {
 					try {
 						ligue.removeAdmin();
 					} catch (SauvegardeImpossible e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					} 
+					ligue.setAdministrateur(null);
 					frame().setVisible(false);
 					frame().dispose();
 					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
@@ -282,46 +281,5 @@ public class showEmploye {
 			}
 		});
 		return btn;
-	}
-	
-	private JCheckBox checkAdmin()
-	{
-		JCheckBox check = new JCheckBox("admin");
-		check.setBackground(Color.decode("#540b0e"));
-		check.setPreferredSize(new Dimension(80,35));
-		check.setForeground(Color.decode("#fafafa"));
-		check.setFont(new Font("Serif", Font.BOLD, 19));
-		URL url = null;
-		try {
-			url = new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNPYoauHDCcH8ze9hpD9Eh6GBJ7Sh5oE8aaA&usqp=CAU");
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(url);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		ImageIcon icon = new ImageIcon(img);
-		//check.setIcon(icon);
-		if(employe.estAdmin(ligue)) {
-			check.setSelected(true);
-		}
-		
-		if(check.isSelected()) {
-			try {
-				//check.setSelectedIcon("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7SkkcDOlCsUp4SPqhVEa6WQoMe4z0HQ7uaQ&usqp=CAU");
-				ligue.removeAdmin();
-			} catch (SauvegardeImpossible e) {
-				e.printStackTrace();
-			}
-		}else if(!check.isSelected()) {
-			ligue.setAdministrateur(employe);
-		}
-		
-		return check;
 	}
 }

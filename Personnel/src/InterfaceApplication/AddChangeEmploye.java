@@ -45,15 +45,14 @@ public class AddChangeEmploye {
 	private JTextField prenom;
 	private JTextField mail;
 	private JTextField pass;
-	private SimpleDateFormat date;
-	private SimpleDateFormat dateDepart;
+	private JTextField dateArrive;
+	private JTextField dateDepart;
 	private Employe connectedEmploye;
 	
 	
-	public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, HomePage ligues, Employe connectedEmploye) {
+	public AddChangeEmploye(GestionPersonnel gestionPersonnel, Ligue ligue, Employe connectedEmploye) {
 		    this.ligue = ligue;
 		    this.gestionPersonnel = gestionPersonnel;
-		    this.ligues = ligues;
 		    this.connectedEmploye = connectedEmploye;
 	}
 	
@@ -152,19 +151,15 @@ public class AddChangeEmploye {
 		return pass;
 	}
 	
-	private JFormattedTextField DateArriveInput()
+	private  JTextField DateArriveInput()
 	{
-		date = new SimpleDateFormat("Y-m-d");
-		DateFormatter formatter = new DateFormatter(date);
-		JFormattedTextField dateArrive = new JFormattedTextField(formatter);
+		dateArrive = new JTextField();
 		return dateArrive;
 	}
 	
-	private JFormattedTextField DateDepartInput()
+	private JTextField DateDepartInput()
 	{
-		dateDepart = new SimpleDateFormat("Y-m-d");
-		DateFormatter formatter = new DateFormatter(dateDepart);
-		JFormattedTextField dateDepart = new JFormattedTextField(formatter);
+		dateDepart = new JTextField();
 		return dateDepart;
 	}
 	
@@ -179,7 +174,7 @@ public class AddChangeEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), LocalDate.now(), null);
+				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), dateArrive.getText().isEmpty() ? null : LocalDate.parse(dateArrive.getText()), dateDepart.getText().isEmpty() ? null : LocalDate.parse(dateDepart.getText()));
 	            frame().setVisible(false);
 	            frame().dispose();
 	            listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);

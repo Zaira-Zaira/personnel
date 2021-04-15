@@ -216,8 +216,8 @@ public class JDBC implements Passerelle
 					map.put("prenom_employe", employe.getPrenom());
 					map.put("mail_employe", employe.getMail());
 					map.put("password_employe", employe.getPassword());
-					map.put("dateArrivee_employe", String.valueOf(employe.getDateArrivee()));
-					map.put("dateDepart_employe", String.valueOf(employe.getDateDepart()));
+					map.put("dateArrivee_employe", String.valueOf(employe.getDateArrivee()).isEmpty() ? null : String.valueOf(employe.getDateArrivee()));
+					map.put("dateDepart_employe", String.valueOf(employe.getDateDepart()).isEmpty() ? null : String.valueOf(employe.getDateDepart()));
 		instruction.setString(1, map.get(dataList));
 	    instruction.setInt(2, employe.getId());
 			instruction.executeUpdate();

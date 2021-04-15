@@ -36,6 +36,7 @@ public class signInPage{
     Ligue ligue;
     Employe employe;
     private JTextField passwordTxt;
+    private TextField login;
     Employe connectedEmploye;
     private JLabel passIncorrect;
     public signInPage(GestionPersonnel gestionPersonnel)
@@ -63,6 +64,34 @@ public class signInPage{
     	return frame;
     }
     
+    private JPanel container()
+    {
+    	JPanel panel = new JPanel();
+    	panel.setPreferredSize(new Dimension(450,300));
+    	panel.setBackground(Color.decode("#feeafa"));
+    	//panel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#540b0e")));
+    	panel.setBorder(BorderFactory.createLineBorder(Color.decode("#540b0e"), 1));
+        panel.add(loginPasswordInput());
+        return panel;
+    }
+    
+    private JPanel  loginPasswordInput()
+    {
+    	JPanel panel = new JPanel();
+    	panel.setBackground(Color.decode("#feeafa"));
+    	GridLayout layout = new GridLayout(0,2);
+    	layout.setVgap(40);
+    	layout.setHgap(10);
+        panel.setLayout(layout);
+        panel.add(login());
+        panel.add(loginInput());
+        panel.add(password());
+        panel.add(passInput());
+        panel.add(btnConnexion());
+        panel.add(passwordFailed());
+        return panel;
+    }
+    
     private JLabel login()
     {
     	JLabel loginL = new JLabel("Login : ");
@@ -73,7 +102,7 @@ public class signInPage{
     
     private TextField loginInput()
     {
-    	TextField login = new TextField();
+    	login = new TextField();
         login.setPreferredSize(new Dimension(150,40));
         
         return login;
@@ -116,13 +145,8 @@ public class signInPage{
     			}else {
     				for(Ligue ligue : gestionPersonnel.getLigues()) {
        		    	 for(Employe employe : ligue.getEmployes()) {
-       		    		 if(passwordTxt.getText().equals(employe.getPassword())) { 
+       		    		 if(passwordTxt.getText().equals(employe.getPassword()) && login.getText().equals(employe.getMail())) { 
        		    			connectedEmploye = employe;
-       		    			HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
-       		    			home.getEmploye(connectedEmploye);
-         				    home.frame().setVisible(true);
-       		    		 }else if(passwordTxt.getText().equals(ligue.getAdministrateur().getPassword())) {
-       		    			 connectedEmploye = ligue.getAdministrateur();
        		    			HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
        		    			home.getEmploye(connectedEmploye);
          				    home.frame().setVisible(true);
@@ -139,47 +163,13 @@ public class signInPage{
          return btnconnexion;
     }
     
-    private JPanel container()
-    {
-    	JPanel panel = new JPanel();
-    	panel.setPreferredSize(new Dimension(450,300));
-    	panel.setBackground(Color.decode("#feeafa"));
-    	//panel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.decode("#540b0e")));
-    	panel.setBorder(BorderFactory.createLineBorder(Color.decode("#540b0e"), 1));
-        panel.add(loginPasswordInput());
-        return panel;
-    }
     
     private JLabel passwordFailed() 
     {
     	passIncorrect = new JLabel();
     	return passIncorrect;
     }
-    private JPanel  loginPasswordInput()
-    {
-    	JPanel panel = new JPanel();
-    	panel.setBackground(Color.decode("#feeafa"));
-    	GridLayout layout = new GridLayout(0,2);
-    	layout.setVgap(40);
-    	layout.setHgap(10);
-        panel.setLayout(layout);
-        panel.add(login());
-        panel.add(loginInput());
-        panel.add(password());
-        panel.add(passInput());
-        panel.add(btnConnexion());
-        panel.add(passwordFailed());
-        return panel;
-    }
-    
-    private boolean checkPassword(String password)
-    {
-    	boolean ok = gestionPersonnel.getRoot().checkPassword(password);
-    	return ok;
-    }
-    
-    
-    
+       
     private JMenuBar menuBar()
 	 {
 		 JMenuBar menubar = new JMenuBar();
@@ -193,12 +183,12 @@ public class signInPage{
 		 menubar.add(menu);
 		return menubar;
 	 }
+    
     public void HomePage() {
     	 JFrame homePage = new JFrame();
     	 homePage.setVisible(true);
 		 homePage.setTitle("Home page");
 		 homePage.getContentPane().setLayout(new FlowLayout());
-		 
 		 homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 homePage.pack();
     }
