@@ -108,9 +108,9 @@ public class showEmploye {
 		labels.add(new JLabel("Password : "));
 		labels.add(new JLabel(employe.getPassword()));
 		labels.add(new JLabel("Date d'arrivée (Y-m-d) : "));
-		labels.add(new JLabel(String.valueOf(employe.getDateDepart())));
-		labels.add(new JLabel("Date de départ (Y-m-d) : "));
 		labels.add(new JLabel(String.valueOf(employe.getDateArrivee())));
+		labels.add(new JLabel("Date de départ (Y-m-d) : "));
+		labels.add(new JLabel(String.valueOf(employe.getDateDepart())));
 		for(JLabel jlabel : labels) 
 		{
 			panelLabels.add(jlabel);
@@ -267,7 +267,7 @@ public class showEmploye {
 					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
 					employesPage.listEmployes();
 				}
-				else if(!employe.estAdmin(ligue)) {
+				else if(employe.estAdmin(ligue)) {
 					try {
 						ligue.removeAdmin();
 					} catch (SauvegardeImpossible e) {

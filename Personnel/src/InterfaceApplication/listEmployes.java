@@ -200,11 +200,7 @@ public class listEmployes {
 	private JLabel titleLigue()
 	{
 		JLabel title = new JLabel();
-		if(connectedEmploye.equals(ligue.getAdministrateur())) {
-			title.setText("Vous êtes administrateur de cette ligue");
-		}else {
-			title.setText(ligue.getNom() + " administrée par  " + ligue.getAdministrateur().getNom());
-		}
+		title.setText(ligue.getNom() + " administrée par  " + ligue.getAdministrateur().getNom());
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Serif", Font.BOLD, 27));
 		title.setForeground(Color.decode("#540b0e"));

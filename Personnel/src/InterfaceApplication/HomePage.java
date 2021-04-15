@@ -109,8 +109,15 @@ public class HomePage {
 		 addLigueBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String inputValue = JOptionPane.showInputDialog("Nom de la ligue"); 
+				try {
+					gestionPersonnel.addLigue(inputValue);
+				} catch (SauvegardeImpossible e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame().setVisible(false);
-				addLigue().setVisible(true);
+				frame().setVisible(true);
 			}
 		});
 		 return addLigueBtn;
@@ -250,7 +257,7 @@ public class HomePage {
 			}
 		});
 		 listLigues.setModel(listLigue);
-		 listLigues.setBackground(Color.decode("#caf0f8"));
+		 listLigues.setBackground(Color.decode("#feeafa"));
 		 listLigues.setForeground(Color.decode("#540b0e"));
 		 DefaultListCellRenderer renderer =  (DefaultListCellRenderer)listLigues.getCellRenderer();  
 		 renderer.setHorizontalAlignment(JLabel.CENTER);
@@ -263,8 +270,7 @@ public class HomePage {
 	 {
 	    JScrollPane scrollpane = new JScrollPane(listLigues());
 	    scrollpane.setPreferredSize(new Dimension(450,300));
-	    scrollpane.getViewport().setBackground(Color.black);
-	    scrollpane.setOpaque(true);
+	    scrollpane.getViewport().setBackground(Color.decode("#feeafa"));
 	    scrollpane.setBorder(BorderFactory.createLineBorder(Color.decode("#540b0e"), 1));
 	    return scrollpane;
 	 }
