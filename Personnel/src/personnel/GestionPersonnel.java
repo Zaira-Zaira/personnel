@@ -216,4 +216,13 @@ public class GestionPersonnel implements Serializable
 	{
 		return gestionPersonnel.getAdmin(admin);
 	}
+	
+	void removeAdmin(Ligue ligue)
+	{
+		try {
+			passerelle.removeAdmin(ligue);
+		} catch (SauvegardeImpossible e) {
+			e.printStackTrace();
+		}
+	}
 }

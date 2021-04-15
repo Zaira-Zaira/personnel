@@ -17,5 +17,6 @@ public interface Passerelle
 	void SetAdmin(Employe employe) throws SauvegardeImpossible;
     void updateRoot(Employe employe) throws SauvegardeImpossible;
 	public void setRoot(Employe employe);
+	void removeAdmin(Ligue ligue) throws SauvegardeImpossible;
 }
 

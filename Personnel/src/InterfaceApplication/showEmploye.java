@@ -9,12 +9,18 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -234,7 +240,14 @@ public class showEmploye {
 	
 	private JButton setAdmin()
 	{
-		JButton btn = new JButton("Mettre en admin");
+		JButton btn = new JButton();
+		if(employe.estAdmin(ligue)) {
+			btn.setText("Remove admin");
+		}
+		else if(!employe.estAdmin(ligue)) {
+			btn.setText("Mettre en admin");
+		}
+		
 		if(!gestionPersonnel.haveWritePermission(ligue, connectedEmploye)) {
 			btn.setEnabled(false);
 		 }
@@ -246,12 +259,26 @@ public class showEmploye {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//employe.getLigue().changeAdmin(employe);
-				ligue.setAdministrateur(employe);
-				JOptionPane.showMessageDialog(null, "L'émployé est maintenant l'admin de la ligue" + ligue.getNom() + ".", "Nommer admin", JOptionPane.INFORMATION_MESSAGE);
-				frame().setVisible(false);
-				frame().dispose();
-				listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
-				employesPage.listEmployes();
+				if(!employe.estAdmin(ligue)) {
+					ligue.setAdministrateur(employe);
+					JOptionPane.showMessageDialog(null, "L'émployé est maintenant l'admin de la ligue" + ligue.getNom() + ".", "Nommer admin", JOptionPane.INFORMATION_MESSAGE);
+					frame().setVisible(false);
+					frame().dispose();
+					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+					employesPage.listEmployes();
+				}
+				else if(!employe.estAdmin(ligue)) {
+					try {
+						ligue.removeAdmin();
+					} catch (SauvegardeImpossible e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					frame().setVisible(false);
+					frame().dispose();
+					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
+					employesPage.listEmployes();
+				}
 			}
 		});
 		return btn;
@@ -259,20 +286,42 @@ public class showEmploye {
 	
 	private JCheckBox checkAdmin()
 	{
-		JCheckBox check = new JCheckBox();
-		
+		JCheckBox check = new JCheckBox("admin");
+		check.setBackground(Color.decode("#540b0e"));
+		check.setPreferredSize(new Dimension(80,35));
+		check.setForeground(Color.decode("#fafafa"));
+		check.setFont(new Font("Serif", Font.BOLD, 19));
+		URL url = null;
+		try {
+			url = new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNPYoauHDCcH8ze9hpD9Eh6GBJ7Sh5oE8aaA&usqp=CAU");
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(url);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ImageIcon icon = new ImageIcon(img);
+		//check.setIcon(icon);
 		if(employe.estAdmin(ligue)) {
 			check.setSelected(true);
-			check.setText("Admin du ligue");
-		}
-		else {
-			check.setSelected(false);
-			check.setText("Mettre en admin");
 		}
 		
 		if(check.isSelected()) {
+			try {
+				//check.setSelectedIcon("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7SkkcDOlCsUp4SPqhVEa6WQoMe4z0HQ7uaQ&usqp=CAU");
+				ligue.removeAdmin();
+			} catch (SauvegardeImpossible e) {
+				e.printStackTrace();
+			}
+		}else if(!check.isSelected()) {
 			ligue.setAdministrateur(employe);
 		}
+		
 		return check;
 	}
 }

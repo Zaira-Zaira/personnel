@@ -151,6 +151,11 @@ public class Ligue implements Serializable, Comparable<Ligue>
 		gestionPersonnel.remove(this);
 	}
 	
+	public void removeAdmin() throws SauvegardeImpossible
+	{
+		gestionPersonnel.removeAdmin(this);
+	}
+	
 	public void update()
 	{
 		try {
@@ -163,6 +168,7 @@ public class Ligue implements Serializable, Comparable<Ligue>
 
 	public void changeAdmin(Employe employe) throws SauvegardeImpossible 
 	{
+		this.administrateur = employe;
 		gestionPersonnel.changerAdmin(employe);
 	}
 	
