@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -80,7 +81,13 @@ public class RootData {
 		GridLayout layout = new GridLayout(3,1);
 		layout.setVgap(30);
 		panelContainer.setLayout(layout);
-		JLabel titleAccount = new JLabel("Compte root");
+		JLabel titleAccount = new JLabel();
+		if(connectedEmploye.estRoot()) {
+			titleAccount.setText("Compte root");
+		}
+		else {
+			titleAccount.setText("Mon compte");
+		}
 		titleAccount.setHorizontalAlignment(SwingConstants.CENTER);
 		titleAccount.setFont(new Font("Serif", Font.BOLD, 25));
 		titleAccount.setForeground(Color.decode("#540b0e"));
@@ -100,13 +107,19 @@ public class RootData {
 		panelLabels.setPreferredSize(new Dimension(700,550));
 		ArrayList<JLabel> labels = new ArrayList<>();
 		labels.add(new JLabel("Nom : "));
-		labels.add(new JLabel(gestionPersonnel.getRoot().getNom()));
+		labels.add(new JLabel(connectedEmploye.getNom()));
 		labels.add(new JLabel("Prénom : "));
-		labels.add(new JLabel(gestionPersonnel.getRoot().getPrenom()));
+		labels.add(new JLabel(connectedEmploye.getPrenom()));
 		labels.add(new JLabel("Email :"));
-		labels.add(new JLabel(gestionPersonnel.getRoot().getMail()));
+		labels.add(new JLabel(connectedEmploye.getMail()));
 		labels.add(new JLabel("Password : "));
-		labels.add(new JLabel(gestionPersonnel.getRoot().getPassword()));
+		labels.add(new JLabel(connectedEmploye.getPassword()));
+		if(!connectedEmploye.estRoot()) {
+			labels.add(new JLabel("Date arrivée :"));
+			labels.add(new JLabel(String.valueOf(connectedEmploye.getDateArrivee())));
+			labels.add(new JLabel("Date de départ : "));
+			labels.add(new JLabel(String.valueOf(connectedEmploye.getPassword())));
+		}
 		for(JLabel jlabel : labels) 
 		{
 			panelLabels.add(jlabel);
@@ -128,7 +141,12 @@ public class RootData {
 	
 	private JButton editEmployeBtn()
 	{
-		 JButton editEmpBtn = new JButton("Editer le root");
+		 JButton editEmpBtn = new JButton();
+		 if(connectedEmploye.estRoot()) {
+			 editEmpBtn.setText("Editer le root");
+		 }else {
+			 editEmpBtn.setText("Changer mon compte");
+		 }
 		 editEmpBtn.setFont(new Font("Serif", Font.PLAIN, 25));
 		 editEmpBtn.setBackground(Color.decode("#540b0e"));
 		 editEmpBtn.setForeground(Color.decode("#fafafa"));

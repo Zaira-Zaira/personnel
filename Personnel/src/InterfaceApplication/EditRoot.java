@@ -29,7 +29,8 @@ private JTextField prenom;
 private JTextField email;
 private JTextField pass;
 private Employe connectedEmploye;
-
+private JTextField arrive;
+private JTextField depart;
 	public EditRoot(GestionPersonnel gestionPersonnel, Employe connectedEmploye) {
 		  this.gestionPersonnel = gestionPersonnel;
 		  this.connectedEmploye = connectedEmploye;
@@ -74,7 +75,7 @@ private Employe connectedEmploye;
 	{
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.decode("#cbc0d3"));
-		panel.setPreferredSize(new Dimension(350,350));
+		//panel.setPreferredSize(new Dimension(350,350));
 		GridLayout layout = new GridLayout(0,2);
 		layout.setVgap(40);
 		layout.setHgap(10);
@@ -87,6 +88,12 @@ private Employe connectedEmploye;
 		panel.add(emailInput());
 		panel.add(pass());
 		panel.add(passInput());
+		if(!connectedEmploye.estRoot()) {
+			panel.add(arrive());
+			panel.add(dateArrive());
+			panel.add(depart());
+			panel.add(dateDepart());
+		}
 		panel.add(save());
 		panel.add(cancel());
 		return panel;
@@ -124,32 +131,64 @@ private Employe connectedEmploye;
     	return label;
     }
     
+    
+    private JLabel arrive()
+    {
+    	JLabel label = new JLabel("Date d'arrivée :");
+    	label.setFont(new Font("Serif", Font.PLAIN, 20));
+    	label.setForeground(Color.decode("#540b0e"));
+    	return label;
+    }
+    
+    private JLabel depart()
+    {
+    	JLabel label = new JLabel("Date de depart :");
+    	label.setFont(new Font("Serif", Font.PLAIN, 20));
+    	label.setForeground(Color.decode("#540b0e"));
+    	return label;
+    }
+    
+    
     private JTextField nomInput()
     {
     	nom = new JTextField();
-    	nom.setText(gestionPersonnel.getRoot().getNom());
+    	nom.setText(connectedEmploye.getNom());
     	return nom;
     }
     
     private JTextField prenomInput()
     {
     	prenom = new JTextField();
-    	prenom.setText(gestionPersonnel.getRoot().getPrenom());
+    	prenom.setText(connectedEmploye.getPrenom());
     	return prenom;
     }
     
     private JTextField emailInput()
     {
     	email = new JTextField();
-    	email.setText(gestionPersonnel.getRoot().getMail());
+    	email.setText(connectedEmploye.getMail());
     	return email;
     }
     
     private JTextField passInput()
     {
     	pass = new JTextField();
-    	pass.setText(gestionPersonnel.getRoot().getPassword());
+    	pass.setText(connectedEmploye.getPassword());
     	return pass;
+    }
+    
+    private JTextField dateArrive()
+    {
+    	arrive = new JTextField();
+    	arrive.setText(String.valueOf(connectedEmploye.getDateArrivee()));
+    	return arrive;
+    }
+    
+    private JTextField dateDepart()
+    {
+    	depart = new JTextField();
+    	depart.setText(String.valueOf(connectedEmploye.getDateDepart()));
+    	return depart;
     }
     private JButton save()
     {
@@ -161,10 +200,10 @@ private Employe connectedEmploye;
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 gestionPersonnel.getRoot().setNom(nom.getText());
-				 gestionPersonnel.getRoot().setPrenom(prenom.getText());
-				 gestionPersonnel.getRoot().setMail(email.getText());
-				 gestionPersonnel.getRoot().setPassword(pass.getText());
+				 connectedEmploye.setNom(nom.getText());
+				 connectedEmploye.setPrenom(prenom.getText());
+				 connectedEmploye.setMail(email.getText());
+				 connectedEmploye.setPassword(pass.getText());
 				 try {
 					gestionPersonnel.updateRoot(gestionPersonnel.getRoot());
 				} catch (SauvegardeImpossible e) {

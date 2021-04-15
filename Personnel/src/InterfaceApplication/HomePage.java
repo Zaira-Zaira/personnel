@@ -107,7 +107,9 @@ public class HomePage {
 		 boxaddLigueBtn.add(addLigueBtn());
 		 	 
 		 panelContainer.add(title(), BorderLayout.NORTH);
-		 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
+		 if(connectedEmploye.estRoot()) {
+			 panelContainer.add(boxaddLigueBtn, BorderLayout.SOUTH);
+		 }
 		 panelContainer.add(scrollListPanel(), BorderLayout.CENTER);
 		 return panelContainer;
 	 }

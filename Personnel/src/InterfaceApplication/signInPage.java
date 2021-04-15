@@ -142,7 +142,8 @@ public class signInPage{
     				   HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
     				   home.frame().setVisible(true);
     				   home.getEmploye(gestionPersonnel.getRoot());
-    			}else {
+    			}
+    			else {
     				for(Ligue ligue : gestionPersonnel.getLigues()) {
        		    	 for(Employe employe : ligue.getEmployes()) {
        		    		 if(passwordTxt.getText().equals(employe.getPassword()) && login.getText().equals(employe.getMail())) { 
@@ -150,9 +151,6 @@ public class signInPage{
        		    			HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
        		    			home.getEmploye(connectedEmploye);
          				    home.frame().setVisible(true);
-       		    		 }
-       		    		 else {
-       		    			 passIncorrect.setText("Mot de passe incorrect!");
        		    		 }
        		    	 }
        		     }

@@ -133,20 +133,31 @@ public class listEmployes {
 	
 	private JMenu menuLigues()
 	{
-		JMenu ligues = new JMenu("Quitter");
+		JMenu ligues = new JMenu("Mon compte");
 		 ligues.setFont(new Font("Serif", Font.BOLD, 20));
 		 ligues.setForeground(Color.decode("#fafafa"));
 		 ligues.addSeparator();
-		 ligues.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				frame().dispose();
-				
-			}
-		});
+         ligues.add(menuItem());
 		 return ligues;
 	}
+	
+	 private JMenuItem menuItem()
+	 {
+		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
+		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
+		 itemMenu.setBackground(Color.decode("#540b0e"));
+		 itemMenu.setForeground(Color.decode("#fafafa"));
+		 itemMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				    frame().setVisible(false);
+					RootData account = new RootData(gestionPersonnel, connectedEmploye);
+					account.AccountData();
+			}
+		});
+		 return itemMenu;
+	 }
 	
 	public JList<Employe> list()
 	{

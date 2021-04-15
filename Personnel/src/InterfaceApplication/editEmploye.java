@@ -71,7 +71,8 @@ public class editEmploye {
 	 {
 		 JMenuBar menubar = new JMenuBar();
 		 menubar.setPreferredSize(new Dimension(60,60));
-		 JMenu menu = new JMenu("Quitter");
+		 JMenu menu = new JMenu("Mon compte");
+		 menu.add(menuItem());
 		 menu.setFont(new Font("Serif", Font.BOLD, 20));
 		 menu.setSize(70,70);
 		 menu.setForeground(Color.decode("#fafafa"));
@@ -80,6 +81,23 @@ public class editEmploye {
 		return menubar;
 	 }
 
+	 private JMenuItem menuItem()
+	 {
+		 JMenuItem itemMenu = new JMenuItem("Gérer mon compte");
+		 itemMenu.setFont(new Font("Serif", Font.PLAIN, 20));
+		 itemMenu.setBackground(Color.decode("#540b0e"));
+		 itemMenu.setForeground(Color.decode("#fafafa"));
+		 itemMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				    frame().setVisible(false);
+					RootData account = new RootData(gestionPersonnel, connectedEmploye);
+					account.AccountData();
+			}
+		});
+		 return itemMenu;
+	 }
 	
 	private JPanel panel()
 	{
