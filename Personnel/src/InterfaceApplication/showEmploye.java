@@ -272,7 +272,6 @@ public class showEmploye {
 					} catch (SauvegardeImpossible e) {
 						e.printStackTrace();
 					} 
-					ligue.setAdministrateur(null);
 					frame().setVisible(false);
 					frame().dispose();
 					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
