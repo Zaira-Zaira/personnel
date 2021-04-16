@@ -142,15 +142,20 @@ public class signInPage{
     				   HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
     				   home.frame().setVisible(true);
     				   home.getEmploye(gestionPersonnel.getRoot());
+    				   passIncorrect.setText(" ");
     			}
     			else {
     				for(Ligue ligue : gestionPersonnel.getLigues()) {
        		    	 for(Employe employe : ligue.getEmployes()) {
-       		    		 if(passwordTxt.getText().equals(employe.getPassword()) && login.getText().equals(employe.getMail())) { 
+       		    		if(!passwordTxt.getText().equals(employe.getPassword()) || !login.getText().equals(employe.getMail())) {
+     		    			 passIncorrect.setText(" Login ou mot de passe incorrect!");
+     		    		 }
+       		    		else if(passwordTxt.getText().equals(employe.getPassword()) && login.getText().equals(employe.getMail())) { 
        		    			connectedEmploye = employe;
        		    			HomePage home = new HomePage(gestionPersonnel, connectedEmploye);
        		    			home.getEmploye(connectedEmploye);
          				    home.frame().setVisible(true);
+         				    passIncorrect.setText(" ");
        		    		 }
        		    	 }
        		     }
