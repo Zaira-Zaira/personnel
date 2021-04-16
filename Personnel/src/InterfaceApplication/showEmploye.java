@@ -127,9 +127,9 @@ public class showEmploye {
 		labels.add(new JLabel("Password : "));
 		labels.add(new JLabel(selectedEmploye.getPassword()));
 		labels.add(new JLabel("Date d'arrivée (Y-m-d) : "));
-		labels.add(new JLabel(String.valueOf(selectedEmploye.getDateDepart())));
-		labels.add(new JLabel("Date de départ (Y-m-d) : "));
 		labels.add(new JLabel(String.valueOf(selectedEmploye.getDateArrivee())));
+		labels.add(new JLabel("Date de départ (Y-m-d) : "));
+		labels.add(new JLabel(String.valueOf(selectedEmploye.getDateDepart())));
 		for(JLabel jlabel : labels) 
 		{
 			panelLabels.add(jlabel);
@@ -237,10 +237,6 @@ public class showEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(selectedEmploye.equals(ligue.getAdministrateur())) {
-					JOptionPane.showMessageDialog(null, "Impossible de supprimer le compte admin", "supprimer admin", JOptionPane.ERROR_MESSAGE);
-				}
-				else {
 					try {
 						selectedEmploye.remove();
 					} catch (SauvegardeImpossible e1) {
@@ -252,7 +248,6 @@ public class showEmploye {
 					listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);
 					employesPage.listEmployes();
 				}
-			}
 		});
 		return delete;
 	}
@@ -279,6 +274,7 @@ public class showEmploye {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!selectedEmploye.estAdmin(ligue)) {
 					ligue.setAdministrateur(selectedEmploye);
+					ligue.setAdmin(selectedEmploye);
 					JOptionPane.showMessageDialog(null, "L'émployé est maintenant l'admin de la ligue" + ligue.getNom() + ".", "Nommer admin", JOptionPane.INFORMATION_MESSAGE);
 					frame().setVisible(false);
 					frame().dispose();
