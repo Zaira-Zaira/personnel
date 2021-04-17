@@ -117,10 +117,10 @@ public class AddChangeEmploye {
 		panel.add(mailInput());
 		panel.add(passwordL);
 		panel.add(passwordInput());
-		panel.add(dateArriveeL);
-		panel.add(DateArriveInput());
-		panel.add(dateDepartL);
-		panel.add(DateDepartInput());
+		//panel.add(dateArriveeL);
+		//panel.add(DateArriveInput());
+		//panel.add(dateDepartL);
+		//panel.add(DateDepartInput());
 		panel.add(addEmploye());
 		panel.add(cancelAdd());
 		return panel;
@@ -174,7 +174,7 @@ public class AddChangeEmploye {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), dateArrive.getText().isEmpty() ? null : LocalDate.parse(dateArrive.getText()), dateDepart.getText().isEmpty() ? null : LocalDate.parse(dateDepart.getText()));
+				ligue.addEmploye(nom.getText(), prenom.getText(), mail.getText(), pass.getText(), null, null);
 	            frame().setVisible(false);
 	            frame().dispose();
 	            listEmployes employesPage = new listEmployes(gestionPersonnel, ligue, connectedEmploye);

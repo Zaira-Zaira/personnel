@@ -256,7 +256,7 @@ public class showEmploye {
 	{
 		JButton btn = new JButton();
 		if(selectedEmploye.estAdmin(ligue)) {
-			btn.setText("Remove admin");
+			btn.setText("Admin de ligue");
 		}
 		else if(!selectedEmploye.estAdmin(ligue)) {
 			btn.setText("Mettre en admin");

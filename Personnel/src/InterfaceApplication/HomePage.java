@@ -48,19 +48,13 @@ import javax.swing.UIManager;
  */
 public class HomePage {
 	
-	private Ligue ListLigues;
-	private SortedSet<Ligue> Ligues;
-	private static Ligue ligue;
-	private static GestionPersonnel gestionPersonnel;
+	private Ligue ligue;
+	private GestionPersonnel gestionPersonnel;
 	Color selectCouleur = Color.RED;
-    private static listEmployes listemp;
-    public static int idLigue;
-    private HomePage homePage;
     public JTextField inputName;
     public JDialog add;
     public JFrame home = new JFrame();
-    private static Employe employe;
-    private  static Employe connectedEmploye;
+    private  Employe connectedEmploye;
     
     
     
